@@ -26,8 +26,8 @@ const NewsCategoryPage: NextPage<NewsCategoryProps> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const category = params?.category;
-  return await getPagePostsCategory({ slugTaxonomy: category as string });
+  const category = params?.category as string;
+  return await getPagePostsCategory({ slugTaxonomy: category });
 };
 
 export default NewsCategoryPage;
