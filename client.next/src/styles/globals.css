@@ -1,0 +1,118 @@
+@import "scroll-bar.css";
+@import "keen-slider/keen-slider.min.css";
+@import "news-tabs.css";
+@import "spinner.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-raleway text-16px min-w-[320px] min-h-screen;
+  }
+
+  #__next {
+    @apply flex flex-col justify-between min-h-screen overflow-x-hidden;
+  }
+
+  input {
+    @apply outline-none transition-colors duration-300;
+  }
+
+  .container {
+    @apply px-2 sm:px-5;
+  }
+}
+
+@layer components {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  h1, .text-xl {
+    @apply text-26px sm:text-28px md:text-30px lg:text-32px;
+  }
+
+  h2, .text-lg {
+    @apply text-22px sm:text-24px md:text-26px lg:text-28px;
+  }
+
+  h3, .text-md {
+    @apply text-16px md:text-18px lg:text-20px;
+  }
+
+  h4, .text-md-10 {
+    @apply text-14px md:text-16px lg:text-18px;
+  }
+
+  h5 {
+    @apply text-16px;
+  }
+
+  h6 {
+    @apply text-14px;
+  }
+
+  .text-sm-10 {
+    @apply text-14px md:text-16px;
+  }
+
+  a {
+    @apply text-blue-300 hover:text-blue-100 transition-colors duration-300;
+  }
+
+  a.link-primary, .link-primary a {
+    @apply text-grey-500 hover:text-blue-300
+  }
+
+  a.link-light, .link-light a {
+    @apply text-white hover:text-grey-100
+  }
+}
+
+@layer utilities {
+  .lock-scrollbar {
+    overflow: hidden;
+    overflow-y: scroll !important;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .webkit-overflow-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .select-touch-none {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .text-line-clamp-2,
+  .text-line-clamp-3,
+  .text-line-clamp-4,
+  .text-line-clamp-5 {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+  }
+
+  .text-line-clamp-2 {
+    -webkit-line-clamp: 2;
+  }
+
+  .text-line-clamp-3 {
+    -webkit-line-clamp: 3;
+  }
+
+  .text-line-clamp-4 {
+    -webkit-line-clamp: 4;
+  }
+
+  .text-line-clamp-5 {
+    -webkit-line-clamp: 5;
+  }
+}

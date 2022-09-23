@@ -1,0 +1,16 @@
+::-webkit-scrollbar {
+  @apply w-[10px];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-300;
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  @apply bg-grey-600;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-grey-200;
+}

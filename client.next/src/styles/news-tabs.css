@@ -1,0 +1,17 @@
+.tab-scroll-container {
+  @apply flex;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.tab-scroll-container::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.tab-scroll-wrapper {
+  @apply -mx-1 sm:-mx-2;
+}
+
+.tab-scroll-item {
+  @apply flex-shrink-0 mx-1 sm:mx-2;
+}
