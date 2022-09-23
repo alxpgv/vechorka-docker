@@ -36,14 +36,6 @@ export const PostImage: FC<PostImageProps> = ({
 }) => {
   if (!url) return null;
 
-  //TODO: move to settings docker key
-  const uploadHost = !!Number(process.env.DOCKER)
-    ? process.env.UPLOAD_HOST_DOCKER
-    : settings.uploadUrl;
-
-  console.log("uploadHost");
-  console.log(uploadHost);
-
   return (
     <div
       className={cn(
@@ -61,11 +53,11 @@ export const PostImage: FC<PostImageProps> = ({
                 "group-hover:scale-110 transition-transform duration-300"
             )}
           >
-            <Image url={`${uploadHost}/${url}`} alt={alt} />
+            <Image url={`${settings.uploadUrl}/${url}`} alt={alt} />
           </a>
         </Link>
       )}
-      {!href && url && <Image url={`${uploadHost}/${url}`} alt={alt} />}
+      {!href && url && <Image url={`${settings.uploadUrl}/${url}`} alt={alt} />}
       {overlay ? (
         <>
           <div className="absolute inset-0 bg-gradient-to-t to-black/30 from-black/70 group-hover:opacity-50 transition pointer-events-none" />

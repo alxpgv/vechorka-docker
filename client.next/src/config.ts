@@ -33,10 +33,15 @@ export const mainMenu = [
   },
 ];
 
+const isDocker = !!Number(process.env.DOCKER);
+
 export const settings = {
   siteUrl: process.env.CLIENT_HOST,
-  uploadUrl: process.env.UPLOAD_HOST,
-  apiUrl: process.env.API_HOST,
+  uploadUrl: isDocker
+    ? process.env.UPLOAD_HOST_DOCKER
+    : process.env.UPLOAD_HOST,
+  apiUrl:
+    isDocker && isSSR ? process.env.API_HOST_DOCKER : process.env.API_HOST,
   title: "Вечерний Ставрополь",
   description:
     "Новости, статьи, блоги о событиях в Ставрополе, Ставропольском крае, России, мире.",
