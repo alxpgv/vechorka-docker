@@ -38,8 +38,7 @@ services:
   api:
     build:
       context: api.nest
-      #target: production
-      target: development
+      target: production
     container_name: api-nest
     depends_on:
       - db
@@ -48,13 +47,10 @@ services:
     environment:
       - DB_HOST=db
     restart: always
-    volumes:
-      - /app
     ports:
       - 5000:5000
       - 9229:9229
-    command: npm run start:dev
-    #command: npm run start
+    #command: npm run start:dev
     networks:
       - app-network
 
@@ -62,14 +58,11 @@ services:
     build:
       context: client.next
       dockerfile: ./Dockerfile
-      #dockerfile: ./Dockerfile.dev
     container_name: client-next
     depends_on:
       - api
       - wp
     restart: always
-    volumes:
-      - /app
     ports:
       - 3000:3000
     networks:
