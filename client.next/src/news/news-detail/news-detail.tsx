@@ -1,5 +1,14 @@
 import React from "react";
+import type { PostProps } from "@/types";
 
-export const NewsDetail = () => {
-  return <div></div>;
+interface NewsDetailProps {
+  post: PostProps;
+}
+
+export const NewsDetail = ({ post }: NewsDetailProps) => {
+  return (
+    <div>
+      <h1>{post.title}</h1>
+    </div>
+  );
 };

@@ -1,6 +1,6 @@
 import { getGeneralSettings } from "@/services/api/settings";
-import { GetServerSidePropsResult } from "next";
 import { getPosts, getPostsByTaxonomySlug } from "@/services/api/posts";
+import type { GetServerSidePropsResult } from "next";
 import type { ListPostProps } from "@/types";
 
 export const getPagePostsCategory = async ({
@@ -23,6 +23,12 @@ export const getPagePostsCategory = async ({
     });
   } catch (error) {
     console.log("category post taxonomy slug", error);
+  }
+
+  if (!posts.news?.length) {
+    return {
+      notFound: true,
+    };
   }
 
   // interest news
