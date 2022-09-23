@@ -9,7 +9,7 @@ import { SettingsModule } from './modules/settings/settings.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      // envFilePath: `.${process.env.NODE_ENV}.env`,
+      envFilePath: !!Number(process.env.DOCKER) ? undefined : `.${process.env.NODE_ENV}.env`,
       load: [configuration],
       isGlobal: true,
     }),
@@ -25,4 +25,5 @@ import { SettingsModule } from './modules/settings/settings.module';
   ],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+}
