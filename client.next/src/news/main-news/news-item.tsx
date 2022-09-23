@@ -48,22 +48,27 @@ export const NewsItem: FC<PostProps> = ({
         </div>
       </PostImage>
 
-      {/* only for mobile - hidden block and list style */}
-      <div className="relative sm:hidden border-b border-grey-400 pb-3">
-        <Link href={href}>
-          <a className="link-primary">
-            <h3>{title}</h3>
-          </a>
-        </Link>
+      {/* only for mobile - list style */}
+      <div className="flex sm:hidden border-b border-grey-400 pb-3">
+        <div className="flex-shrink-0 w-[60px] min-h-[70px] mr-3">
+          <PostImage href={href} url={preview?.url} />
+        </div>
+        <div>
+          <Link href={href}>
+            <a className="link-primary">
+              <h3>{title}</h3>
+            </a>
+          </Link>
 
-        {/* meta info */}
-        <PostMeta
-          className="mt-2"
-          date={createdAt}
-          views={views}
-          commentCount={commentCount}
-          color="responsive"
-        />
+          {/* meta info */}
+          <PostMeta
+            className="mt-2"
+            date={createdAt}
+            views={views}
+            commentCount={commentCount}
+            color="responsive"
+          />
+        </div>
       </div>
     </>
   );
