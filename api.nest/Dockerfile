@@ -1,8 +1,8 @@
-FROM node:16-alpine As development
+FROM node:14-alpine As development
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --only=development
+RUN npm install
 COPY . .
 RUN npm run build
 

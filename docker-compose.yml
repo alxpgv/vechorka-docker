@@ -49,7 +49,6 @@ services:
       - DB_HOST=db
     restart: always
     volumes:
-      - ./api.nest:/app
       - /app
     ports:
       - 5000:5000
@@ -70,7 +69,6 @@ services:
       - wp
     restart: always
     volumes:
-      - ./client.next:/app
       - /app
     ports:
       - 3000:3000
