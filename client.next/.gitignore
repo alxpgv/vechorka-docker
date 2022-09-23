@@ -6,7 +6,7 @@
 
 .env.*
 !.env.example
-
+!.env.example-docker
 # dependencies
 /node_modules
 /.pnp

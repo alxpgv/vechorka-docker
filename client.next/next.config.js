@@ -11,7 +11,9 @@ const nextConfig = {
     UPLOAD_HOST_DOCKER: process.env.UPLOAD_HOST_DOCKER,
     DOCKER: process.env.DOCKER,
   },
-  images: { domains: [process.env.UPLOAD_HOST, "localhost", "wp"] },
+  images: {
+    domains: ["vechorka.loc", "localhost", "wp"],
+  },
 };
 
 module.exports = nextConfig;

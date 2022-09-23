@@ -1,7 +1,7 @@
-import React, { createContext, FC, PropsWithChildren, useContext } from "react";
-import { type MenuProps } from "@/components/common/navigation/types";
-import { SEOProps } from "@/components/common/SEO";
-import { TaxonomiesProps } from "@/types";
+import React, { createContext, PropsWithChildren, useContext } from "react";
+import type { MenuProps } from "@/components/common/navigation/types";
+import type { SEOProps } from "@/components/common/SEO";
+import type { TaxonomiesProps } from "@/types";
 
 interface SettingsState extends SEOProps {
   siteUrl?: string;

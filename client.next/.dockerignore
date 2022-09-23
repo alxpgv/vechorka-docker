@@ -2,7 +2,5 @@
 .git
 docker-compose.yml
 .dockerignore
-.backup
 Dockerfile
-.docker-example
 .node_modules
