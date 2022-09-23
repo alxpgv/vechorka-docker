@@ -7,8 +7,6 @@
 !.development.env
 /.backup
 
-package-lock.json
-
 # Logs
 logs
 *.log
