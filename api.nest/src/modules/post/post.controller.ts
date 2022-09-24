@@ -3,11 +3,18 @@ import { PostService } from './post.service';
 
 @Controller('posts')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(private readonly postService: PostService) {
+  }
 
   @Get('index')
   getIndexPosts() {
     return this.postService.getIndexPosts();
+  }
+
+  // TODO: pipe validation query, min/max
+  @Get('slug/:slug')
+  getPost(@Param('slug') slug: string) {
+    return this.postService.getPost(slug);
   }
 
   // TODO: pipe validation query, min/max

@@ -18,7 +18,8 @@ export class PostService {
     @InjectRepository(PostMeta)
     private readonly metaRepository: Repository<PostMeta>,
     private readonly taxonomyService: TaxonomyService,
-  ) {}
+  ) {
+  }
 
   async getIndexPosts() {
     const stavropol = await this.getPosts({
@@ -52,14 +53,33 @@ export class PostService {
     };
   }
 
+  async getPost(slug: string): Promise<PostResponse> {
+    let query = this.postRepository.createQueryBuilder('post');
+
+    query = query.leftJoin('post.user', 'user').addSelect([
+      'user.display_name',
+    ]).where('post_name=:slug AND post_status = "publish"', {
+      slug,
+    });
+
+    const post: any = await query.getRawOne();
+
+    if (post && Object.keys(post).length) {
+      const metas = await this.getPostMetaByIds(post.post_ID);
+      return this.responseData([post], metas, undefined, 'full')[0];
+    }
+
+    return null;
+  }
+
   async getPosts({
-    taxonomyId,
-    limit = 20,
-    offset = 0,
-    postType = 'post',
-    sticky = false,
-    relations = { taxonomy: false, user: false },
-  }: BasePostParams & { taxonomyId?: number }) {
+                   taxonomyId,
+                   limit = 20,
+                   offset = 0,
+                   postType = 'post',
+                   sticky = false,
+                   relations = { taxonomy: false, user: false },
+                 }: BasePostParams & { taxonomyId?: number }): Promise<PostResponse[]> {
     let query = this.postRepository.createQueryBuilder('post');
     if (taxonomyId) {
       query = query.innerJoinAndSelect(
@@ -169,8 +189,8 @@ export class PostService {
 
   private responseData(
     posts: any[],
-    metas: any[],
-    taxonomies: any[],
+    metas?: any[],
+    taxonomies?: any[],
     type: 'short' | 'full' = 'short',
   ): PostResponse[] {
     const data = posts.map((post) => {
