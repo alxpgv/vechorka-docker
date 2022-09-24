@@ -5,7 +5,7 @@ import { NewsLayout } from "@/components/common/layouts";
 import { InterestNews } from "@/news/interest-news";
 import { FeedbackWidget } from "@/widgets/feedback-widget";
 import { NewsDetail } from "@/news/news-detail";
-import { getPosts } from "@/services/api/posts";
+import { getPost, getPosts } from "@/services/api/posts";
 
 interface NewsDetailProps {
   post: PostProps;
@@ -23,10 +23,16 @@ const NewsDetailPage = ({ post, interestNews }: NewsDetailProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const slugPage = params?.slugPage as string;
+  const slug = params?.slugPage as string;
 
   let post = null;
   let interestNews: PostProps[] = [];
+
+  try {
+    post = await getPost(slug);
+  } catch (error) {
+    console.log("news detail post", error);
+  }
 
   try {
     interestNews = await getPosts({
@@ -34,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       relations: { taxonomy: true },
     });
   } catch (error) {
-    console.log("category interest", error);
+    console.log("news detail interest", error);
   }
 
   if (!post) {

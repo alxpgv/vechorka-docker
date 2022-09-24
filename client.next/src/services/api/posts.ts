@@ -14,6 +14,10 @@ export const getHomePosts = (): Promise<ListPostProps> => {
   return api.get("posts/index");
 };
 
+export const getPost = (slug: string): Promise<PostProps> => {
+  return api.get(`posts/slug/${slug}`);
+};
+
 export const getPosts = (params: PostParams): Promise<PostProps[]> => {
   const queryParams = encodeQueryData(params);
   return api.get(`posts${queryParams ? `?${queryParams}` : ""}`);
