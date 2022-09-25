@@ -13,8 +13,6 @@ export const getPagePostsCategory = async ({
     interestNews: [],
   };
 
-  const { settings, taxonomies } = await getGeneralSettings();
-
   //news by slug
   try {
     posts.news = await getPostsByTaxonomySlug(slugTaxonomy, {
@@ -30,6 +28,9 @@ export const getPagePostsCategory = async ({
       notFound: true,
     };
   }
+
+  // global settings
+  const { settings, taxonomies } = await getGeneralSettings();
 
   // interest news
   try {

@@ -2,6 +2,7 @@
 @import "~keen-slider/keen-slider.min.css";
 @import "news-tabs.css";
 @import "spinner.css";
+@import "content.css";
 
 @tailwind base;
 @tailwind components;

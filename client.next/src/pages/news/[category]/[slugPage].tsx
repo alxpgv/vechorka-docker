@@ -6,6 +6,7 @@ import { InterestNews } from "@/news/interest-news";
 import { FeedbackWidget } from "@/widgets/feedback-widget";
 import { NewsDetail } from "@/news/news-detail";
 import { getPost, getPosts } from "@/services/api/posts";
+import { getGeneralSettings } from "@/services/api/settings";
 
 interface NewsDetailProps {
   post: PostProps;
@@ -34,25 +35,30 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     console.log("news detail post", error);
   }
 
-  try {
-    interestNews = await getPosts({
-      limit: 4,
-      relations: { taxonomy: true },
-    });
-  } catch (error) {
-    console.log("news detail interest", error);
-  }
-
   if (!post) {
     return {
       notFound: true,
     };
   }
 
+  // global settings
+  const { settings, taxonomies } = await getGeneralSettings();
+
+  try {
+    interestNews = await getPosts({
+      limit: 4,
+      relations: { taxonomy: true },
+    });
+  } catch (error) {
+    console.log("news detail interest:", error);
+  }
+
   return {
     props: {
       post,
       interestNews,
+      settings,
+      taxonomies,
     },
   };
 };
