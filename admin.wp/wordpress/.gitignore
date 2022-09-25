@@ -12,8 +12,6 @@ wp-content/upgrade
 !wp-content/themes/vechorka/*
 !wp-content/themes/vechorka/**/*
 wp-content/uploads/**/*
-#!wp-content/uploads/*
-#!wp-content/uploads/**/*
 
 # misc
 .DS_Store
