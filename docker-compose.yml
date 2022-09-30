@@ -91,20 +91,20 @@ services:
     restart: always
     volumes:
       - ./proxy-nginx/conf/:/etc/nginx/conf.d/:ro
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    #  - ./certbot/www:/var/www/certbot/:ro
+    #  - ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
       - 80-84:90-94
       - 443:443
     networks:
       - app-network
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+  #certbot:
+  #  image: certbot/certbot
+  #  container_name: certbot
+  #  volumes:
+  #    - ./certbot/www/:/var/www/certbot/:rw
+  #    - ./certbot/conf/:/etc/letsencrypt/:rw
     #certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org
     #certbot certonly --webroot --webroot-path /var/www/certbot/ -d example.org
 

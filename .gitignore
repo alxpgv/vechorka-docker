@@ -3,3 +3,4 @@
 .env
 .backup
 mysql
+docker-compose.local.yml
