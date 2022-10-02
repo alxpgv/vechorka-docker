@@ -2,10 +2,9 @@
 /dist
 /node_modules
 
+.docker-example
 *.env
 !.example.env
-.backup
-.docker-example
 
 # Logs
 logs
