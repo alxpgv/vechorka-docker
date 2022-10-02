@@ -52,7 +52,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   let posts: ListPostProps = {
     stavropol: [],
     lastNews: [],
