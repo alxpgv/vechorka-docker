@@ -16,7 +16,7 @@ export const Logo = ({ priority = false }: LogoProps) => {
       src="/images/logo.png"
       objectFit="contain"
       alt="Вечерний ставрополь"
-      priority={priority}
+      // priority={priority}
     />
   );
 
