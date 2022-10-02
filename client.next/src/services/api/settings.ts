@@ -2,11 +2,11 @@ import { api } from "@/services/api/core";
 import { mainMenu, settings } from "@/config";
 import type { TaxonomiesProps } from "@/types";
 
-export const getGeneralSettings = async () => {
+export const getGeneralSettings = async (isSSG = false) => {
   let taxonomies: TaxonomiesProps = { categories: [], tags: [] };
 
   try {
-    taxonomies = await api.get("taxonomies/group");
+    taxonomies = await api.get("taxonomies/group", isSSG);
   } catch (error) {
     console.log("settings taxonomies: ", error);
   }

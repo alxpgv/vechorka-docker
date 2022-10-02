@@ -10,8 +10,8 @@ interface PostParams {
   sticky?: boolean;
 }
 
-export const getHomePosts = (): Promise<ListPostProps> => {
-  return api.get("posts/index");
+export const getHomePosts = (isSSG = false): Promise<ListPostProps> => {
+  return api.get("posts/index", isSSG);
 };
 
 export const getPost = (slug: string): Promise<PostProps> => {

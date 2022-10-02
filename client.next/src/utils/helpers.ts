@@ -60,4 +60,6 @@ export const encodeQueryData = (params: any) => {
   return url.join("&");
 };
 
+export const isDocker = !!Number(process.env.DOCKER);
+
 export const isSSR = typeof window === "undefined";

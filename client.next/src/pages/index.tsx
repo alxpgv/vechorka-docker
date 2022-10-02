@@ -61,12 +61,12 @@ export const getStaticProps = async () => {
   };
 
   try {
-    posts = await getHomePosts();
+    posts = await getHomePosts(true);
   } catch (error) {
     console.log("error: posts/index: ", error);
   }
 
-  const { settings, taxonomies } = await getGeneralSettings();
+  const { settings, taxonomies } = await getGeneralSettings(true);
 
   return {
     props: {
