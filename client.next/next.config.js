@@ -12,7 +12,7 @@ const nextConfig = {
     DOCKER: process.env.DOCKER,
   },
   images: {
-    domains: ["vechorka.loc", "localhost", "wp"],
+    domains: ["vechorka.loc", "vechorka.ru", "localhost", "wp"],
   },
 };
 
