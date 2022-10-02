@@ -1,7 +1,7 @@
 .idea
 .env
 .git
-docker-compose.yml
 .dockerignore
 .backup
 mysql
+docker-compose.local.yml

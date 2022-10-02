@@ -7,6 +7,8 @@
 .env.*
 !.env.example
 !.env.example-docker
+!.env.production-docker
+
 # dependencies
 /node_modules
 /.pnp
