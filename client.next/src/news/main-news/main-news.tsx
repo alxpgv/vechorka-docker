@@ -70,8 +70,7 @@ export const MainNews = ({
                   key={item.id}
                   className="col-start-auto col-end-auto sm:col-start-1 sm:col-end-3"
                 >
-                  <div className="h-[300px]">{item.title}</div>
-                  {/*<PostItemLarge {...item} taxonomies={taxonomies} />*/}
+                  <PostItemLarge {...item} taxonomies={taxonomies} />
                 </div>
               );
             }
