@@ -51,7 +51,7 @@ export const NewsItem: FC<PostProps> = ({
       {/* only for mobile - list style */}
       <div className="flex sm:hidden border-b border-grey-400 pb-3">
         <div className="flex-shrink-0 w-[60px] min-h-[70px] mr-3">
-          <PostImage href={href} url={preview?.url} />
+          <PostImage href={href} url={preview?.sizes?.thumbnail?.url} />
         </div>
         <div>
           <Link href={href}>
