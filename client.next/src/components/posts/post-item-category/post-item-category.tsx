@@ -37,7 +37,7 @@ export const PostItemCategory: FC<PostItemProps> = ({
     >
       {/* image */}
       <PostImage
-        url={preview?.url}
+        url={preview?.sizes?.medium?.url || preview?.url}
         href={href}
         className={cn("h-[190px]", isFirst && "sm:h-[320px] lg:h-[190px]")}
       />
