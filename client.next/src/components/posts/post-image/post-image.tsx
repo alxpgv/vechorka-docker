@@ -22,6 +22,7 @@ const Image: FC<PostImageProps> = ({ url, alt = "", className }) =>
       layout="fill"
       objectFit="cover"
       objectPosition="top"
+      sizes="(max-width: 460px) 46vw, (max-width: 768px) 76vw, (max-width: 1024px) 104vw, (max-width: 1200px) 120vw, 100vw"
     />
   ) : null;
 
