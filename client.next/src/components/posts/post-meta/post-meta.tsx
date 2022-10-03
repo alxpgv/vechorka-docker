@@ -36,7 +36,7 @@ export const PostMeta: FC<PostMetaProps> = ({
     <div
       className={cn(
         className,
-        "relative flex space-x-3 font-roboto text-14px",
+        "relative flex space-x-3 text-14px",
         textColorClasses
       )}
     >

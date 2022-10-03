@@ -45,7 +45,7 @@ export const Footer = () => {
       <div className="mt-6 md:mt-12 py-12 bg-grey-100">
         <Container className="flex flex-wrap gap-5 text-center md:text-left">
           {/* col info */}
-          <div className="w-full md:flex-1 md:min-w-[300px] font-roboto text-grey-500">
+          <div className="w-full md:flex-1 md:min-w-[300px] text-grey-500">
             <div className="h-[49px] w-[166px] mx-auto md:mx-0">
               <Logo />
             </div>
@@ -142,7 +142,7 @@ export const Footer = () => {
       {/* bottom */}
       <div className="py-6 bg-grey-500">
         <Container>
-          <div className="flex flex-col lg:flex-row items-center gap-3 lg:items-start justify-between w-full font-roboto text-14px text-grey-400 text-center">
+          <div className="flex flex-col lg:flex-row items-center gap-3 lg:items-start justify-between w-full text-14px text-grey-400 text-center">
             <Link href="/">
               <a className="text-grey-400 hover:text-white underline order-0">
                 Политика конфиденциальности

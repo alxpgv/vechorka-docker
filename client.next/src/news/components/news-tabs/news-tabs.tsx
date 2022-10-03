@@ -68,7 +68,7 @@ export const NewsTabs: FC<NewsTabsProps> = ({ tabs, active, onChange }) => {
             <div
               key={tab.id}
               className={cn(
-                "px-3 py-2 font-roboto text-14px cursor-pointer select-none transition-colors",
+                "px-3 py-2 text-14px cursor-pointer select-none transition-colors",
                 active?.id === tab.id
                   ? "bg-blue-300 text-white"
                   : "bg-grey-100 text-grey-400 [@media(hover:hover){&:hover}]:text-white [@media(hover:hover){&:hover}]:bg-blue-300"
