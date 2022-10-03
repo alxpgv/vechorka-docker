@@ -52,7 +52,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   let posts: ListPostProps = {
     stavropol: [],
     lastNews: [],
@@ -61,12 +61,12 @@ export const getStaticProps = async () => {
   };
 
   try {
-    posts = await getHomePosts(true);
+    posts = await getHomePosts();
   } catch (error) {
     console.log("error: posts/index: ", error);
   }
 
-  const { settings, taxonomies } = await getGeneralSettings(true);
+  const { settings, taxonomies } = await getGeneralSettings();
 
   return {
     props: {
