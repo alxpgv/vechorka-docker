@@ -20,7 +20,7 @@ export const SubMenu: FC<SubMenuProps> = ({
     <ul className={cn("bg-grey-600", isOpen ? "block" : "hidden")}>
       {items.map(({ id, slug, name }) => (
         <li key={id}>
-          <Link href={`/${parentSlug}/${slug}`}>
+          <Link href={`/${parentSlug}/${slug}`} prefetch={false}>
             <a
               className="block link-light p-4 pl-5 border-b border-grey-480 hover:border-grey-600 hover:bg-grey-480"
               onClick={onClickItem}

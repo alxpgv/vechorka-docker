@@ -31,7 +31,11 @@ export const PostCategory: FC<PostCategoryProps> = ({
       )}
     >
       {categories.map((category) => (
-        <Link key={category.id} href={`/${parentSlug}/${category.slug}`}>
+        <Link
+          key={category.id}
+          href={`/${parentSlug}/${category.slug}`}
+          prefetch={false}
+        >
           <a
             className={cn({
               "py-2 px-3 bg-grey-450 hover:bg-blue-300": variant === "button",

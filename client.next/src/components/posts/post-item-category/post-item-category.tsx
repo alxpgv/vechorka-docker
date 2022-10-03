@@ -54,7 +54,7 @@ export const PostItemCategory: FC<PostItemProps> = ({
 
       {/* title */}
       {title && (
-        <Link href={href}>
+        <Link href={href} prefetch={false}>
           <a className="mt-3 link-primary">
             <h3>{title}</h3>
           </a>

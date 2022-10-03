@@ -30,7 +30,7 @@ export const NewsItem: FC<PostProps> = ({
         <div className="relative flex flex-col justify-end h-full max-w-[80%] p-5 lg:p-8">
           {/* title */}
           {title && (
-            <Link href={href}>
+            <Link href={href} prefetch={false}>
               <a className="link-light text-line-clamp-5">
                 <h3>{title}</h3>
               </a>
@@ -54,7 +54,7 @@ export const NewsItem: FC<PostProps> = ({
         {/*  <PostImage href={href} url={preview?.sizes?.thumbnail?.url} />*/}
         {/*</div>*/}
         <div>
-          <Link href={href}>
+          <Link href={href} prefetch={false}>
             <a className="link-primary">
               <h3>{title}</h3>
             </a>

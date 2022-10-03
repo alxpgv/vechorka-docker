@@ -28,7 +28,7 @@ export const MenuItem: FC<MenuItemProps> = ({ item, onClick }) => {
   if (child?.length) {
     return (
       <li>
-        <Link href={href}>
+        <Link href={href} prefetch={false}>
           <a
             className={cn(linkClasses, openSubMenu && "bg-grey-490")}
             onClick={toggleSubMenu}
@@ -55,7 +55,7 @@ export const MenuItem: FC<MenuItemProps> = ({ item, onClick }) => {
   } else {
     return (
       <li>
-        <Link href={href}>
+        <Link href={href} prefetch={false}>
           <a className={linkClasses} onClick={onClick}>
             {icon && <Icon name={icon} className={iconClasses} />}
             {name}

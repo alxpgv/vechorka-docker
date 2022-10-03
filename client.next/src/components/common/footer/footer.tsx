@@ -70,19 +70,19 @@ export const Footer = () => {
           {/* col */}
           <div className="flex-1 link-primary">
             <ListTitle title="Навигация" listClassName="flex-col">
-              <Link href="/news">
+              <Link href="/news" prefetch={false}>
                 <a>Новости</a>
               </Link>
-              <Link href="/newspaper">
+              <Link href="/newspaper" prefetch={false}>
                 <a>Газета</a>
               </Link>
-              <Link href="/about">
+              <Link href="/about" prefetch={false}>
                 <a>О нас</a>
               </Link>
-              <Link href="/advertising">
+              <Link href="/advertising" prefetch={false}>
                 <a>Рекламные услуги</a>
               </Link>
-              <Link href="/contacts">
+              <Link href="/contacts" prefetch={false}>
                 <a>Контакты</a>
               </Link>
             </ListTitle>
@@ -93,7 +93,11 @@ export const Footer = () => {
             <ListTitle title="Новости" listClassName="flex-col">
               {tags.map((tag) => {
                 return (
-                  <Link key={tag.id} href={`/news/${tag.slug}`}>
+                  <Link
+                    key={tag.id}
+                    href={`/news/${tag.slug}`}
+                    prefetch={false}
+                  >
                     <a className="p-1">{tag.name}</a>
                   </Link>
                 );
@@ -104,10 +108,10 @@ export const Footer = () => {
           {/* col */}
           <div className="hidden md:block flex-1 link-primary">
             <ListTitle title="Газета" listClassName="flex-col">
-              <Link href="/newspaper">
+              <Link href="/newspaper" prefetch={false}>
                 <a>Свежий номер</a>
               </Link>
-              <Link href="/newspaper">
+              <Link href="/newspaper" prefetch={false}>
                 <a>Архив новостей</a>
               </Link>
             </ListTitle>
@@ -121,7 +125,11 @@ export const Footer = () => {
             >
               {categories.map((cat) => {
                 return (
-                  <Link key={cat.id} href={`/news/${cat.slug}`}>
+                  <Link
+                    key={cat.id}
+                    href={`/news/${cat.slug}`}
+                    prefetch={false}
+                  >
                     <a className="p-1">{cat.name}</a>
                   </Link>
                 );

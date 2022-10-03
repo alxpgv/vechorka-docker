@@ -46,7 +46,7 @@ export const PostImage: FC<PostImageProps> = ({
       )}
     >
       {href && url && (
-        <Link href={href}>
+        <Link href={href} prefetch={false}>
           <a
             className={cn(
               "relative block w-full h-full",

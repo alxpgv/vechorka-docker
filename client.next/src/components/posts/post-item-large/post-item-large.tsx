@@ -39,7 +39,7 @@ export const PostItemLarge: FC<PostItemProps> = ({
         <div className="relative flex flex-col justify-end max-w-[80%] h-full p-5 lg:p-8">
           {/* title */}
           {title && (
-            <Link href={href}>
+            <Link href={href} prefetch={false}>
               <a className="link-light text-line-clamp-4">
                 <h2>{title}</h2>
               </a>

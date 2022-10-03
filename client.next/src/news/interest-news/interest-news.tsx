@@ -48,7 +48,7 @@ export const InterestNews: FC<InterestNewsProps> = ({ items }) => {
 
               {/* title */}
               {title && (
-                <Link href={href}>
+                <Link href={href} prefetch={false}>
                   <a className="link-primary">
                     <h4 className="mt-3">{title}</h4>
                   </a>
