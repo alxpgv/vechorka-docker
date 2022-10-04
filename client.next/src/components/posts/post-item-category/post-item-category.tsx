@@ -1,17 +1,17 @@
-import React, { FC } from "react";
+import React from "react";
 import type { PostProps } from "@/types";
 import Link from "next/link";
 import cn from "clsx";
 import { PostMeta } from "@/components/posts/post-meta";
 import { PostImage } from "@/components/posts/post-image";
-import { PostCategory } from "@/components/posts/post-category/post-category";
+import { PostCategory } from "@/components/posts/post-category";
 
 interface PostItemProps extends PostProps {
   isFirst?: boolean;
   className?: string;
 }
 
-export const PostItemCategory: FC<PostItemProps> = ({
+export const PostItemCategory = ({
   isFirst = false,
   preview,
   title,
@@ -22,7 +22,7 @@ export const PostItemCategory: FC<PostItemProps> = ({
   views,
   commentCount,
   className,
-}) => {
+}: PostItemProps) => {
   const categories = taxonomies?.categories;
   const categorySlug = categories && categories[0] ? categories[0].slug : "";
   const href = `/news/${categorySlug}/${slug}`;

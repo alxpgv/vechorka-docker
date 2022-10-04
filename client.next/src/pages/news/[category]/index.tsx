@@ -4,7 +4,7 @@ import { CategoryNews } from "@/news/category-news";
 import { InterestNews } from "@/news/interest-news";
 import { FeedbackWidget } from "@/widgets/feedback-widget";
 import { getPagePostsCategory } from "@/services/api/page-posts-category";
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/types";
 
 export interface NewsCategoryProps {
@@ -14,7 +14,7 @@ export interface NewsCategoryProps {
   };
 }
 
-const NewsCategoryPage: NextPage<NewsCategoryProps> = ({ posts }) => {
+const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
   const { news, interestNews } = posts;
   return (
     <>

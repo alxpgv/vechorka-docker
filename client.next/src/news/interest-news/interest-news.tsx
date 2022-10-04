@@ -1,15 +1,15 @@
-import React, { FC } from "react";
-import { PostProps } from "@/types";
+import React from "react";
+import type { PostProps } from "@/types";
 import Link from "next/link";
 import { PostImage } from "@/components/posts/post-image";
-import { PostCategory } from "@/components/posts/post-category/post-category";
+import { PostCategory } from "@/components/posts/post-category";
 import { PostMeta } from "@/components/posts/post-meta";
 
 interface InterestNewsProps {
   items: PostProps[];
 }
 
-export const InterestNews: FC<InterestNewsProps> = ({ items }) => {
+export const InterestNews = ({ items }: InterestNewsProps) => {
   if (!items || !items.length) return null;
 
   return (

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import Link from "next/link";
 import { TaxonomyProps } from "@/types";
 import cn from "clsx";
@@ -11,13 +11,13 @@ interface PostCategoryProps {
   variant?: "button";
 }
 
-export const PostCategory: FC<PostCategoryProps> = ({
+export const PostCategory = ({
   categories,
   className,
   parentSlug = "",
   color = "dark",
   variant,
-}) => {
+}: PostCategoryProps) => {
   if (!categories.length) return null;
 
   return (
