@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import cn from "clsx";
 import useDrag from "@/news/components/news-tabs/useDrag";
@@ -28,7 +28,7 @@ function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
   }
 }
 
-export const NewsTabs: FC<NewsTabsProps> = ({ tabs, active, onChange }) => {
+export const NewsTabs = ({ tabs, active, onChange }: NewsTabsProps) => {
   const { dragStart, dragStop, dragMove, dragging } = useDrag();
 
   const handleDrag =

@@ -1,5 +1,5 @@
 // TODO: !check all this code
-import { FC, Fragment, PropsWithChildren } from "react";
+import { Fragment, PropsWithChildren } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSettings } from "@/contexts/settings-context";

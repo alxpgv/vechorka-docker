@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { PaperLinksWidget } from "@/newspaper/paper-links-widget";
 import { LastReviewsWidget } from "@/reviews/last-reviews-widget";
 import { TopNewsWidget } from "@/news/top-news-widget";
@@ -9,7 +9,7 @@ interface MainLayoutProps {
   left: React.ReactNode;
 }
 
-export const MainLayout: FC<MainLayoutProps> = ({ left }) => {
+export const MainLayout = ({ left }: MainLayoutProps) => {
   return (
     <LayoutColumn
       left={left}
