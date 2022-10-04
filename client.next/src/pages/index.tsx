@@ -4,13 +4,13 @@ import { MainLayout } from "@/components/common/layouts";
 import { MainLastNews } from "@/news/main-last-news";
 import { MainLastArticles } from "@/articles/main-last-articles";
 import { InterestNews } from "@/news/interest-news";
+import { LastVideoSlider } from "@/video/last-video-slider/last-video-slider";
+import { FeedbackWidget } from "@/widgets/feedback-widget/feedback-widget";
 import { getGeneralSettings } from "@/services/api/settings";
 import { homeMenuItem } from "@/utils/menus";
 import { getHomePosts } from "@/services/api/posts";
 import type { TaxonomiesProps } from "@/types";
 import type { ListPostProps, PostProps } from "@/types";
-import { DynamicLastVideoSlider } from "@/video/last-video-slider";
-import { DynamicFeedbackWidget } from "@/widgets/feedback-widget";
 
 interface HomeProps {
   posts: {
@@ -45,9 +45,9 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
           </>
         }
       />
-      <DynamicLastVideoSlider />
+      <LastVideoSlider />
       {interestNews && <InterestNews items={interestNews} />}
-      <DynamicFeedbackWidget />
+      <FeedbackWidget />
     </>
   );
 };
