@@ -10,15 +10,8 @@ export const api = {
 
     try {
       const res = await fetch(`${baseUrl}/${url}`);
-      console.log("params");
-      console.log(isDocker, isSSR, isSSG);
-      console.log("url");
-      console.log(`${baseUrl}/${url}`);
       if (res.ok) {
-        const data = await res.json();
-        console.log("data");
-        console.log(data);
-        return data;
+        return await res.json();
       } else {
         return Promise.reject(url);
       }
