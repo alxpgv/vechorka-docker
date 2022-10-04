@@ -1,4 +1,4 @@
-import { isDocker, isSSR } from "@/utils/helpers";
+import { isDocker } from "@/utils/helpers";
 
 export const mainMenu = [
   {

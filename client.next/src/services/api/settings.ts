@@ -24,7 +24,7 @@ export const getGeneralSettings = async (isSSG = false) => {
 
   return {
     settings: {
-      ...settings,
+      settings,
       menus: {
         main: mainNavigation,
       },
