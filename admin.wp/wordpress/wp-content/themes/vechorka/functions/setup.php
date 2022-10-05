@@ -11,7 +11,7 @@ function theme_setup()
     )
   );
 
-//		add_image_size( '80x160', 80, 160, true );
+  add_image_size('medium_sm', 460, 260, true);
 //		add_image_size( '150x210', 150, 210, true );
 //		add_image_size( '400x230', 400, 230, true );
 //		add_image_size( '300x425', 300, 425, true );
@@ -24,6 +24,7 @@ function theme_setup()
 //		);
 
 }
+
 add_action('after_setup_theme', 'theme_setup');
 
 // disable image sizes
@@ -37,4 +38,5 @@ function delete_intermediate_image_sizes($sizes)
     '2048x2048',
   ]);
 }
+
 add_filter('intermediate_image_sizes', 'delete_intermediate_image_sizes');
