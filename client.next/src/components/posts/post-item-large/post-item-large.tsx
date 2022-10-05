@@ -1,17 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import type { PostProps } from "@/types";
 import Link from "next/link";
 import cn from "clsx";
 import { PostMeta } from "@/components/posts/post-meta";
 import { PostImage } from "@/components/posts/post-image";
-import { PostCategory } from "@/components/posts/post-category";
+import { PostLinkCategory } from "@/components/posts/post-link-category";
 
 interface PostItemProps extends PostProps {
   isFirst?: boolean;
   className?: string;
+  parentSlug?: string;
 }
 
-export const PostItemLarge = ({
+export const PostItemLarge: FC<PostItemProps> = ({
   preview,
   title,
   slug,
@@ -21,10 +22,15 @@ export const PostItemLarge = ({
   taxonomies,
   commentCount,
   className,
-}: PostItemProps) => {
+  parentSlug,
+}) => {
   const categories = taxonomies?.categories;
   const categorySlug = categories && categories[0] ? categories[0].slug : "";
-  const href = `/news/${categorySlug}/${slug}`;
+  const href = parentSlug
+    ? `/${parentSlug}/${categorySlug}/${slug}`
+    : `/${categorySlug}/${slug}`;
+
+  console.log(preview);
 
   return (
     <div className={cn(className, "relative w-full")}>
@@ -35,6 +41,7 @@ export const PostItemLarge = ({
         className="h-[260px] sm:h-[320px] lg:h-[460px]"
         overlay
         hoverEffect
+        // screenSizes="(max-width: 460px) 46vw, (max-width: 768px) 76vw, (max-width: 1024px) 104vw, (max-width: 1200px) 120vw, 100vw"
       >
         <div className="relative flex flex-col justify-end max-w-[80%] h-full p-5 lg:p-8">
           {/* title */}
@@ -48,7 +55,7 @@ export const PostItemLarge = ({
 
           {/* category */}
           {categories && (
-            <PostCategory
+            <PostLinkCategory
               className="mt-3"
               color="light"
               parentSlug="news"

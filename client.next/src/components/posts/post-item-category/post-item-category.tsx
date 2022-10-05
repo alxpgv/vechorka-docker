@@ -1,17 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import type { PostProps } from "@/types";
 import Link from "next/link";
 import cn from "clsx";
 import { PostMeta } from "@/components/posts/post-meta";
 import { PostImage } from "@/components/posts/post-image";
-import { PostCategory } from "@/components/posts/post-category";
+import { PostLinkCategory } from "@/components/posts/post-link-category";
 
 interface PostItemProps extends PostProps {
   isFirst?: boolean;
   className?: string;
+  parentSlug?: string;
 }
 
-export const PostItemCategory = ({
+export const PostItemCategory: FC<PostItemProps> = ({
   isFirst = false,
   preview,
   title,
@@ -22,10 +23,13 @@ export const PostItemCategory = ({
   views,
   commentCount,
   className,
-}: PostItemProps) => {
+  parentSlug,
+}) => {
   const categories = taxonomies?.categories;
   const categorySlug = categories && categories[0] ? categories[0].slug : "";
-  const href = `/news/${categorySlug}/${slug}`;
+  const href = parentSlug
+    ? `/${parentSlug}/${categorySlug}/${slug}`
+    : `/${categorySlug}/${slug}`;
 
   return (
     <div
@@ -37,14 +41,14 @@ export const PostItemCategory = ({
     >
       {/* image */}
       <PostImage
-        url={preview?.sizes?.medium?.url || preview?.url}
+        url={preview?.url}
         href={href}
         className={cn("h-[190px]", isFirst && "sm:h-[320px] lg:h-[190px]")}
       />
 
       {/* category */}
       {categories && (
-        <PostCategory
+        <PostLinkCategory
           className="mt-3"
           color="dark"
           parentSlug="news"

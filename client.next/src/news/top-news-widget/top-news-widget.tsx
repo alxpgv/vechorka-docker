@@ -55,7 +55,12 @@ export const TopNewsWidget: FC<TopNewsWidgetProps> = ({ className }) => {
               <div key={item.id} className="flex py-4">
                 {/* image */}
                 <div className="relative w-[60px] min-h-[70px]">
-                  <PostImage url={item.preview?.url} href={href} />
+                  <PostImage
+                    url={
+                      item.preview?.sizes?.thumbnail?.url || item.preview?.url
+                    }
+                    href={href}
+                  />
                 </div>
                 {/* content */}
                 <div className="flex-1 pl-3">

@@ -103,6 +103,7 @@ export const MainLastNews: FC<MainLastNewsProps> = ({
                 className="p-2"
                 {...item}
                 isFirst={isFirst}
+                parentSlug="news"
               />
             );
           })

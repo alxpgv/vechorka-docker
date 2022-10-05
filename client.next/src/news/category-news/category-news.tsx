@@ -50,9 +50,19 @@ export const CategoryNews: FC<CategoryNewsProps> = ({
           news.map((item, index) => {
             const isFirst = index % limit === 0;
             return isFirst ? (
-              <PostItemLarge key={item.id} className="m-2 mb-6" {...item} />
+              <PostItemLarge
+                key={item.id}
+                className="m-2 mb-6"
+                {...item}
+                parentSlug="news"
+              />
             ) : (
-              <PostItemCategory key={item.id} className="p-2" {...item} />
+              <PostItemCategory
+                key={item.id}
+                className="p-2"
+                {...item}
+                parentSlug="news"
+              />
             );
           })
         ) : (

@@ -2,7 +2,7 @@ import React from "react";
 import type { PostProps } from "@/types";
 import Link from "next/link";
 import { PostImage } from "@/components/posts/post-image";
-import { PostCategory } from "@/components/posts/post-category";
+import { PostLinkCategory } from "@/components/posts/post-link-category";
 import { PostMeta } from "@/components/posts/post-meta";
 
 interface InterestNewsProps {
@@ -35,7 +35,7 @@ export const InterestNews = ({ items }: InterestNewsProps) => {
               <div className="flex flex-wrap items-center justify-between mt-3">
                 {/* category */}
                 {categories && (
-                  <PostCategory
+                  <PostLinkCategory
                     className="mr-2"
                     color="dark"
                     parentSlug="news"

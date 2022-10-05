@@ -3,7 +3,7 @@ import Link from "next/link";
 import { TaxonomyProps } from "@/types";
 import cn from "clsx";
 
-interface PostCategoryProps {
+interface PostLinkCategoryProps {
   categories: TaxonomyProps[];
   className?: string;
   parentSlug?: string;
@@ -11,13 +11,13 @@ interface PostCategoryProps {
   variant?: "button";
 }
 
-export const PostCategory = ({
+export const PostLinkCategory = ({
   categories,
   className,
   parentSlug = "",
   color = "dark",
   variant,
-}: PostCategoryProps) => {
+}: PostLinkCategoryProps) => {
   if (!categories.length) return null;
 
   return (

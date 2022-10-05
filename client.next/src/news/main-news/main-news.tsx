@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { NewsTabs } from "@/news/components/news-tabs";
 import { NewsItem } from "@/news/main-news/news-item";
 import { FullLoader } from "@/components/ui/loaders";
@@ -13,11 +13,11 @@ interface MainNewsProps {
   defaultActiveSlug: string;
 }
 
-export const MainNews = ({
+export const MainNews: FC<MainNewsProps> = ({
   initNews,
   tabs,
   defaultActiveSlug,
-}: MainNewsProps) => {
+}) => {
   const [news, setNews] = useState<ListPostProps>(initNews || {});
   const [activeTab, setActiveTab] = useState<TaxonomyProps | undefined>(
     tabs.find((tab) => tab.slug === defaultActiveSlug) ?? undefined
@@ -70,7 +70,11 @@ export const MainNews = ({
                   key={item.id}
                   className="col-start-auto col-end-auto sm:col-start-1 sm:col-end-3"
                 >
-                  <PostItemLarge {...item} taxonomies={taxonomies} />
+                  <PostItemLarge
+                    {...item}
+                    taxonomies={taxonomies}
+                    parentSlug="news"
+                  />
                 </div>
               );
             }

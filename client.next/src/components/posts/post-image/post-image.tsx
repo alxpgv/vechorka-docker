@@ -11,9 +11,10 @@ interface PostImageProps extends ImageProps {
   overlay?: boolean;
   hoverEffect?: boolean;
   children?: React.ReactNode;
+  screenSizes?: string;
 }
 
-const Image: FC<PostImageProps> = ({ url, alt = "", className }) =>
+const Image: FC<PostImageProps> = ({ url, alt = "", className, screenSizes }) =>
   url ? (
     <NextImage
       className={cn(className, "pointer-events-auto")}
@@ -22,7 +23,8 @@ const Image: FC<PostImageProps> = ({ url, alt = "", className }) =>
       layout="fill"
       objectFit="cover"
       objectPosition="top"
-      sizes="(max-width: 460px) 46vw, (max-width: 768px) 76vw, (max-width: 1024px) 104vw, (max-width: 1200px) 120vw, 100vw"
+      sizes={screenSizes}
+      // sizes="(max-width: 460px) 46vw, (max-width: 768px) 76vw, (max-width: 1024px) 104vw, (max-width: 1200px) 120vw, 100vw"
     />
   ) : null;
 
@@ -34,6 +36,7 @@ export const PostImage: FC<PostImageProps> = ({
   overlay = false,
   hoverEffect = false,
   children,
+  screenSizes,
 }) => {
   if (!url) return null;
 
@@ -54,11 +57,21 @@ export const PostImage: FC<PostImageProps> = ({
                 "group-hover:scale-110 transition-transform duration-300"
             )}
           >
-            <Image url={`${settings.uploadUrl}/${url}`} alt={alt} />
+            <Image
+              url={`${settings.uploadUrl}/${url}`}
+              alt={alt}
+              screenSizes={screenSizes}
+            />
           </a>
         </Link>
       )}
-      {!href && url && <Image url={`${settings.uploadUrl}/${url}`} alt={alt} />}
+      {!href && url && (
+        <Image
+          url={`${settings.uploadUrl}/${url}`}
+          alt={alt}
+          screenSizes={screenSizes}
+        />
+      )}
       {overlay ? (
         <>
           <div className="absolute inset-0 bg-gradient-to-t to-black/30 from-black/70 group-hover:opacity-50 transition pointer-events-none" />
