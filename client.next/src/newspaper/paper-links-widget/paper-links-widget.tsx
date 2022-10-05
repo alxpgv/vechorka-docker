@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Icon } from "@/components/ui/icon";
+import { Icon } from "@/shared/ui/icon";
 
 interface PaperLinksWidgetProps {
   className?: string;

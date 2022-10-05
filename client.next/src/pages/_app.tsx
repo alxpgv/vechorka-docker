@@ -1,9 +1,9 @@
-import "../styles/globals.css";
+import "@/app/styles/globals.css";
 import type { AppProps } from "next/app";
 // import NextNProgress from "nextjs-progressbar";
-import { SettingsProvider } from "@/contexts/settings-context";
-import { Head } from "@/components/common/head";
-import { Layout } from "@/components/common/layouts";
+import { SettingsProvider } from "@/app/contexts/settings-context";
+import { Head } from "@/shared/ui/head";
+import { Layout } from "@/shared/ui/layouts";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { settings, taxonomies } = pageProps;

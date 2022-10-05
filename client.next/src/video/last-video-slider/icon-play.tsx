@@ -1,6 +1,6 @@
 import React from "react";
 import cn from "clsx";
-import { Icon } from "@/components/ui/icon";
+import { Icon } from "@/shared/ui/icon";
 
 export const IconPlay = ({ size = "md" }: { size?: "sm" | "md" | "lg" }) => {
   return (

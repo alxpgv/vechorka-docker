@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useIntersectionObserver } from "@/utils/hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "@/shared/hooks/useIntersectionObserver";
 import { DynamicLastVideoSlider } from "@/video/last-video-slider/index";
 
 export const IntersectionLastVideoSlider = () => {

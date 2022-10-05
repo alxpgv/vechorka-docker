@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useState } from "react";
 import { NewsTabs } from "@/news/components/news-tabs";
-import { FullLoader } from "@/components/ui/loaders";
-import { Button } from "@/components/ui/button";
-import type { ListPostProps, PostProps } from "@/types";
-import type { TaxonomyProps } from "@/types";
+import { FullLoader } from "@/shared/ui/loaders";
+import { Button } from "@/shared/ui/button";
+import type { ListPostProps, PostProps } from "@/shared/types";
+import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";
-import { PostItemCategory } from "@/components/posts/post-item-category";
-import { getPosts, getPostsByTaxonomy } from "@/services/api/posts";
+import { PostItemCategory } from "@/posts/post-item-category";
+import { getPosts, getPostsByTaxonomy } from "@/shared/api/posts";
 
 interface MainLastNewsProps {
   initNews: ListPostProps;

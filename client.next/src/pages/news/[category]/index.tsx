@@ -1,11 +1,11 @@
 import React from "react";
-import { NewsLayout } from "@/components/common/layouts";
+import { NewsLayout } from "@/shared/ui/layouts";
 import { CategoryNews } from "@/news/category-news";
 import { InterestNews } from "@/news/interest-news";
 import { FeedbackWidget } from "@/widgets/feedback-widget";
-import { getPagePostsCategory } from "@/services/api/page-posts-category";
+import { getPagePostsCategory } from "@/shared/api/page-posts-category";
 import type { GetServerSideProps } from "next";
-import type { PostProps } from "@/types";
+import type { PostProps } from "@/shared/types";
 
 export interface NewsCategoryProps {
   posts: {

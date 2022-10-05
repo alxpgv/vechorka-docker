@@ -1,5 +1,5 @@
 import React from "react";
-import type { PostProps } from "@/types";
+import type { PostProps } from "@/shared/types";
 
 interface NewsDetailProps {
   post: PostProps;

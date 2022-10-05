@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from "react";
 import { NewsTabs } from "@/news/components/news-tabs";
 import { NewsItem } from "@/news/main-news/news-item";
-import { FullLoader } from "@/components/ui/loaders";
-import type { PostProps, ListPostProps } from "@/types";
-import type { TaxonomyProps } from "@/types";
-import { PostItemLarge } from "@/components/posts/post-item-large";
-import { getPostsByTaxonomy } from "@/services/api/posts";
+import { FullLoader } from "@/shared/ui/loaders";
+import type { PostProps, ListPostProps } from "@/shared/types";
+import type { TaxonomyProps } from "@/shared/types";
+import { PostItemLarge } from "@/posts/post-item-large";
+import { getPostsByTaxonomy } from "@/shared/api/posts";
 
 interface MainNewsProps {
   initNews: ListPostProps;

@@ -1,6 +1,6 @@
 import React from "react";
 import type { GetServerSideProps } from "next";
-import { getPagePostsCategory } from "@/services/api/page-posts-category";
+import { getPagePostsCategory } from "@/shared/api/page-posts-category";
 import type { NewsCategoryProps } from "@/pages/news/[category]";
 import NewsCategoryPage from "@/pages/news/[category]";
 

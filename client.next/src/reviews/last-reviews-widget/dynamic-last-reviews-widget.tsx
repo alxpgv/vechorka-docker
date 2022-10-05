@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { SimpleLoader } from "@/components/ui/loaders";
+import { SimpleLoader } from "@/shared/ui/loaders";
 import React from "react";
 import { LastReviewsWidgetProps } from "@/reviews/last-reviews-widget/last-reviews-widget";
 

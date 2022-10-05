@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import type { PostProps } from "@/types";
-import { FullLoader } from "@/components/ui/loaders";
+import type { PostProps } from "@/shared/types";
+import { FullLoader } from "@/shared/ui/loaders";
 import { useRouter } from "next/router";
-import { Button } from "@/components/ui/button";
-import { PostItemCategory } from "@/components/posts/post-item-category";
-import { PostItemLarge } from "@/components/posts/post-item-large";
-import { getPostsByTaxonomySlug } from "@/services/api/posts";
+import { Button } from "@/shared/ui/button";
+import { PostItemCategory } from "@/posts/post-item-category";
+import { PostItemLarge } from "@/posts/post-item-large";
+import { getPostsByTaxonomySlug } from "@/shared/api/posts";
 
 interface CategoryNewsProps {
   initNews: PostProps[];

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { PostImage } from "@/components/posts/post-image";
-import { PostProps } from "@/types";
+import { PostImage } from "@/posts/post-image";
+import { PostProps } from "@/shared/types";
 
 interface VideoItemProps {
   item: PostProps;

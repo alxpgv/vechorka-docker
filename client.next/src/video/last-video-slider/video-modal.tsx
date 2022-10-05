@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react";
-import { Spinner } from "@/components/ui/loaders/spinner";
-import { Icon } from "@/components/ui/icon";
+import { Spinner } from "@/shared/ui/loaders/spinner";
+import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
-import { useKey } from "@/utils/hooks/useKey";
-import type { PostProps } from "@/types";
+import { useKey } from "@/shared/hooks/useKey";
+import type { PostProps } from "@/shared/types";
 
 interface VideoModalProps {
   video: PostProps;

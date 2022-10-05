@@ -1,6 +1,6 @@
 import React, { FC, MouseEvent } from "react";
 import cn from "clsx";
-import { Icon } from "@/components/ui/icon";
+import { Icon } from "@/shared/ui/icon";
 
 interface ArrowProps {
   disabled?: boolean;

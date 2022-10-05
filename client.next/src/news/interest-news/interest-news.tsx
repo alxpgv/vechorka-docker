@@ -1,9 +1,9 @@
 import React from "react";
-import type { PostProps } from "@/types";
+import type { PostProps } from "@/shared/types";
 import Link from "next/link";
-import { PostImage } from "@/components/posts/post-image";
-import { PostLinkCategory } from "@/components/posts/post-link-category";
-import { PostMeta } from "@/components/posts/post-meta";
+import { PostImage } from "@/posts/post-image";
+import { PostLinkCategory } from "@/posts/post-link-category";
+import { PostMeta } from "@/posts/post-meta";
 
 interface InterestNewsProps {
   items: PostProps[];

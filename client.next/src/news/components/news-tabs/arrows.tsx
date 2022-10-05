@@ -1,7 +1,7 @@
 import React from "react";
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
 import cn from "clsx";
-import { Icon } from "@/components/ui/icon";
+import { Icon } from "@/shared/ui/icon";
 
 const Arrow = ({
   children,

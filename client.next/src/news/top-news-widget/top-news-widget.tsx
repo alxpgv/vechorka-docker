@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import cn from "clsx";
-import type { PostProps } from "@/types";
-import { SimpleLoader } from "@/components/ui/loaders";
-import { useIntersectionObserver } from "@/utils/hooks/useIntersectionObserver";
-import { PostMeta } from "@/components/posts/post-meta";
-import { PostImage } from "@/components/posts/post-image";
-import { getPosts } from "@/services/api/posts";
+import type { PostProps } from "@/shared/types";
+import { SimpleLoader } from "@/shared/ui/loaders";
+import { useIntersectionObserver } from "@/shared/hooks/useIntersectionObserver";
+import { PostMeta } from "@/posts/post-meta";
+import { PostImage } from "@/posts/post-image";
+import { getPosts } from "@/shared/api/posts";
 
 export interface TopNewsWidgetProps {
   className?: string;

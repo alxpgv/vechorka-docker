@@ -1,12 +1,12 @@
 import React from "react";
 import type { GetServerSideProps } from "next";
-import type { PostProps } from "@/types";
-import { NewsLayout } from "@/components/common/layouts";
+import type { PostProps } from "@/shared/types";
+import { NewsLayout } from "@/shared/ui/layouts";
 import { InterestNews } from "@/news/interest-news";
 import { FeedbackWidget } from "@/widgets/feedback-widget";
 import { NewsDetail } from "@/news/news-detail";
-import { getPost, getPosts } from "@/services/api/posts";
-import { getGeneralSettings } from "@/services/api/settings";
+import { getPost, getPosts } from "@/shared/api/posts";
+import { getGeneralSettings } from "@/shared/api/settings";
 
 interface NewsDetailProps {
   post: PostProps;

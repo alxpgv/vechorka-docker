@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import cn from "clsx";
 import useDrag from "@/news/components/news-tabs/useDrag";
-import type { TaxonomyProps } from "@/types";
+import type { TaxonomyProps } from "@/shared/types";
 import { LeftArrow, RightArrow } from "@/news/components/news-tabs/arrows";
 
 interface NewsTabsProps {
