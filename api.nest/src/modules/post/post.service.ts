@@ -334,6 +334,20 @@ export class PostService {
           height: imageProps.height,
           url: `${pathPrefix}/${imageProps.file}`,
           sizes: {
+            large: {
+              width: imageProps.sizes?.large?.width ?? null,
+              height: imageProps.sizes?.large?.height ?? null,
+              url: imageProps.sizes?.large?.file
+                ? `${pathPrefix}/${path}/${imageProps.sizes?.large?.file}`
+                : null,
+            },
+            // mediumSm: {
+            //   width: imageProps.sizes?.medium_sm?.width ?? null,
+            //   height: imageProps.sizes?.medium_sm?.height ?? null,
+            //   url: imageProps.sizes?.medium_sm?.file
+            //     ? `${pathPrefix}/${path}/${imageProps.sizes?.medium_sm?.file}`
+            //     : null,
+            // },
             medium: {
               width: imageProps.sizes?.medium?.width ?? null,
               height: imageProps.sizes?.medium?.height ?? null,
