@@ -11,7 +11,7 @@ function theme_setup()
     )
   );
 
-  add_image_size('medium_sm', 460, 260, true);
+//    add_image_size('medium_sm', 460, 260, true);
 //		add_image_size( '150x210', 150, 210, true );
 //		add_image_size( '400x230', 400, 230, true );
 //		add_image_size( '300x425', 300, 425, true );
