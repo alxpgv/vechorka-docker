@@ -41,7 +41,6 @@ export const PostItemLarge: FC<PostItemProps> = ({
         className="h-[260px] sm:h-[320px] lg:h-[460px]"
         overlay
         hoverEffect
-        // screenSizes="(max-width: 460px) 46vw, (max-width: 768px) 76vw, (max-width: 1024px) 104vw, (max-width: 1200px) 120vw, 100vw"
       >
         <div className="relative flex flex-col justify-end max-w-[80%] h-full p-5 lg:p-8">
           {/* title */}
