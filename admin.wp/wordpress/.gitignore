@@ -1,19 +1,17 @@
 .idea
 
-wp-admin
-wp-includes
-*.*
+/*
 !.gitignore
 !.htaccess
 
-wp-content/plugins
-wp-content/languages
-wp-content/upgrade
-!wp-content/themes/vechorka/*
-!wp-content/themes/vechorka/**/*
-!wp-content/uploads/*
-!wp-content/uploads/**/*
-#wp-content/uploads/**/*
+!wp-content/
+
+wp-content/*
+!wp-content/themes/
+!wp-content/uploads/
+
+wp-content/themes/*
+!wp-content/themes/vechorka/
 
 # misc
 .DS_Store
