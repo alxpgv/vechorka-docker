@@ -1,9 +1,9 @@
 export const parseContent = (body: string) => {
-  let content = replaceBlockquote(body);
+  const content = replaceBlockquote(body);
   const lines = content?.split("\r\n");
 
   let parsed = "";
-  let regexTags = /<.+>.+<\/.+>|<.+\/>/gm;
+  const regexTags = /<.+>.+<\/.+>|<.+\/>/gm;
   for (const line in lines) {
     let currentLine = lines[Number(line)];
     if (currentLine && !currentLine.match(regexTags)) {
