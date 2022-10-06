@@ -30,8 +30,6 @@ export const PostItemLarge: FC<PostItemProps> = ({
     ? `/${parentSlug}/${categorySlug}/${slug}`
     : `/${categorySlug}/${slug}`;
 
-  console.log(preview);
-
   return (
     <div className={cn(className, "relative w-full")}>
       {/* image */}

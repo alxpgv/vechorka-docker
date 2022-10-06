@@ -14,8 +14,13 @@ export const getHomePosts = (isSSG = false): Promise<ListPostProps> => {
   return api.get("posts/index", isSSG);
 };
 
-export const getPost = (slug: string): Promise<PostProps> => {
-  return api.get(`posts/slug/${slug}`);
+export const getPost = (
+  slug: string,
+  slugTaxonomy?: string
+): Promise<PostProps> => {
+  return api.get(
+    `posts/slug/${slug}${slugTaxonomy && `?slugTaxonomy=${slugTaxonomy}`}`
+  );
 };
 
 export const getPosts = (params: PostParams): Promise<PostProps[]> => {

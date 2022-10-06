@@ -25,12 +25,13 @@ const NewsDetailPage = ({ post, interestNews }: NewsDetailProps) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const slug = params?.slugPage as string;
+  const slugTaxonomy = params?.category as string;
 
   let post = null;
   let interestNews: PostProps[] = [];
 
   try {
-    post = await getPost(slug);
+    post = await getPost(slug, slugTaxonomy);
   } catch (error) {
     console.log("news detail post", error);
   }

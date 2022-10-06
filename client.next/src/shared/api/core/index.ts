@@ -13,7 +13,9 @@ export const api = {
       if (res.ok) {
         return await res.json();
       } else {
-        return Promise.reject(url);
+        return Promise.reject(
+          `${url}${res.statusText && `: ${res.statusText}`}`
+        );
       }
     } catch (error: any) {
       throw new Error(`Request: ${error}`);
