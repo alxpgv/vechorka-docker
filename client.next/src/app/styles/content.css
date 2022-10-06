@@ -1,7 +1,0 @@
-.content {
-  @apply text-grey-500;
-}
-
-.content blockquote {
-  @apply bg-grey-100 p-8 italic text-grey-400;
-}

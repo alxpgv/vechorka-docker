@@ -16,7 +16,7 @@ interface NewsDetailProps {
 const NewsDetailPage = ({ post, interestNews }: NewsDetailProps) => {
   return (
     <>
-      <NewsLayout left={<NewsDetail post={post} />} />
+      <NewsLayout left={<NewsDetail {...post} />} />
       {interestNews && <InterestNews items={interestNews} />}
       <FeedbackWidget />
     </>

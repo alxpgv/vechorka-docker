@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/shared/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/shared/libs/**/*.{js,ts,jsx,tsx}",
     "./src/posts/**/*.{js,ts,jsx,tsx}",
     "./src/ads/**/*.{js,ts,jsx,tsx}",
     "./src/articles/**/*.{js,ts,jsx,tsx}",

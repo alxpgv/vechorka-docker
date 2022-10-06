@@ -1,22 +1,42 @@
 import React from "react";
 import type { PostProps } from "@/shared/types";
+import { PostImage } from "@/posts/post-image";
+import { PostMeta } from "@/posts/post-meta";
+import { parseContent } from "@/shared/libs/content";
 
-interface NewsDetailProps {
-  post: PostProps;
-}
-
-export const NewsDetail = ({ post }: NewsDetailProps) => {
-  // console.log(post);
-  // console.log(post.content);
-  // console.log(post.content?.replace(/\r\n/g, "<br/>"));
-  const content = post.content?.replace(/\r\n/g, "<br/>");
+export const NewsDetail = ({
+  title,
+  content,
+  preview,
+  commentCount,
+  createdAt,
+  views,
+  user,
+}: PostProps) => {
   return (
-    <div className="content">
-      {post.title && <h1>{post.title}</h1>}
+    <>
+      <PostImage
+        url={preview?.url}
+        className="h-[260px] sm:h-[320px] lg:h-[460px] mb-5"
+      />
+      {title && <h1 className="text-grey-500 mb-5">{title}</h1>}
+      <PostMeta
+        date={createdAt}
+        time={createdAt}
+        views={views}
+        commentCount={commentCount}
+      />
       {content && (
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-        // <div>{content}</div>
+        <div
+          className="content mt-5"
+          dangerouslySetInnerHTML={{ __html: parseContent(content) }}
+        />
       )}
-    </div>
+      {user && (
+        <div className="mt-5 text-grey-500">
+          <strong>Автор:</strong> {user}
+        </div>
+      )}
+    </>
   );
 };

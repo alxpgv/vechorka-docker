@@ -2,7 +2,6 @@
 @import "~keen-slider/keen-slider.min.css";
 @import "news-tabs.css";
 @import "spinner.css";
-@import "content.css";
 
 @tailwind base;
 @tailwind components;
@@ -32,11 +31,11 @@
   }
 
   h1, .text-xl {
-    @apply text-26px sm:text-28px md:text-30px lg:text-32px;
+    @apply text-22px sm:text-24px md:text-30px lg:text-32px;
   }
 
   h2, .text-lg {
-    @apply text-22px sm:text-24px md:text-26px lg:text-28px;
+    @apply text-20px sm:text-22px md:text-26px lg:text-28px;
   }
 
   h3, .text-md {
@@ -69,6 +68,55 @@
 
   a.link-light, .link-light a {
     @apply text-white hover:text-grey-100
+  }
+
+  /* content */
+  .content {
+    @apply text-grey-500;
+  }
+
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h4,
+  .content h5,
+  .content h6,
+  .content blockquote,
+  .content img,
+  .content em,
+  .content strong,
+  .content p {
+    @apply my-5;
+  }
+
+  .content blockquote {
+    @apply flex bg-grey-100 p-5 md:p-8 italic text-grey-400;
+  }
+
+  .content blockquote svg {
+    @apply flex-shrink-0 w-[32px] h-[32px] mr-5 fill-grey-300;
+  }
+
+  .content h2 {
+    @apply text-18px md:text-24px;
+  }
+
+  .content img {
+    @apply h-auto max-w-full;
+  }
+
+  .content img.alignleft {
+    @apply mr-5;
+    float: left;
+  }
+
+  .content img.alignright {
+    @apply ml-5;
+    float: right;
+  }
+
+  .content img.aligncenter {
+    @apply mx-auto;
   }
 }
 
