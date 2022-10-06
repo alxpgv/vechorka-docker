@@ -10,7 +10,7 @@ import type { TaxonomiesProps } from "@/shared/types";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import { DynamicLastVideoSlider } from "@/video/last-video-slider";
 import { DynamicFeedbackWidget } from "@/widgets/feedback-widget";
-import { menuHomeItem } from "@/shared/config";
+import { menuAllNewsItem } from "@/shared/config";
 
 interface HomeProps {
   posts: {
@@ -24,7 +24,7 @@ interface HomeProps {
 
 const HomePage = ({ posts, taxonomies }: HomeProps) => {
   const { stavropol, lastNews, interestNews, articles } = posts;
-  const categories = [menuHomeItem, ...taxonomies?.categories];
+  const categories = [menuAllNewsItem, ...taxonomies?.categories];
 
   return (
     <>
