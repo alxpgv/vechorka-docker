@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from './post.entity';
@@ -21,6 +21,7 @@ export class PostService {
   ) {
   }
 
+  // home page posts
   async getIndexPosts() {
     const stavropol = await this.getPosts({
       taxonomyId: 16,
@@ -53,8 +54,26 @@ export class PostService {
     };
   }
 
-  async getPost(slug: string): Promise<PostResponse> {
+  async getPost(slug: string, slugTaxonomy?: string): Promise<PostResponse> {
+
     let query = this.postRepository.createQueryBuilder('post');
+
+    if (slugTaxonomy) {
+      const taxonomies = await this.taxonomyService.getTaxonomies();
+      const taxonomy = taxonomies.find((tax) => tax.terms.slug === slugTaxonomy);
+      const taxonomyId = taxonomy?.term_taxonomy_id;
+
+      if (taxonomyId) {
+        query = query.innerJoinAndSelect(
+          'post.post_taxonomy',
+          'taxonomyRel',
+          'taxonomyRel.term_taxonomy_id=:taxonomyId',
+          { taxonomyId },
+        );
+      } else {
+        throw new NotFoundException('post not found');
+      }
+    }
 
     query = query.leftJoin('post.user', 'user').addSelect([
       'user.display_name',
@@ -69,7 +88,7 @@ export class PostService {
       return this.responseData([post], metas, undefined, 'full')[0];
     }
 
-    return null;
+    throw new NotFoundException('post not found');
   }
 
   async getPosts({

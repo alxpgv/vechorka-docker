@@ -13,8 +13,9 @@ export class PostController {
 
   // TODO: pipe validation query, min/max
   @Get('slug/:slug')
-  getPost(@Param('slug') slug: string) {
-    return this.postService.getPost(slug);
+  getPost(@Query() query, @Param('slug') slug: string) {
+    const slugTaxonomy = query?.slugTaxonomy;
+    return this.postService.getPost(slug, slugTaxonomy);
   }
 
   // TODO: pipe validation query, min/max
