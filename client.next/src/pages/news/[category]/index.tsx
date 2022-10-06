@@ -26,8 +26,11 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const category = params?.category;
-  return await getPagePostsCategory({ slugTaxonomy: category as string });
+  let category = params?.category;
+  // news slug taxonomy is exist in base, example news/news - is work, condition for exclude this category
+  category = category && category === "news" ? undefined : (category as string);
+
+  return await getPagePostsCategory({ slugTaxonomy: category });
 };
 
 export default NewsCategoryPage;

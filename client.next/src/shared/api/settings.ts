@@ -1,5 +1,5 @@
 import { api } from "@/shared/api/core";
-import { mainMenu, settings } from "@/shared/config";
+import { mainMenu, menuNewsItem, settings } from "@/shared/config";
 import type { TaxonomiesProps } from "@/shared/types";
 
 export const getGeneralSettings = async (isSSG = false) => {
@@ -11,18 +11,17 @@ export const getGeneralSettings = async (isSSG = false) => {
     console.log("settings taxonomies: ", error);
   }
 
+  // TODO: check this code
   const mainNavigation = [
     {
-      id: 9999,
-      slug: "news",
-      name: "Новости",
-      icon: "earth",
+      ...menuNewsItem,
       child: taxonomies.categories,
     },
     ...mainMenu,
   ];
 
   return {
+    // TODO: check this code
     settings: {
       ...settings,
       menus: {

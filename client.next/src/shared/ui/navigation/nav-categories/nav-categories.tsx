@@ -4,7 +4,7 @@ import Link from "next/link";
 import cn from "clsx";
 import { useSettings } from "@/app/contexts/settings-context";
 import { useRouter } from "next/router";
-import { homeMenuItem } from "@/shared/libs/menus";
+import { menuAllNewsItem } from "@/shared/config";
 
 interface NavCategoriesProps {
   className?: string;
@@ -29,8 +29,9 @@ const CategoriesView = ({
       <div className="my-3 text-16px text-white font-bold">{title}</div>
       <div className="flex flex-wrap gap-2 text-13px">
         {items.map(({ id, name, slug }) => {
+          const href = slug === "news" ? `/news` : `/news/${slug}`;
           return (
-            <Link key={id} href={`/news/${slug}`}>
+            <Link key={id} href={href}>
               <a
                 className={cn(
                   "flex items-center px-3 py-2 text-white hover:text-white hover:bg-blue-300",
@@ -55,7 +56,10 @@ export const NavCategories: FC<NavCategoriesProps> = ({ className }) => {
   return (
     <div className={cn(className, "p-5 pt-2 bg-blue-200")}>
       {categories && categories.length > 0 && (
-        <CategoriesView title="Новости" items={[homeMenuItem, ...categories]} />
+        <CategoriesView
+          title="Новости"
+          items={[menuAllNewsItem, ...categories]}
+        />
       )}
       {geography && geography.length > 0 && (
         <CategoriesView title="География" items={geography} />

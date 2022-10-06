@@ -4,6 +4,7 @@ import { LastReviewsWidget } from "@/reviews/last-reviews-widget";
 import { TopNewsWidget } from "@/news/top-news-widget";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import { NavCategories } from "@/shared/ui/navigation/nav-categories";
+import { Breadcrumbs } from "@/shared/ui/breadcrumbs";
 
 interface NewsLayoutProps {
   left: React.ReactNode;
@@ -11,21 +12,23 @@ interface NewsLayoutProps {
 
 export const NewsLayout: FC<NewsLayoutProps> = ({ left }) => {
   return (
-    <LayoutColumn
-      left={left}
-      right={
-        <>
-          <div className="hidden md:block">
-            <NavCategories />
-          </div>
+    <>
+      <LayoutColumn
+        left={left}
+        right={
+          <>
+            <div className="hidden md:block">
+              <NavCategories />
+            </div>
 
-          <div className="smx1:flex md:block mt-6 lg:mt-12">
-            <TopNewsWidget className="smx1:mr-3 md:mr-0" />
-            <LastReviewsWidget className="mt-6 smx1:mt-0 md:mt-12" />
-          </div>
-          <PaperLinksWidget />
-        </>
-      }
-    />
+            <div className="smx1:flex md:block mt-6 lg:mt-12">
+              <TopNewsWidget className="smx1:mr-3 md:mr-0" />
+              <LastReviewsWidget className="mt-6 smx1:mt-0 md:mt-12" />
+            </div>
+            <PaperLinksWidget />
+          </>
+        }
+      />
+    </>
   );
 };

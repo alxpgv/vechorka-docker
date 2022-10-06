@@ -1,5 +1,25 @@
 import { isDocker } from "@/shared/libs/helpers";
 
+export const menuAllNewsItem = {
+  id: 9999,
+  name: "Все новости",
+  slug: "news",
+};
+
+export const menuNewsItem = {
+  id: 9998,
+  slug: "news",
+  name: "Новости",
+  icon: "earth",
+};
+
+export const menuHomeItem = {
+  id: 9997,
+  name: "Главная",
+  slug: "/",
+  icon: "house",
+};
+
 export const mainMenu = [
   {
     id: 16,

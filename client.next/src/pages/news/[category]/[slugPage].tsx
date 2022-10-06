@@ -27,6 +27,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const slug = params?.slugPage as string;
   const slugTaxonomy = params?.category as string;
 
+  console.log(slug, slugTaxonomy);
+
   let post = null;
   let interestNews: PostProps[] = [];
 

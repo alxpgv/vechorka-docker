@@ -5,9 +5,11 @@ import { Logo } from "@/shared/ui/logo";
 import { InputSearch } from "@/shared/ui/inputs/input-search";
 import { Nav } from "@/shared/ui/navigation/nav";
 import { NavMobile } from "@/shared/ui/navigation/nav-mobile";
+import { menuHomeItem } from "@/shared/config";
 
 export const Navbar = () => {
   const { menus } = useSettings();
+
   return (
     <div className="fixed w-full min-w-[220px] h-navbar-sm md:h-navbar-md bg-white z-20">
       <Container className="h-full">
@@ -32,12 +34,7 @@ export const Navbar = () => {
             {/* mobile */}
             <div className="flex xl:hidden items-center">
               {menus?.main && (
-                <NavMobile
-                  menu={[
-                    { id: 9998, name: "Главная", slug: "/", icon: "house" },
-                    ...menus.main,
-                  ]}
-                />
+                <NavMobile menu={[menuHomeItem, ...menus.main]} />
               )}
             </div>
           </div>

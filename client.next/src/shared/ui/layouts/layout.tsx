@@ -4,6 +4,7 @@ import { Navbar } from "@/shared/ui/navbar";
 import cn from "clsx";
 import { Container } from "@/shared/ui/container";
 import { TopBtn } from "@/shared/ui/top-btn";
+import { Breadcrumbs } from "@/shared/ui/breadcrumbs";
 
 interface LayoutProps extends PropsWithChildren {
   navbarOffset?: boolean;
@@ -14,7 +15,10 @@ export const Layout: FC<LayoutProps> = ({ navbarOffset = true, children }) => {
     <>
       <Navbar />
       <main className={cn(navbarOffset && "pt-navbar-sm md:pt-navbar-md")}>
-        <Container className="pt-5 lg:pt-8">{children}</Container>
+        <Container className="pt-5 lg:pt-8">
+          <Breadcrumbs />
+          {children}
+        </Container>
       </main>
       <TopBtn />
       <Footer />

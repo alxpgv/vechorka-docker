@@ -6,11 +6,11 @@ import { DynamicAdsBanner } from "@/ads/ads-banner";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import { NextPage } from "next";
 
-interface MainColumnLayoutProps {
+interface HomeColumnLayoutProps {
   left: React.ReactNode;
 }
 
-export const MainColumnLayout: NextPage<MainColumnLayoutProps> = ({ left }) => {
+export const HomeColumnLayout: NextPage<HomeColumnLayoutProps> = ({ left }) => {
   return (
     <LayoutColumn
       left={left}

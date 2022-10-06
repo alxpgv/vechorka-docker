@@ -6,12 +6,18 @@ import type { ListPostProps } from "@/shared/types";
 export const getPagePostsCategory = async ({
   slugTaxonomy,
 }: {
-  slugTaxonomy: string;
+  slugTaxonomy?: string;
 }): Promise<GetServerSidePropsResult<any>> => {
   const posts: ListPostProps = {
     news: [],
     interestNews: [],
   };
+
+  if (!slugTaxonomy) {
+    return {
+      notFound: true,
+    };
+  }
 
   //news by slug
   try {
