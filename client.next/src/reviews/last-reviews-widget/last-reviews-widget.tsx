@@ -3,7 +3,7 @@ import Link from "next/link";
 import cn from "clsx";
 import type { PostProps } from "@/shared/types";
 import { SimpleLoader } from "@/shared/ui/loaders";
-import { useIntersectionObserver } from "@/shared/hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 import { PostMeta } from "@/posts/post-meta";
 import { getPosts } from "@/shared/api/posts";
 

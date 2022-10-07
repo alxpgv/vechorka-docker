@@ -2,7 +2,7 @@ import React from "react";
 import type { PostProps } from "@/shared/types";
 import { PostImage } from "@/posts/post-image";
 import { PostMeta } from "@/posts/post-meta";
-import { parseContent } from "@/shared/libs/content";
+import { parseContent } from "@/shared/lib/content";
 
 export const NewsDetail = ({
   title,

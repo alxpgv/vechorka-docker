@@ -13,7 +13,7 @@ import {
 import cn from "clsx";
 import { InputSearch } from "@/shared/ui/inputs/input-search";
 import { MenuItem } from "@/shared/ui/navigation/nav-mobile/menu-item";
-import { useKey } from "@/shared/hooks/useKey";
+import { useKey } from "@/shared/lib/hooks/useKey";
 
 interface NavMobileProps {
   menu: MenuProps[];

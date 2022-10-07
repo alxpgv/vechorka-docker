@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
-import { formatISODate, formatISOTime } from "@/shared/libs/helpers";
+import { formatISODate, formatISOTime } from "@/shared/lib/date";
 
 interface PostMetaProps {
   date?: string;

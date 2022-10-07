@@ -1,5 +1,5 @@
 import { settings } from "@/shared/config";
-import { isDocker, isSSR } from "@/shared/libs/helpers";
+import { isDocker, isSSR } from "@/shared/lib/helpers";
 
 export const api = {
   async get(url: string, isSSG = false) {

@@ -27,7 +27,7 @@ export class PostService {
       taxonomyId: 16,
       limit: 5,
       sticky: true,
-      // relations: { taxonomy: true },
+      relations: { taxonomy: true },
     });
 
     const lastNews = await this.getPosts({

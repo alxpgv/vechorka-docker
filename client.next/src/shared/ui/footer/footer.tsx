@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "@/shared/ui/container";
 import { Logo } from "@/shared/ui/logo";
 import { useSettings } from "@/app/contexts/settings-context";
-import { getPhoneFromString } from "@/shared/libs/helpers";
+import { getPhoneFromString } from "@/shared/lib/string";
 import Link from "next/link";
 import cn from "clsx";
 

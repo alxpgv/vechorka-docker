@@ -1,4 +1,4 @@
-import { isDocker } from "@/shared/libs/helpers";
+import { isDocker } from "@/shared/lib/helpers";
 
 export const menuAllNewsItem = {
   id: 9999,

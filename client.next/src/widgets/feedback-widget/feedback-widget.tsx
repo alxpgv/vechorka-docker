@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { FormFeedback } from "@/widgets/feedback-widget/form-feedback";
 import { SocialLinks } from "@/widgets/feedback-widget/social-links";
-import { useIntersectionObserver } from "@/shared/hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 
 export const FeedbackWidget = () => {
   const ref = useRef<HTMLDivElement | null>(null);

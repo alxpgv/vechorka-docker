@@ -1,13 +1,3 @@
-import dayjs from "dayjs";
-
-export const getPhoneFromString = (value: string) => {
-  return value ? value.replace(/[^0-9+]/g, "") : "";
-};
-
-export const cutText = (value: string, length = 100) => {
-  return value?.length > length ? value.substring(0, length) + "..." : value;
-};
-
 // [1,2,3,4,5] to [[1,2,3],[...]] by step
 export const createNestedArray = <T>(items: T[], step = 5): Array<T[]> => {
   const groupItems: Array<T[]> = [];
@@ -28,14 +18,6 @@ export const createNestedArray = <T>(items: T[], step = 5): Array<T[]> => {
   });
 
   return groupItems;
-};
-
-export const formatISODate = (value: string) => {
-  return dayjs(value).format("D.MM.YY");
-};
-
-export const formatISOTime = (value: string) => {
-  return dayjs(value).format("H:mm");
 };
 
 export const encodeQueryData = (params: any) => {
@@ -61,5 +43,4 @@ export const encodeQueryData = (params: any) => {
 };
 
 export const isDocker = !!Number(process.env.DOCKER);
-
 export const isSSR = typeof window === "undefined";
