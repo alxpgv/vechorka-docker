@@ -17,13 +17,6 @@ export class TaxonomyService {
     private readonly taxonomyRelRepository: Repository<TaxonomyRelation>,
   ) {}
 
-  async getTaxonomiesGroupTaxonomy(): Promise<TaxonomiesProps> {
-    const taxonomies = await this.taxonomyRepository.find({
-      relations: { terms: true },
-    });
-    return this.responseData(taxonomies);
-  }
-
   getTaxonomies(): Promise<Taxonomy[]> {
     return this.taxonomyRepository.find({
       relations: { terms: true },
@@ -37,7 +30,14 @@ export class TaxonomyService {
     });
   }
 
-  private responseData(taxonomies: Taxonomy[]): TaxonomiesProps {
+  async getTaxonomiesGroup(): Promise<TaxonomiesProps> {
+    const taxonomies = await this.taxonomyRepository.find({
+      relations: { terms: true },
+    });
+    return this.responseTaxonomiesGroup(taxonomies);
+  }
+
+  private responseTaxonomiesGroup(taxonomies: Taxonomy[]): TaxonomiesProps {
     const data: TaxonomiesProps = { categories: [], tags: [] };
 
     taxonomies.forEach((taxonomy) => {

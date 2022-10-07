@@ -7,7 +7,7 @@ export class TaxonomyController {
 
   @Get('/group')
   getTaxonomiesGroup() {
-    return this.termService.getTaxonomiesGroupTaxonomy();
+    return this.termService.getTaxonomiesGroup();
   }
 
   @Get()
