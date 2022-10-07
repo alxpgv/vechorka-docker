@@ -30,11 +30,11 @@ export const createNestedArray = <T>(items: T[], step = 5): Array<T[]> => {
   return groupItems;
 };
 
-export const getDateFromISO = (value: string) => {
+export const formatISODate = (value: string) => {
   return dayjs(value).format("D.MM.YY");
 };
 
-export const getTimeFromISO = (value: string) => {
+export const formatISOTime = (value: string) => {
   return dayjs(value).format("H:mm");
 };
 

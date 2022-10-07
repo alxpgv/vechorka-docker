@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import Link from "next/link";
 import { PostImage } from "@/posts/post-image";
@@ -9,7 +9,7 @@ interface InterestNewsProps {
   items: PostProps[];
 }
 
-export const InterestNews = ({ items }: InterestNewsProps) => {
+export const InterestNews: FC<InterestNewsProps> = ({ items }) => {
   if (!items || !items.length) return null;
 
   return (

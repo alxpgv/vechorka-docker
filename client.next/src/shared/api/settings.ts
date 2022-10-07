@@ -1,12 +1,12 @@
-import { api } from "@/shared/api/core";
 import { mainMenu, menuNewsItem, settings } from "@/shared/config";
 import type { TaxonomiesProps } from "@/shared/types";
+import { getTaxonomiesGroup } from "@/shared/api/taxonomies";
 
 export const getGeneralSettings = async (isSSG = false) => {
   let taxonomies: TaxonomiesProps = { categories: [], tags: [] };
 
   try {
-    taxonomies = await api.get("taxonomies/group", isSSG);
+    taxonomies = await getTaxonomiesGroup(isSSG);
   } catch (error) {
     console.log("settings taxonomies: ", error);
   }

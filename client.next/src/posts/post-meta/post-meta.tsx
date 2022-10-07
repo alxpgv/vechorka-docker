@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
-import { getDateFromISO, getTimeFromISO } from "@/shared/libs/helpers";
+import { formatISODate, formatISOTime } from "@/shared/libs/helpers";
 
 interface PostMetaProps {
   date?: string;
@@ -40,7 +40,7 @@ export const PostMeta: FC<PostMetaProps> = ({
         textColorClasses
       )}
     >
-      {date && <div>{getDateFromISO(date)}</div>}
+      {date && <div>{formatISODate(date)}</div>}
       {views ? (
         <div className="flex">
           <Icon
@@ -53,7 +53,7 @@ export const PostMeta: FC<PostMetaProps> = ({
       {time ? (
         <div className="flex">
           <Icon name="clock" className={cn(iconClasses, iconColorClasses)} />
-          {getTimeFromISO(time)}
+          {formatISOTime(time)}
         </div>
       ) : null}
       {commentCount ? (
