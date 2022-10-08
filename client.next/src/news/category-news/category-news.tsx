@@ -3,9 +3,9 @@ import type { PostProps } from "@/shared/types";
 import { FullLoader } from "@/shared/ui/loaders";
 import { useRouter } from "next/router";
 import { Button } from "@/shared/ui/button";
-import { PostItemCategory } from "@/posts/post-item-category";
-import { PostItemLarge } from "@/posts/post-item-large";
+import { PostItemCategory } from "@/shared/ui/post/post-item-category";
 import { getPostsByTaxonomySlug } from "@/shared/api/posts";
+import { PostItemInside } from "@/entities/post/ui/post-item-inside";
 
 interface CategoryNewsProps {
   initNews: PostProps[];
@@ -46,28 +46,25 @@ export const CategoryNews: FC<CategoryNewsProps> = ({
       {/* news */}
       <div className="relative flex flex-wrap -m-2">
         {loading && <FullLoader />}
-        {news?.length > 0 ? (
-          news.map((item, index) => {
-            const isFirst = index % limit === 0;
-            return isFirst ? (
-              <PostItemLarge
-                key={item.id}
-                className="m-2 mb-6"
-                {...item}
-                parentSlug="news"
-              />
-            ) : (
-              <PostItemCategory
-                key={item.id}
-                className="p-2"
-                {...item}
-                parentSlug="news"
-              />
-            );
-          })
-        ) : (
-          <div className="p-2">Новости не найдены</div>
-        )}
+        {!Boolean(news.length) && <div className="p-2">Новости не найдены</div>}
+        {news.map((item, index) => {
+          const isFirst = index % limit === 0;
+          return isFirst ? (
+            <PostItemInside
+              key={item.id}
+              post={item}
+              titleTag="h2"
+              className="h-[260px] sm:h-[320px] lg:h-[460px] m-2 mb-6"
+            />
+          ) : (
+            <PostItemCategory
+              key={item.id}
+              className="p-2"
+              {...item}
+              parentSlug="news"
+            />
+          );
+        })}
       </div>
 
       {/*

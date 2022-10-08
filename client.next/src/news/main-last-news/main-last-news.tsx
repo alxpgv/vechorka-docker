@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from "react";
-import { NewsTabs } from "@/news/components/news-tabs";
+import { ScrollTabs } from "@/shared/ui/scroll-tabs";
 import { FullLoader } from "@/shared/ui/loaders";
 import { Button } from "@/shared/ui/button";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";
-import { PostItemCategory } from "@/posts/post-item-category";
+import { PostItemCategory } from "@/shared/ui/post/post-item-category";
 import { getPosts, getPostsByTaxonomy } from "@/shared/api/posts";
 
 interface MainLastNewsProps {
@@ -85,7 +85,7 @@ export const MainLastNews: FC<MainLastNewsProps> = ({
   return (
     <>
       {/* tabs */}
-      <NewsTabs
+      <ScrollTabs
         tabs={tabs}
         active={activeTab}
         onChange={(tab) => changeActiveTab(tab)}

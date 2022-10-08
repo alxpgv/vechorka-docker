@@ -1,6 +1,6 @@
-import { HomeColumnLayout } from "./home-column-layout";
-import { NewsLayout } from "./news-layout";
+import { HomeLayout } from "./home-layout";
+import { PostLayout } from "./post-layout";
 import { Layout } from "./layout";
 import { LayoutColumn } from "./layout-column";
 
-export { HomeColumnLayout, NewsLayout, Layout, LayoutColumn };
+export { HomeLayout, PostLayout, Layout, LayoutColumn };

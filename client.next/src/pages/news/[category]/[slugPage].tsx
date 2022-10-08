@@ -1,10 +1,10 @@
 import React from "react";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
-import { NewsLayout } from "@/shared/ui/layouts";
-import { InterestNews } from "@/news/interest-news";
-import { FeedbackWidget } from "@/widgets/feedback-widget";
-import { NewsDetail } from "@/news/news-detail";
+import { PostLayout } from "@/shared/ui/layouts";
+import { PostInterest } from "@/widgets/post-interest";
+import { FeedbackSocials } from "@/widgets/feedback-socials";
+import { PostDetail } from "@/entities/post/ui/post-detail";
 import { getPost, getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 
@@ -16,9 +16,9 @@ interface NewsDetailProps {
 const NewsDetailPage = ({ post, interestNews }: NewsDetailProps) => {
   return (
     <>
-      <NewsLayout left={<NewsDetail {...post} />} />
-      {interestNews && <InterestNews items={interestNews} />}
-      <FeedbackWidget />
+      <PostLayout left={<PostDetail {...post} />} />
+      {interestNews && <PostInterest posts={interestNews} />}
+      <FeedbackSocials />
     </>
   );
 };

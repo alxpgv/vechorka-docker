@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 
-interface LayoutColumnProps {
+interface Props {
   left: React.ReactNode;
   right: React.ReactNode;
 }
 
-export const LayoutColumn: FC<LayoutColumnProps> = ({ left, right }) => {
+export const LayoutColumn: FC<Props> = ({ left, right }) => {
   return (
     <div className="flex flex-wrap md:flex-nowrap mt-8">
       {/* left column */}

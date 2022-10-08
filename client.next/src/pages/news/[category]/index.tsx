@@ -1,8 +1,8 @@
 import React from "react";
-import { NewsLayout } from "@/shared/ui/layouts";
+import { PostLayout } from "@/shared/ui/layouts";
 import { CategoryNews } from "@/news/category-news";
-import { InterestNews } from "@/news/interest-news";
-import { FeedbackWidget } from "@/widgets/feedback-widget";
+import { PostInterest } from "@/widgets/post-interest";
+import { FeedbackSocials } from "@/widgets/feedback-socials";
 import { getPagePostsCategory } from "@/shared/api/page-posts-category";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
@@ -18,9 +18,9 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
   const { news, interestNews } = posts;
   return (
     <>
-      <NewsLayout left={<CategoryNews initNews={news} />} />
-      {interestNews && <InterestNews items={interestNews} />}
-      <FeedbackWidget />
+      <PostLayout left={<CategoryNews initNews={news} />} />
+      {interestNews && <PostInterest posts={interestNews} />}
+      <FeedbackSocials />
     </>
   );
 };

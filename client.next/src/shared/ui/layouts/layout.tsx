@@ -6,11 +6,11 @@ import { Container } from "@/shared/ui/container";
 import { TopBtn } from "@/shared/ui/top-btn";
 import { Breadcrumbs } from "@/shared/ui/breadcrumbs";
 
-interface LayoutProps extends PropsWithChildren {
+interface Props extends PropsWithChildren {
   navbarOffset?: boolean;
 }
 
-export const Layout: FC<LayoutProps> = ({ navbarOffset = true, children }) => {
+export const Layout: FC<Props> = ({ navbarOffset = true, children }) => {
   return (
     <>
       <Navbar />
