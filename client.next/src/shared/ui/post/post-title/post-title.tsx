@@ -19,22 +19,24 @@ export const PostTitle = ({
   tag = "div",
   color = "dark",
 }: Props) => {
-  const Title = () => React.createElement(tag, {}, title);
+  const classes = {
+    "link-primary": color === "dark",
+    "link-light": color === "light",
+  };
+
+  const Title = ({ className }: { className?: string }) =>
+    React.createElement(tag, { className }, title);
+
   return (
     <>
       {href ? (
         <Link href={href} prefetch={false}>
-          <a
-            className={cn(className, {
-              "link-primary": color === "dark",
-              "link-light": color === "light",
-            })}
-          >
+          <a className={cn(className, classes)}>
             <Title />
           </a>
         </Link>
       ) : (
-        <Title />
+        <Title className={cn(className, classes)} />
       )}
     </>
   );

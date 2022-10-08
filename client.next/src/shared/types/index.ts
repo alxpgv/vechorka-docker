@@ -57,5 +57,6 @@ export interface TaxonomyProps {
 
 export interface TaxonomiesProps {
   categories: TaxonomyProps[];
+  geography: TaxonomyProps[];
   tags: TaxonomyProps[];
 }

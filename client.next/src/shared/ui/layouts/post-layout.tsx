@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { PaperLinks } from "@/widgets/paper-links";
-import { CommentLast } from "@/widgets/comment-last";
+import { PostCommented } from "@/widgets/post-commented";
 import { PostTopDynamic } from "@/widgets/post-top";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import { NavCategories } from "@/shared/ui/navigation/nav-categories";
@@ -22,7 +22,7 @@ export const PostLayout: FC<Props> = ({ left }) => {
 
             <div className="smx1:flex md:block mt-6 lg:mt-12">
               <PostTopDynamic className="smx1:mr-3 md:mr-0" />
-              <CommentLast className="mt-6 smx1:mt-0 md:mt-12" />
+              <PostCommented className="mt-6 smx1:mt-0 md:mt-12" />
             </div>
             <PaperLinks />
           </>

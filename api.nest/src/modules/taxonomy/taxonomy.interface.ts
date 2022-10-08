@@ -11,5 +11,6 @@ export interface TaxonomyResponse {
 
 export interface TaxonomiesProps {
   categories: TaxonomyResponse[];
+  geography: TaxonomyResponse[];
   tags: TaxonomyResponse[];
 }

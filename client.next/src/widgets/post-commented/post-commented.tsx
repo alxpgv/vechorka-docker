@@ -7,11 +7,11 @@ import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObser
 import { PostMeta } from "@/shared/ui/post/post-meta";
 import { getPosts } from "@/shared/api/posts";
 
-export interface CommentLastProps {
+export interface PostCommentedProps {
   className?: string;
 }
 
-export const CommentLast: FC<CommentLastProps> = ({ className }) => {
+export const PostCommented: FC<PostCommentedProps> = ({ className }) => {
   const [news, setNews] = useState<PostProps[]>([]);
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLDivElement | null>(null);

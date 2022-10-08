@@ -38,7 +38,10 @@ export const Breadcrumbs = () => {
 
     if (segments[1]) {
       if (segments[0] === "news") {
-        const allTaxonomies = [...taxonomies.categories, ...taxonomies.tags];
+        const allTaxonomies = [
+          ...taxonomies.categories,
+          ...taxonomies.geography,
+        ];
         const category = allTaxonomies.find((tax) => tax.slug === segments[1]);
         category &&
           breadcrumbs.push({

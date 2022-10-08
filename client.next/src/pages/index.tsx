@@ -28,10 +28,10 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
 
   return (
     <>
-      {stavropol && taxonomies?.tags && (
+      {stavropol && taxonomies?.geography && (
         <PostGridInside
           initPosts={{ stavropol }}
-          tabs={taxonomies?.tags}
+          tabs={taxonomies?.geography}
           defaultActiveSlug="stavropol"
         />
       )}

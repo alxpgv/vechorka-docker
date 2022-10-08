@@ -3,7 +3,7 @@ import type { TaxonomiesProps } from "@/shared/types";
 import { getTaxonomiesGroup } from "@/shared/api/taxonomies";
 
 export const getGeneralSettings = async (isSSG = false) => {
-  let taxonomies: TaxonomiesProps = { categories: [], tags: [] };
+  let taxonomies: TaxonomiesProps = { categories: [], geography: [], tags: [] };
 
   try {
     taxonomies = await getTaxonomiesGroup(isSSG);

@@ -289,6 +289,7 @@ export class PostService {
       // taxonomies fields
       if (taxonomies?.length) {
         const categories: TaxonomyResponse[] = [];
+        const geography: TaxonomyResponse[] = [];
         const tags: TaxonomyResponse[] = [];
         for (let i = taxonomies.length - 1; i >= 0; --i) {
           const taxonomy = taxonomies[i];
@@ -307,6 +308,10 @@ export class PostService {
                 categories.push(newTaxonomy);
               }
 
+              if (taxonomy.taxonomy === 'post_geography') {
+                geography.push(newTaxonomy);
+              }
+
               if (taxonomy.taxonomy_taxonomy === 'post_tag') {
                 tags.push(newTaxonomy);
               }
@@ -323,6 +328,7 @@ export class PostService {
 
         newPost.taxonomies = {
           categories,
+          geography,
           tags,
         };
       }

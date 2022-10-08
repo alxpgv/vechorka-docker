@@ -38,7 +38,7 @@ export class TaxonomyService {
   }
 
   private responseTaxonomiesGroup(taxonomies: Taxonomy[]): TaxonomiesProps {
-    const data: TaxonomiesProps = { categories: [], tags: [] };
+    const data: TaxonomiesProps = { categories: [], geography: [], tags: [] };
 
     taxonomies.forEach((taxonomy) => {
       if (taxonomy.terms?.slug !== 'bez-rubriki') {
@@ -55,6 +55,10 @@ export class TaxonomyService {
 
         if (taxonomy.taxonomy === 'category') {
           data.categories.push(item);
+        }
+
+        if (taxonomy.taxonomy === 'post_geography') {
+          data.geography.push(item);
         }
 
         if (taxonomy.taxonomy === 'post_tag') {

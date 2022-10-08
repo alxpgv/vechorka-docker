@@ -1,6 +1,6 @@
 import React from "react";
 import { PaperLinks } from "@/widgets/paper-links";
-import { CommentLast } from "@/widgets/comment-last";
+import { PostCommented } from "@/widgets/post-commented";
 import { PostTopDynamic } from "@/widgets/post-top";
 import { DynamicAdsBanner } from "@/ads/ads-banner";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
@@ -22,7 +22,7 @@ export const HomeLayout: NextPage<Props> = ({ left }) => {
               className="block smx1:hidden mt-6"
               type="280x265"
             />
-            <CommentLast className="mt-6 smx1:mt-0 md:mt-12" />
+            <PostCommented className="mt-6 smx1:mt-0 md:mt-12" />
             <DynamicAdsBanner
               className="block smx1:hidden mt-6"
               type="280x265"

@@ -51,7 +51,7 @@ const CategoriesView = ({
 export const NavCategories: FC<NavCategoriesProps> = ({ className }) => {
   const { taxonomies } = useSettings();
   const categories = taxonomies?.categories;
-  const geography = taxonomies?.tags;
+  const geographyTags = taxonomies?.geography;
 
   return (
     <div className={cn(className, "p-5 pt-2 bg-blue-200")}>
@@ -61,8 +61,8 @@ export const NavCategories: FC<NavCategoriesProps> = ({ className }) => {
           items={[menuAllNewsItem, ...categories]}
         />
       )}
-      {geography && geography.length > 0 && (
-        <CategoriesView title="География" items={geography} />
+      {geographyTags && geographyTags.length > 0 && (
+        <CategoriesView title="География" items={geographyTags} />
       )}
     </div>
   );

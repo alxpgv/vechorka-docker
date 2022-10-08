@@ -35,8 +35,8 @@ export const Footer = () => {
   const categories = settings?.taxonomies?.categories?.length
     ? settings.taxonomies.categories
     : [];
-  const tags = settings?.taxonomies?.tags?.length
-    ? settings.taxonomies.tags
+  const geographyTags = settings?.taxonomies?.geography?.length
+    ? settings.taxonomies.geography
     : [];
 
   return (
@@ -91,7 +91,7 @@ export const Footer = () => {
           {/* col */}
           <div className="hidden md:block flex-1 link-primary">
             <ListTitle title="Новости" listClassName="flex-col">
-              {tags.map((tag) => {
+              {geographyTags.map((tag) => {
                 return (
                   <Link
                     key={tag.id}

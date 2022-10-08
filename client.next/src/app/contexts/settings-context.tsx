@@ -17,7 +17,7 @@ interface SettingsProviderProps extends PropsWithChildren {
 }
 
 const initialContext = {
-  taxonomies: { categories: [], tags: [] },
+  taxonomies: { categories: [], geography: [], tags: [] },
 };
 
 const SettingsContext = createContext<SettingsState>(initialContext);

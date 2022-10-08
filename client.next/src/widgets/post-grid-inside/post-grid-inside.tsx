@@ -27,7 +27,11 @@ export const PostGridInside: FC<Props> = ({
   const activePosts: PostProps[] =
     posts && activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
 
-  const taxonomies = activeTab && { categories: [activeTab], tags: [] };
+  const taxonomies = activeTab && {
+    categories: [activeTab],
+    geography: [],
+    tags: [],
+  };
 
   const changeActiveTab = useCallback(
     async (tab: TaxonomyProps) => {

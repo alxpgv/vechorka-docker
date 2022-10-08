@@ -12,8 +12,8 @@ interface SubMenuProps {
 
 export const SubMenu: FC<SubMenuProps> = ({ parentSlug, items, isOpen }) => {
   const settings = useSettings();
-  const tags = settings?.taxonomies?.tags?.length
-    ? settings?.taxonomies?.tags
+  const geographyTags = settings?.taxonomies?.geography?.length
+    ? settings?.taxonomies?.geography
     : null;
 
   const linkClasses =
@@ -38,8 +38,8 @@ export const SubMenu: FC<SubMenuProps> = ({ parentSlug, items, isOpen }) => {
       {/* tax geography */}
       <hr className="w-full my-4 border-t border-grey-300" />
       <div className="flex flex-wrap -m-1">
-        {tags &&
-          tags.map((tag) => (
+        {geographyTags &&
+          geographyTags.map((tag) => (
             <Link key={tag.id} href={`/${parentSlug}/${tag.slug}`}>
               <a className={linkClasses}>{tag.name}</a>
             </Link>
