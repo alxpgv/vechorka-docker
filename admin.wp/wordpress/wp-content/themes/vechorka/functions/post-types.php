@@ -72,7 +72,19 @@ function register_custom_post_type()
   ));
 
 }
+
 add_action('init', 'register_custom_post_type');
+
+/**
+ * Remove Tutorial Custom Post Type Comments
+ */
+function remove_custom_post_type_comments()
+{
+  remove_post_type_support('article', 'comments');
+}
+
+add_action('init', 'remove_custom_post_type_comments');
+
 
 /*
  * Change 'post' name to 'News'
@@ -86,6 +98,7 @@ function change_edit_admin_menus()
   $submenu['edit.php'][5][0] = 'Все новости';
   $submenu['edit.php'][10][0] = 'Добавить новость';
 }
+
 add_action('admin_menu', 'change_edit_admin_menus');
 
 function change_post_object()
@@ -108,6 +121,7 @@ function change_post_object()
   $labels->menu_name = 'Новости';
   $labels->name_admin_bar = 'Новости';
 }
+
 add_action('init', 'change_post_object');
 
 // change order admin menu items
@@ -147,14 +161,14 @@ add_filter('menu_order', 'wpse_custom_menu_order', 10, 1);
 function add_custom_taxonomies()
 {
   // Add new "Locations" taxonomy to Posts
-  register_taxonomy('news_geography', 'post', array(
+  register_taxonomy('post_geography', 'post', array(
     // Hierarchical taxonomy (like categories)
     'hierarchical' => false,
     'show_admin_column' => true,
     // This array of options controls the labels displayed in the WordPress Admin UI
     'labels' => array(
-      'name' => __('Метка географии'),
-      'singular_name' => __('Метка географии'),
+      'name' => __('География'),
+      'singular_name' => __('География'),
       'search_items' => __('Найти по географии'),
       'all_items' => __('Все метки географии'),
       // 'parent_item' => __( 'Parent Location' ),
@@ -163,57 +177,61 @@ function add_custom_taxonomies()
       'update_item' => __('Обновить метку'),
       'add_new_item' => __('Добавить новую метку'),
       'new_item_name' => __('Имя метки'),
-      'menu_name' => __('Метки географии'),
+      'menu_name' => __('География'),
     ),
     // Control the slugs used for this taxonomy
     'rewrite' => array(
-      'slug' => 'news_geography', // This controls the base slug that will display before each term
+      'slug' => 'post_geography', // This controls the base slug that will display before each term
       'with_front' => false, // Don't display the category base before "/locations/"
       'hierarchical' => true, // This will allow URL's like "/locations/boston/cambridge/"
     ),
   ));
 }
 
-// add_action('init', 'add_custom_taxonomies', 0);
+add_action('init', 'add_custom_taxonomies', 0);
 
 /**
  * Display a custom taxonomy dropdown in admin
  * @author Mike Hemberger
  * @link http://thestizmedia.com/custom-post-type-filter-admin-custom-taxonomy/
  */
-function tsm_filter_post_type_by_taxonomy() {
+function tsm_filter_post_type_by_taxonomy()
+{
   global $typenow;
   $post_type = 'post'; // change to your post type
-  $taxonomy  = 'post_tag'; // change to your taxonomy
+  $taxonomy = 'post_geography'; // change to your taxonomy
   if ($typenow == $post_type) {
-    $selected      = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+    $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
     $info_taxonomy = get_taxonomy($taxonomy);
     wp_dropdown_categories(array(
-      'show_option_all' => sprintf( __( 'Все %s', 'vechorka' ), $info_taxonomy->label ),
-      'taxonomy'        => $taxonomy,
-      'name'            => $taxonomy,
-      'orderby'         => 'name',
-      'selected'        => $selected,
-      'show_count'      => true,
-      'hide_empty'      => true,
+      'show_option_all' => sprintf(__('Все %s', 'vechorka'), $info_taxonomy->label),
+      'taxonomy' => $taxonomy,
+      'name' => $taxonomy,
+      'orderby' => 'name',
+      'selected' => $selected,
+      'show_count' => true,
+      'hide_empty' => true,
     ));
   };
 }
-// add_action('restrict_manage_posts', 'tsm_filter_post_type_by_taxonomy');
+
+add_action('restrict_manage_posts', 'tsm_filter_post_type_by_taxonomy');
 
 /**
  * Filter posts by taxonomy in admin
  * @author  Mike Hemberger
  * @link http://thestizmedia.com/custom-post-type-filter-admin-custom-taxonomy/
  */
-function tsm_convert_id_to_term_in_query($query) {
+function tsm_convert_id_to_term_in_query($query)
+{
   global $pagenow;
   $post_type = 'post'; // change to your post type
-  $taxonomy  = 'post_tag'; // change to your taxonomy
-  $q_vars    = &$query->query_vars;
-  if ( $pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type && isset($q_vars[$taxonomy]) && is_numeric($q_vars[$taxonomy]) && $q_vars[$taxonomy] != 0 ) {
+  $taxonomy = 'post_geography'; // change to your taxonomy
+  $q_vars = &$query->query_vars;
+  if ($pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type && isset($q_vars[$taxonomy]) && is_numeric($q_vars[$taxonomy]) && $q_vars[$taxonomy] != 0) {
     $term = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
     $q_vars[$taxonomy] = $term->slug;
   }
 }
-// add_filter('parse_query', 'tsm_convert_id_to_term_in_query');
+
+add_filter('parse_query', 'tsm_convert_id_to_term_in_query');
