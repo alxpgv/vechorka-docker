@@ -3,11 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@/shared/ui/icon";
 
-interface PaperLinksWidgetProps {
+interface Props {
   className?: string;
 }
 
-export const PaperLinksWidget: FC<PaperLinksWidgetProps> = ({ className }) => {
+export const PaperLinks: FC<Props> = ({ className }) => {
   return (
     <div className={className}>
       <div className="relative mt-[60px] py-10 px-6 bg-blue-200 text-white">

@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createNestedArray } from "@/shared/lib/helpers";
-import { VideoItem } from "@/video/last-video-slider/video-item";
-import { IconPlay } from "@/video/last-video-slider/icon-play";
+import { VideoItem } from "@/widgets/video-last-slider/video-item";
+import { IconPlay } from "@/widgets/video-last-slider/icon-play";
 import { useKeenSlider } from "keen-slider/react";
 import cn from "clsx";
 import { SimpleLoader } from "@/shared/ui/loaders";
-import { VideoModal } from "@/video/last-video-slider/video-modal";
+import { VideoModal } from "@/widgets/video-last-slider/video-modal";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
-import { Arrow } from "@/video/last-video-slider/arrow";
+import { Arrow } from "@/widgets/video-last-slider/arrow";
 import { getPosts } from "@/shared/api/posts";
 import type { PostProps } from "@/shared/types";
 
 type VideoGroupItems = Array<PostProps[]>;
 
-export const LastVideoSlider = () => {
+export const VideoLastSlider = () => {
   const [videos, setVideos] = useState<VideoGroupItems>([]);
   const [activeVideo, setActiveVideo] = useState<PostProps | null>(null);
   const [loading, setLoading] = useState(true);

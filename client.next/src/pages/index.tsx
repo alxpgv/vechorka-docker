@@ -7,7 +7,7 @@ import { getGeneralSettings } from "@/shared/api/settings";
 import { getHomePosts } from "@/shared/api/posts";
 import type { TaxonomiesProps } from "@/shared/types";
 import type { ListPostProps, PostProps } from "@/shared/types";
-import { DynamicLastVideoSlider } from "@/video/last-video-slider";
+import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { FeedbackSocialsDynamic } from "@/widgets/feedback-socials";
 import { menuAllNewsItem } from "@/shared/config";
 import { PostGridInside } from "@/widgets/post-grid-inside";
@@ -45,7 +45,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
           </>
         }
       />
-      <DynamicLastVideoSlider />
+      <VideoLastSliderDynamic />
       {interestNews && <PostInterest posts={interestNews} />}
       <FeedbackSocialsDynamic />
     </>

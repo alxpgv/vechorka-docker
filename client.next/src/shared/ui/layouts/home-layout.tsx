@@ -1,5 +1,5 @@
 import React from "react";
-import { PaperLinksWidget } from "@/newspaper/paper-links-widget";
+import { PaperLinks } from "@/widgets/paper-links";
 import { CommentLast } from "@/widgets/comment-last";
 import { PostTopDynamic } from "@/widgets/post-top";
 import { DynamicAdsBanner } from "@/ads/ads-banner";
@@ -29,7 +29,7 @@ export const HomeLayout: NextPage<Props> = ({ left }) => {
             />
           </div>
 
-          <PaperLinksWidget />
+          <PaperLinks />
 
           <div className="w-full smx1:flex smx1:gap-2 md:block mt-6 md:mt-12">
             <DynamicAdsBanner className="hidden md:block" type="280x600" />

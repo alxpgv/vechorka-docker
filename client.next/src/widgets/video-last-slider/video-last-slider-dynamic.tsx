@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import { SimpleLoader } from "@/shared/ui/loaders";
 import React from "react";
 
-export const DynamicLastVideoSlider = dynamic(
+export const VideoLastSliderDynamic = dynamic(
   (): any =>
-    import("@/video/last-video-slider").then((mod) => mod.LastVideoSlider),
+    import("@/widgets/video-last-slider").then((mod) => mod.VideoLastSlider),
   {
     ssr: false,
     loading: () => <SimpleLoader />,
