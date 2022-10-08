@@ -15,10 +15,9 @@ export const PostDetail = ({
 }: PostProps) => {
   return (
     <>
-      <PostImage
-        url={preview?.url}
-        className="h-[260px] sm:h-[320px] lg:h-[460px] mb-5"
-      />
+      <div className="h-[260px] sm:h-[320px] lg:h-[460px] mb-5">
+        <PostImage url={preview?.url} />
+      </div>
       {title && <h1 className="text-grey-500 mb-5">{title}</h1>}
       <PostMeta
         date={createdAt}
