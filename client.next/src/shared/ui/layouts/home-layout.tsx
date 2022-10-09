@@ -4,7 +4,7 @@ import { NewsCommentedDynamic } from "@/widgets/news-commented";
 import { NewsTopDynamic } from "@/widgets/news-top";
 import { DynamicAdsBanner } from "@/ads/ads-banner";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 
 interface Props {
   left: React.ReactNode;

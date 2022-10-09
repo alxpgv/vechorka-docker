@@ -1,77 +1,46 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import cn from "clsx";
-import type { PostProps } from "@/shared/types";
-import { SimpleLoader } from "@/shared/ui/loaders";
-import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
+import React, { FC } from "react";
 import { PostMeta } from "@/features/post/post-meta";
 import { getPosts } from "@/shared/api/posts";
-import { getLink } from "@/shared/lib/links";
 import { PostTitle } from "@/features/post/post-title";
+import { PostListWidget } from "@/widgets/post-list-widget";
 
 export interface NewsCommentedProps {
   className?: string;
 }
 
 export const NewsCommented: FC<NewsCommentedProps> = ({ className }) => {
-  const [news, setNews] = useState<PostProps[]>([]);
-  const [loading, setLoading] = useState(true);
-  const ref = useRef<HTMLDivElement | null>(null);
-  const entry = useIntersectionObserver(ref, { freezeOnceVisible: true });
-  const isVisible = !!entry?.isIntersecting;
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchNews = async () => {
-      try {
-        const fetchedNews = await getPosts({
+  return (
+    <PostListWidget
+      className={className}
+      urlPrefix="news"
+      title="Комментируют"
+      fetchCallback={() =>
+        getPosts({
           limit: 5,
           relations: { taxonomy: true },
-        });
-        setNews(fetchedNews);
-      } catch (e) {
-        console.log("error");
+        })
       }
-      setLoading(false);
-    };
-    isVisible && fetchNews();
-  }, [isVisible]);
-
-  return (
-    <div className={cn(className, "p-6 bg-grey-100")} ref={ref}>
-      <div className="pb-4 border-b border-b-grey-200">
-        <h4 className="text-grey-500">Комментируют</h4>
-      </div>
-      {loading && <SimpleLoader />}
-      <div className="divide-y divide-grey-200">
-        {!loading &&
-          news?.length > 0 &&
-          news.map((item) => {
-            const categories = item.taxonomies?.categories;
-            const categorySlug =
-              categories && categories[0] ? categories[0].slug : "";
-            const href = getLink("news", categorySlug, item.slug);
-
-            return (
-              <div key={item.id} className="py-4">
-                {/* meta */}
-                <PostMeta
-                  className="justify-between"
-                  date={item.createdAt}
-                  time={item.createdAt}
-                />
-                {/* title */}
-                {item.title && (
-                  <PostTitle
-                    title={item.title}
-                    href={href}
-                    tag="h6"
-                    className="pt-2 text-line-clamp-3"
-                  />
-                )}
-              </div>
-            );
-          })}
-      </div>
-    </div>
+      view={({ post, href }) => (
+        <>
+          <div>
+            {/* meta */}
+            <PostMeta
+              className="justify-between"
+              date={post.createdAt}
+              time={post.createdAt}
+            />
+            {/* title */}
+            {post.title && (
+              <PostTitle
+                title={post.title}
+                href={href}
+                tag="h6"
+                className="pt-2 text-line-clamp-3"
+              />
+            )}
+          </div>
+        </>
+      )}
+    />
   );
 };

@@ -1,27 +1,30 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import cn from "clsx";
 import type { PostProps } from "@/shared/types";
-import { PostMeta } from "@/features/post/post-meta";
 import { getLink } from "@/shared/lib/links";
-import { PostTitle } from "@/features/post/post-title";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 import { SimpleLoader } from "@/shared/ui/loaders";
-import { PostImage } from "@/features/post/post-image";
 
 export interface PostListWidgetProps {
   title: string;
-  showPreview?: boolean;
   className?: string;
   urlPrefix: string;
   fetchCallback: () => Promise<PostProps[]>;
+  view: ({
+    post,
+    href,
+  }: {
+    post: PostProps;
+    href: string;
+  }) => React.ReactElement;
 }
 
 export const PostListWidget: FC<PostListWidgetProps> = ({
   title,
-  showPreview = false,
   className,
   urlPrefix,
   fetchCallback,
+  view,
 }) => {
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +39,7 @@ export const PostListWidget: FC<PostListWidgetProps> = ({
         const fetchedData = await fetchCallback();
         setPosts(fetchedData);
       } catch (e) {
-        console.log("error");
+        console.log("post list widget");
       }
       setLoading(false);
     };
@@ -62,34 +65,7 @@ export const PostListWidget: FC<PostListWidgetProps> = ({
 
             return (
               <div key={post.id} className="flex py-4">
-                {/* image */}
-                {showPreview && (
-                  <div className="border relative w-[60px] min-h-[70px] mr-3">
-                    <PostImage
-                      url={
-                        post.preview?.sizes?.thumbnail?.url || post.preview?.url
-                      }
-                      href={href}
-                    />
-                  </div>
-                )}
-
-                {/* meta */}
-                <PostMeta
-                  className="justify-between"
-                  date={post.createdAt}
-                  time={post.createdAt}
-                />
-
-                {/* title */}
-                {post.title && (
-                  <PostTitle
-                    title={post.title}
-                    href={href}
-                    tag="h6"
-                    className="pt-2 text-line-clamp-3"
-                  />
-                )}
+                {view({ post, href })}
               </div>
             );
           })}
