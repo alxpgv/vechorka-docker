@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import cn from "clsx";
+import { getSizesFromResolution } from "@/shared/lib/helpers";
 
 export interface AdsBannerProps {
   type: "280x600" | "280x265";
@@ -18,13 +19,9 @@ const getBannerSrc = (type: string) => {
   }
 };
 
-const getSizes = (type: string) => {
-  return type.split("x");
-};
-
 export const AdsBanner: FC<AdsBannerProps> = ({ type, className }) => {
   const bannerSrc = getBannerSrc(type);
-  const sizes = getSizes(type);
+  const sizes = getSizesFromResolution(type);
 
   return (
     <div className={cn(className, "relative text-center")}>

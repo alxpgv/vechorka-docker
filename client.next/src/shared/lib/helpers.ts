@@ -42,5 +42,9 @@ export const encodeQueryData = (params: any) => {
   return url.join("&");
 };
 
+export const getSizesFromResolution = (value: string): string[] => {
+  return value.split("x");
+};
+
 export const isDocker = !!Number(process.env.DOCKER);
 export const isSSR = typeof window === "undefined";
