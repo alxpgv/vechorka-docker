@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import cn from "clsx";
 import type { PostProps } from "@/shared/types";
 import { SimpleLoader } from "@/shared/ui/loaders";
@@ -7,12 +6,14 @@ import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObser
 import { PostMeta } from "@/features/post/post-meta";
 import { PostImage } from "@/features/post/post-image";
 import { getPosts } from "@/shared/api/posts";
+import { getLink } from "@/shared/lib/links";
+import { PostTitle } from "@/features/post/post-title";
 
-export interface PostTopProps {
+export interface NewsTopProps {
   className?: string;
 }
 
-export const PostTop: FC<PostTopProps> = ({ className }) => {
+export const NewsTop: FC<NewsTopProps> = ({ className }) => {
   const [news, setNews] = useState<PostProps[]>([]);
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -49,7 +50,7 @@ export const PostTop: FC<PostTopProps> = ({ className }) => {
             const categories = item.taxonomies?.categories;
             const categorySlug =
               categories && categories[0] ? categories[0].slug : "";
-            const href = `/news/${categorySlug}/${item.slug}`;
+            const href = getLink("news", categorySlug, item.slug);
 
             return (
               <div key={item.id} className="flex py-4">
@@ -70,14 +71,14 @@ export const PostTop: FC<PostTopProps> = ({ className }) => {
                     date={item.createdAt}
                     commentCount={item.commentCount}
                   />
-
                   {/* title */}
                   {item.title && (
-                    <Link href={href}>
-                      <a className="pt-2 text-line-clamp-3 link-primary">
-                        <h6>{item.title}</h6>
-                      </a>
-                    </Link>
+                    <PostTitle
+                      title={item.title}
+                      href={href}
+                      tag="h6"
+                      className="pt-2 text-line-clamp-3"
+                    />
                   )}
                 </div>
               </div>

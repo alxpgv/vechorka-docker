@@ -1,8 +1,8 @@
 import React from "react";
 import { HomeLayout } from "@/shared/ui/layouts";
-import { PostCategoriesTabbed } from "@/widgets/post-categories-tabbed";
+import { NewsCategoriesTabbed } from "@/widgets/news-categories-tabbed";
 import { MainLastArticles } from "@/articles/main-last-articles";
-import { PostInterest } from "@/widgets/post-interest";
+import { NewsInterest } from "@/widgets/news-interest";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { getHomePosts } from "@/shared/api/posts";
 import type { TaxonomiesProps } from "@/shared/types";
@@ -10,7 +10,7 @@ import type { ListPostProps, PostProps } from "@/shared/types";
 import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { FeedbackSocialsDynamic } from "@/widgets/feedback-socials";
 import { menuAllNewsItem } from "@/shared/config";
-import { PostCategoriesGridTabbed } from "@/widgets/post-categories-grid-tabbed";
+import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 
 interface HomeProps {
   posts: {
@@ -29,7 +29,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
   return (
     <>
       {stavropol && taxonomies?.geography && (
-        <PostCategoriesGridTabbed
+        <NewsCategoriesGridTabbed
           initPosts={{ stavropol }}
           tabs={taxonomies?.geography}
           defaultActiveSlug="stavropol"
@@ -40,7 +40,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
         left={
           <>
             {lastNews && (
-              <PostCategoriesTabbed
+              <NewsCategoriesTabbed
                 initPosts={{ news: lastNews }}
                 tabs={categories}
                 urlPrefix="news"
@@ -51,7 +51,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
         }
       />
       <VideoLastSliderDynamic />
-      {interestNews && <PostInterest posts={interestNews} urlPrefix="news" />}
+      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
       <FeedbackSocialsDynamic />
     </>
   );

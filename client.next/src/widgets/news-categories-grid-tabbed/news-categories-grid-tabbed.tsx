@@ -3,7 +3,7 @@ import { ScrollTabs } from "@/shared/ui/scroll-tabs";
 import { FullLoader } from "@/shared/ui/loaders";
 import type { PostProps, ListPostProps } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
-import { getPostsByTaxonomy } from "@/shared/api/posts";
+import { getPostsByTaxonomyId } from "@/shared/api/posts";
 import { PostItemInside } from "@/entities/post/ui/post-item-inside";
 import { PostItemSimple } from "@/entities/post/ui/post-item-simple";
 import { messages } from "@/shared/constants";
@@ -15,7 +15,7 @@ interface Props {
   urlPrefix: string;
 }
 
-export const PostCategoriesGridTabbed: FC<Props> = ({
+export const NewsCategoriesGridTabbed: FC<Props> = ({
   initPosts,
   tabs,
   defaultActiveSlug,
@@ -41,7 +41,7 @@ export const PostCategoriesGridTabbed: FC<Props> = ({
       if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const fetchedPosts = await getPostsByTaxonomy(tab.taxonomyId, {
+          const fetchedPosts = await getPostsByTaxonomyId(tab.taxonomyId, {
             limit: 5,
             sticky: true,
           });

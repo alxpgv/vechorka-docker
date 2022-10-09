@@ -40,7 +40,7 @@ export class PostController {
   }
 
   // TODO: pipe validation query, min/max
-  @Get('taxonomy/:id?')
+  @Get('taxonomy/id/:id?')
   getPostsByTaxonomyId(@Query() query, @Param('id') id) {
     let limit = parseInt(query?.limit);
     limit = isNaN(limit) ? undefined : limit;

@@ -2,7 +2,7 @@ import React from "react";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
-import { PostInterest } from "@/widgets/post-interest";
+import { NewsInterest } from "@/widgets/news-interest";
 import { FeedbackSocials } from "@/widgets/feedback-socials";
 import { PostDetail } from "@/entities/post/ui/post-detail";
 import { getPost, getPosts } from "@/shared/api/posts";
@@ -17,7 +17,7 @@ const NewsDetailPage = ({ post, interestNews }: NewsDetailProps) => {
   return (
     <>
       <PostLayout left={<PostDetail {...post} />} />
-      {interestNews && <PostInterest posts={interestNews} urlPrefix="news" />}
+      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
       <FeedbackSocials />
     </>
   );

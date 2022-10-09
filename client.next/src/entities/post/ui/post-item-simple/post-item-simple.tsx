@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import { PostMeta } from "@/features/post/post-meta";
-import { getLink } from "@/entities/post/lib";
+import { getLink } from "@/shared/lib/links";
 import cn from "clsx";
 import type { HeadingTag } from "@/features/post/post-title/post-title";
 import { PostTitle } from "@/features/post/post-title/post-title";

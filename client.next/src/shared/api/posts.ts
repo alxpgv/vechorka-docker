@@ -28,13 +28,13 @@ export const getPosts = (params: PostParams): Promise<PostProps[]> => {
   return api.get(`posts${queryParams ? `?${queryParams}` : ""}`);
 };
 
-export const getPostsByTaxonomy = (
+export const getPostsByTaxonomyId = (
   taxonomyId: number,
   params: PostParams
 ): Promise<PostProps[]> => {
   const queryParams = encodeQueryData(params);
   return api.get(
-    `posts/taxonomy/${taxonomyId}${queryParams ? `?${queryParams}` : ""}`
+    `posts/taxonomy/id/${taxonomyId}${queryParams ? `?${queryParams}` : ""}`
   );
 };
 

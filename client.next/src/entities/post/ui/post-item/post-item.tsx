@@ -4,8 +4,9 @@ import Link from "next/link";
 import cn from "clsx";
 import { PostMeta } from "@/features/post/post-meta";
 import { PostImage } from "@/features/post/post-image";
-import { PostLinkCategory } from "@/features/post/post-link-category";
-import { getLink } from "@/entities/post/lib";
+import { PostCategoryLink } from "@/features/post/post-category-link";
+import { getLink } from "@/shared/lib/links";
+import { PostTitle } from "@/features/post/post-title";
 
 interface Props {
   post: PostProps;
@@ -43,17 +44,14 @@ export const PostItem: FC<Props> = ({
       )}
     >
       {/* image */}
-      <PostImage
-        url={preview?.url}
-        href={href}
-        className={cn("h-[190px]", isFirst && "sm:h-[320px] lg:h-[190px]")}
-      />
+      <div className={cn("h-[190px]", isFirst && "sm:h-[320px] lg:h-[190px]")}>
+        <PostImage url={preview?.url} href={href} />
+      </div>
 
       {/* category */}
       {categories && (
-        <PostLinkCategory
+        <PostCategoryLink
           className="mt-3"
-          color="dark"
           urlPrefix={urlPrefix}
           categories={categories}
         />
@@ -61,11 +59,7 @@ export const PostItem: FC<Props> = ({
 
       {/* title */}
       {title && (
-        <Link href={href} prefetch={false}>
-          <a className="mt-3 link-primary">
-            <h3>{title}</h3>
-          </a>
-        </Link>
+        <PostTitle title={title} href={href} tag="h3" className="mt-3" />
       )}
 
       {/* text */}

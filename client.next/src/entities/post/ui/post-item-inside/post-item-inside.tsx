@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { PostMeta } from "@/features/post/post-meta";
 import { PostImage } from "@/features/post/post-image";
-import { PostLinkCategory } from "@/features/post/post-link-category";
-import { getLink } from "@/entities/post/lib";
+import { PostCategoryLink } from "@/features/post/post-category-link";
+import { getLink } from "@/shared/lib/links";
 import cn from "clsx";
 import { PostTitle } from "@/features/post/post-title";
 import type { PostProps } from "@/shared/types";
@@ -46,8 +46,8 @@ export const PostItemInside: FC<Props> = ({
 
           {/* category */}
           {categories && (
-            <PostLinkCategory
-              className="mt-3"
+            <PostCategoryLink
+              className="mt-3 pointer-events-auto"
               color="light"
               urlPrefix={urlPrefix}
               categories={categories}

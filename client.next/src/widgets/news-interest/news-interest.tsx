@@ -2,16 +2,17 @@ import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import Link from "next/link";
 import { PostImage } from "@/features/post/post-image";
-import { PostLinkCategory } from "@/features/post/post-link-category";
+import { PostCategoryLink } from "@/features/post/post-category-link";
 import { PostMeta } from "@/features/post/post-meta";
-import { getLink } from "@/entities/post/lib";
+import { getLink } from "@/shared/lib/links";
+import { PostTitle } from "@/features/post/post-title";
 
 interface Props {
   posts: PostProps[];
   urlPrefix: string;
 }
 
-export const PostInterest: FC<Props> = ({ posts, urlPrefix }) => {
+export const NewsInterest: FC<Props> = ({ posts, urlPrefix }) => {
   if (!posts || !posts.length) return null;
 
   return (
@@ -37,9 +38,8 @@ export const PostInterest: FC<Props> = ({ posts, urlPrefix }) => {
               <div className="flex flex-wrap items-center justify-between mt-3">
                 {/* category */}
                 {categories && (
-                  <PostLinkCategory
+                  <PostCategoryLink
                     className="mr-2"
-                    color="dark"
                     urlPrefix={urlPrefix}
                     categories={categories}
                   />
@@ -50,11 +50,12 @@ export const PostInterest: FC<Props> = ({ posts, urlPrefix }) => {
 
               {/* title */}
               {title && (
-                <Link href={href} prefetch={false}>
-                  <a className="link-primary">
-                    <h4 className="mt-3">{title}</h4>
-                  </a>
-                </Link>
+                <PostTitle
+                  title={title}
+                  href={href}
+                  tag="h4"
+                  className="mt-3 block"
+                />
               )}
             </div>
           );

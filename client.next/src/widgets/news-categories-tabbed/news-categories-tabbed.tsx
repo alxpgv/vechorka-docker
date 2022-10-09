@@ -6,9 +6,9 @@ import type { ListPostProps, PostProps } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";
 import { PostItem } from "@/entities/post/ui/post-item";
-import { getPosts, getPostsByTaxonomy } from "@/shared/api/posts";
+import { getPosts, getPostsByTaxonomyId } from "@/shared/api/posts";
 import { messages } from "@/shared/constants";
-import { getLink } from "@/entities/post/lib";
+import { getLink } from "@/shared/lib/links";
 
 interface Props {
   initPosts: ListPostProps;
@@ -34,7 +34,7 @@ const LinkToCategory = ({
   );
 };
 
-export const PostCategoriesTabbed: FC<Props> = ({
+export const NewsCategoriesTabbed: FC<Props> = ({
   initPosts,
   tabs,
   limit = 9,
@@ -48,14 +48,12 @@ export const PostCategoriesTabbed: FC<Props> = ({
   const activePosts: PostProps[] =
     posts && activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
 
-  console.log(posts);
-
   const changeActiveTab = useCallback(
     async (tab: TaxonomyProps) => {
       if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const fetchedPosts = await getPostsByTaxonomy(tab.taxonomyId, {
+          const fetchedPosts = await getPostsByTaxonomyId(tab.taxonomyId, {
             limit,
             relations: { taxonomy: true },
           });
@@ -80,7 +78,7 @@ export const PostCategoriesTabbed: FC<Props> = ({
       };
       try {
         const fetchedNews = activeTab.taxonomyId
-          ? await getPostsByTaxonomy(activeTab.taxonomyId, params)
+          ? await getPostsByTaxonomyId(activeTab.taxonomyId, params)
           : await getPosts(params);
         setPosts((prev) => ({
           ...prev,

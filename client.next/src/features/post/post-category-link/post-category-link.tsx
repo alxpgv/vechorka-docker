@@ -3,7 +3,7 @@ import Link from "next/link";
 import { TaxonomyProps } from "@/shared/types";
 import cn from "clsx";
 
-interface PostLinkCategoryProps {
+interface Props {
   categories: TaxonomyProps[];
   className?: string;
   color?: "light" | "dark";
@@ -11,20 +11,20 @@ interface PostLinkCategoryProps {
   urlPrefix: string;
 }
 
-export const PostLinkCategory = ({
+export const PostCategoryLink = ({
   categories,
   className,
   color = "dark",
   variant,
   urlPrefix,
-}: PostLinkCategoryProps) => {
+}: Props) => {
   if (!categories.length) return null;
 
   return (
     <div
       className={cn(
         className,
-        "relative flex flex-wrap w-fit space-x-3 text-sm-10 pointer-events-auto",
+        "relative flex flex-wrap space-x-3 w-fit text-sm-10",
         {
           "link-light": color === "light",
         }

@@ -1,7 +1,7 @@
 import React from "react";
 import { PaperLinks } from "@/widgets/paper-links";
-import { PostCommented } from "@/widgets/post-commented";
-import { PostTopDynamic } from "@/widgets/post-top";
+import { NewsCommentedDynamic } from "@/widgets/news-commented";
+import { NewsTopDynamic } from "@/widgets/news-top";
 import { DynamicAdsBanner } from "@/ads/ads-banner";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import { NextPage } from "next";
@@ -17,12 +17,12 @@ export const HomeLayout: NextPage<Props> = ({ left }) => {
       right={
         <>
           <div className="smx1:flex md:block">
-            <PostTopDynamic className="smx1:mr-3 md:mr-0" />
+            <NewsTopDynamic className="smx1:mr-3 md:mr-0" />
             <DynamicAdsBanner
               className="block smx1:hidden mt-6"
               type="280x265"
             />
-            <PostCommented className="mt-6 smx1:mt-0 md:mt-12" />
+            <NewsCommentedDynamic className="mt-6 smx1:mt-0 md:mt-12" />
             <DynamicAdsBanner
               className="block smx1:hidden mt-6"
               type="280x265"
