@@ -1,6 +1,6 @@
 import React from "react";
 import { HomeLayout } from "@/shared/ui/layouts";
-import { MainLastNews } from "@/news/main-last-news";
+import { PostCategoriesTabbed } from "@/widgets/post-categories-tabbed";
 import { MainLastArticles } from "@/articles/main-last-articles";
 import { PostInterest } from "@/widgets/post-interest";
 import { getGeneralSettings } from "@/shared/api/settings";
@@ -10,7 +10,7 @@ import type { ListPostProps, PostProps } from "@/shared/types";
 import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { FeedbackSocialsDynamic } from "@/widgets/feedback-socials";
 import { menuAllNewsItem } from "@/shared/config";
-import { PostGridInside } from "@/widgets/post-grid-inside";
+import { PostCategoriesGridTabbed } from "@/widgets/post-categories-grid-tabbed";
 
 interface HomeProps {
   posts: {
@@ -29,24 +29,29 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
   return (
     <>
       {stavropol && taxonomies?.geography && (
-        <PostGridInside
+        <PostCategoriesGridTabbed
           initPosts={{ stavropol }}
           tabs={taxonomies?.geography}
           defaultActiveSlug="stavropol"
+          urlPrefix="news"
         />
       )}
       <HomeLayout
         left={
           <>
             {lastNews && (
-              <MainLastNews initNews={{ news: lastNews }} tabs={categories} />
+              <PostCategoriesTabbed
+                initPosts={{ news: lastNews }}
+                tabs={categories}
+                urlPrefix="news"
+              />
             )}
             {articles && <MainLastArticles articles={articles} />}
           </>
         }
       />
       <VideoLastSliderDynamic />
-      {interestNews && <PostInterest posts={interestNews} />}
+      {interestNews && <PostInterest posts={interestNews} urlPrefix="news" />}
       <FeedbackSocialsDynamic />
     </>
   );

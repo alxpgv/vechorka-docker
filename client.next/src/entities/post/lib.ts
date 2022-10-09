@@ -1,10 +1,11 @@
 export const getLink = (
-  postSlug: string,
+  urlPrefix?: string,
   categorySlug?: string,
-  urlPrefix?: string
+  postSlug?: string
 ) => {
-  const prefix = urlPrefix ? `/${urlPrefix}` : "";
-  return categorySlug
-    ? `${prefix}/${categorySlug}/${postSlug}`
-    : `${prefix}/${postSlug}`;
+  const _urlPrefix = urlPrefix ? `${urlPrefix}` : "";
+  const _postSlug = postSlug ? `/${postSlug}` : "";
+  const _categorySlug = categorySlug ? `/${categorySlug}` : "";
+
+  return `/${_urlPrefix}${_categorySlug}${_postSlug}`;
 };

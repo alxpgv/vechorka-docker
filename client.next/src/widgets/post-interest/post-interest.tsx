@@ -1,15 +1,17 @@
 import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import Link from "next/link";
-import { PostImage } from "@/shared/ui/post/post-image";
-import { PostLinkCategory } from "@/shared/ui/post/post-link-category";
-import { PostMeta } from "@/shared/ui/post/post-meta";
+import { PostImage } from "@/features/post/post-image";
+import { PostLinkCategory } from "@/features/post/post-link-category";
+import { PostMeta } from "@/features/post/post-meta";
+import { getLink } from "@/entities/post/lib";
 
 interface Props {
   posts: PostProps[];
+  urlPrefix: string;
 }
 
-export const PostInterest: FC<Props> = ({ posts }) => {
+export const PostInterest: FC<Props> = ({ posts, urlPrefix }) => {
   if (!posts || !posts.length) return null;
 
   return (
@@ -20,7 +22,7 @@ export const PostInterest: FC<Props> = ({ posts }) => {
           const categories = taxonomies?.categories;
           const categorySlug =
             categories && categories[0] ? categories[0].slug : "";
-          const href = `/news/${categorySlug}/${slug}`;
+          const href = getLink(urlPrefix, categorySlug, slug);
 
           return (
             <div key={id} className="w-full sm:w-1/2 md:flex-1 p-3 sm:p-2">
@@ -38,7 +40,7 @@ export const PostInterest: FC<Props> = ({ posts }) => {
                   <PostLinkCategory
                     className="mr-2"
                     color="dark"
-                    parentSlug="news"
+                    urlPrefix={urlPrefix}
                     categories={categories}
                   />
                 )}

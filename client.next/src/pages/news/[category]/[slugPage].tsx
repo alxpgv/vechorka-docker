@@ -17,7 +17,7 @@ const NewsDetailPage = ({ post, interestNews }: NewsDetailProps) => {
   return (
     <>
       <PostLayout left={<PostDetail {...post} />} />
-      {interestNews && <PostInterest posts={interestNews} />}
+      {interestNews && <PostInterest posts={interestNews} urlPrefix="news" />}
       <FeedbackSocials />
     </>
   );

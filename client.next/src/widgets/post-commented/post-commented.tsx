@@ -4,7 +4,7 @@ import cn from "clsx";
 import type { PostProps } from "@/shared/types";
 import { SimpleLoader } from "@/shared/ui/loaders";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
-import { PostMeta } from "@/shared/ui/post/post-meta";
+import { PostMeta } from "@/features/post/post-meta";
 import { getPosts } from "@/shared/api/posts";
 
 export interface PostCommentedProps {

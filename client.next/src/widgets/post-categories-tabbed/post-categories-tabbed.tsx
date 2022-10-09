@@ -5,19 +5,27 @@ import { Button } from "@/shared/ui/button";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";
-import { PostItemCategory } from "@/shared/ui/post/post-item-category";
+import { PostItem } from "@/entities/post/ui/post-item";
 import { getPosts, getPostsByTaxonomy } from "@/shared/api/posts";
+import { messages } from "@/shared/constants";
+import { getLink } from "@/entities/post/lib";
 
-interface MainLastNewsProps {
-  initNews: ListPostProps;
+interface Props {
+  initPosts: ListPostProps;
   tabs: TaxonomyProps[];
   limit?: number;
   limitMore?: number;
+  urlPrefix: string;
 }
 
-const ButtonCategoryNews = ({ taxonomySlug }: { taxonomySlug: string }) => {
-  const href =
-    taxonomySlug === "news" ? `/${taxonomySlug}` : `/news/${taxonomySlug}`;
+const LinkToCategory = ({
+  categorySlug,
+  urlPrefix,
+}: {
+  categorySlug?: string;
+  urlPrefix: string;
+}) => {
+  const href = getLink(urlPrefix, categorySlug);
 
   return (
     <Button variant="outline" onClick={() => router.push(href)}>
@@ -26,44 +34,47 @@ const ButtonCategoryNews = ({ taxonomySlug }: { taxonomySlug: string }) => {
   );
 };
 
-export const MainLastNews: FC<MainLastNewsProps> = ({
-  initNews,
+export const PostCategoriesTabbed: FC<Props> = ({
+  initPosts,
   tabs,
   limit = 9,
   limitMore = 3,
+  urlPrefix,
 }) => {
-  const [news, setNews] = useState<ListPostProps>(initNews || {});
+  const [posts, setPosts] = useState<ListPostProps>(initPosts || {});
   const [activeTab, setActiveTab] = useState<TaxonomyProps>(tabs[0] || {});
   const [loading, setLoading] = useState(false);
 
-  const activeNews: PostProps[] =
-    news && activeTab && news[activeTab.slug] ? news[activeTab.slug] : [];
+  const activePosts: PostProps[] =
+    posts && activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
+
+  console.log(posts);
 
   const changeActiveTab = useCallback(
     async (tab: TaxonomyProps) => {
-      if (!news[tab.slug] && tab.taxonomyId) {
+      if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const fetchedNews = await getPostsByTaxonomy(tab.taxonomyId, {
+          const fetchedPosts = await getPostsByTaxonomy(tab.taxonomyId, {
             limit,
             relations: { taxonomy: true },
           });
-          setNews((prev) => ({ ...prev, [tab.slug]: fetchedNews }));
+          setPosts((prev) => ({ ...prev, [tab.slug]: fetchedPosts }));
         } catch (e) {
-          console.log("error: last news");
+          console.log("error: last posts");
         }
         setLoading(false);
       }
       setActiveTab(tab);
     },
-    [limit, news]
+    [limit, posts]
   );
 
   const handleShowMore = async () => {
     if (activeTab) {
       setLoading(true);
       const params = {
-        offset: activeNews?.length ?? 0,
+        offset: activePosts?.length ?? 0,
         limit,
         relations: { taxonomy: true },
       };
@@ -71,12 +82,12 @@ export const MainLastNews: FC<MainLastNewsProps> = ({
         const fetchedNews = activeTab.taxonomyId
           ? await getPostsByTaxonomy(activeTab.taxonomyId, params)
           : await getPosts(params);
-        setNews((prev) => ({
+        setPosts((prev) => ({
           ...prev,
           [activeTab.slug]: [...prev[activeTab.slug], ...fetchedNews],
         }));
       } catch (e) {
-        console.log("error: last news");
+        console.log("error: last posts");
       }
       setLoading(false);
     }
@@ -91,39 +102,44 @@ export const MainLastNews: FC<MainLastNewsProps> = ({
         onChange={(tab) => changeActiveTab(tab)}
       />
 
-      {/* news */}
+      {/* posts */}
       <div className="relative flex flex-wrap -m-2">
         {loading && <FullLoader />}
-        {activeNews.length > 0 ? (
-          activeNews.map((item, index) => {
+        {activePosts.length > 0 ? (
+          activePosts.map((post, index) => {
             const isFirst = index % limit === 0;
             return (
-              <PostItemCategory
-                key={item.id}
+              <PostItem
+                key={post.id}
+                post={post}
                 className="p-2"
-                {...item}
                 isFirst={isFirst}
-                parentSlug="news"
+                urlPrefix={urlPrefix}
               />
             );
           })
         ) : (
-          <div className="p-2">Новости не найдены</div>
+          <div className="p-2">{messages.post.notFound}</div>
         )}
       </div>
 
       {/* show more button */}
-      {activeNews.length > 0 && (
+      {activePosts.length > 0 && (
         <div className="mt-3 text-center">
           {/* show button from condition limitMore */}
-          {limitMore * limit > activeNews.length &&
-          activeNews.length % limit === 0 ? (
+          {limitMore * limit > activePosts.length &&
+          activePosts.length % limit === 0 ? (
             <Button variant="outline" onClick={handleShowMore}>
               Показать еще
             </Button>
           ) : (
             activeTab.slug && (
-              <ButtonCategoryNews taxonomySlug={activeTab.slug} />
+              <LinkToCategory
+                categorySlug={
+                  activeTab.slug === urlPrefix ? undefined : activeTab.slug
+                }
+                urlPrefix={urlPrefix}
+              />
             )
           )}
         </div>

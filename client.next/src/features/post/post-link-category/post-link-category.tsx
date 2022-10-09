@@ -6,17 +6,17 @@ import cn from "clsx";
 interface PostLinkCategoryProps {
   categories: TaxonomyProps[];
   className?: string;
-  parentSlug?: string;
   color?: "light" | "dark";
   variant?: "button";
+  urlPrefix: string;
 }
 
 export const PostLinkCategory = ({
   categories,
   className,
-  parentSlug = "",
   color = "dark",
   variant,
+  urlPrefix,
 }: PostLinkCategoryProps) => {
   if (!categories.length) return null;
 
@@ -33,7 +33,7 @@ export const PostLinkCategory = ({
       {categories.map((category) => (
         <Link
           key={category.id}
-          href={`/${parentSlug}/${category.slug}`}
+          href={`/${urlPrefix}/${category.slug}`}
           prefetch={false}
         >
           <a

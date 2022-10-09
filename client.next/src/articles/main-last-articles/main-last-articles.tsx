@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import Link from "next/link";
 import { Icon } from "@/shared/ui/icon";
-import { PostImage } from "@/shared/ui/post/post-image";
+import { PostImage } from "@/features/post/post-image";
 import cn from "clsx";
-import { PostMeta } from "@/shared/ui/post/post-meta";
+import { PostMeta } from "@/features/post/post-meta";
 
 interface MainLastArticlesProps {
   articles: PostProps[];

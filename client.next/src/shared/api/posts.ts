@@ -42,11 +42,6 @@ export const getPostsByTaxonomySlug = async (
   slug: string,
   params: PostParams
 ): Promise<PostProps[]> => {
-  // slugTaxonomy === "news" - select all news
-  if (slug === "news") {
-    return getPosts({ postType: "post", ...params });
-  }
-
   const queryParams = encodeQueryData(params);
   return api.get(
     `posts/taxonomy/slug/${slug}${queryParams ? `?${queryParams}` : ""}`

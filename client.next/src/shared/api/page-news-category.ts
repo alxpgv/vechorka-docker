@@ -3,7 +3,7 @@ import { getPosts, getPostsByTaxonomySlug } from "@/shared/api/posts";
 import type { GetServerSidePropsResult } from "next";
 import type { ListPostProps } from "@/shared/types";
 
-export const getPagePostsCategory = async ({
+export const getPageNewsCategory = async ({
   slugTaxonomy,
 }: {
   slugTaxonomy?: string;
@@ -21,10 +21,20 @@ export const getPagePostsCategory = async ({
 
   //news by slug
   try {
-    posts.news = await getPostsByTaxonomySlug(slugTaxonomy, {
-      limit: 13,
-      relations: { taxonomy: true },
-    });
+    // all news
+    if (slugTaxonomy === "news") {
+      posts.news = await getPosts({
+        postType: "post",
+        limit: 13,
+        relations: { taxonomy: true },
+      });
+      // from taxonomy news
+    } else {
+      posts.news = await getPostsByTaxonomySlug(slugTaxonomy, {
+        limit: 13,
+        relations: { taxonomy: true },
+      });
+    }
   } catch (error) {
     console.log("category post taxonomy slug", error);
   }

@@ -6,17 +6,20 @@ import type { TaxonomyProps } from "@/shared/types";
 import { getPostsByTaxonomy } from "@/shared/api/posts";
 import { PostItemInside } from "@/entities/post/ui/post-item-inside";
 import { PostItemSimple } from "@/entities/post/ui/post-item-simple";
+import { messages } from "@/shared/constants";
 
 interface Props {
   initPosts: ListPostProps;
   tabs: TaxonomyProps[];
   defaultActiveSlug: string;
+  urlPrefix: string;
 }
 
-export const PostGridInside: FC<Props> = ({
+export const PostCategoriesGridTabbed: FC<Props> = ({
   initPosts,
   tabs,
   defaultActiveSlug,
+  urlPrefix,
 }) => {
   const [posts, setPosts] = useState<ListPostProps>(initPosts || {});
   const [activeTab, setActiveTab] = useState<TaxonomyProps | undefined>(
@@ -38,11 +41,11 @@ export const PostGridInside: FC<Props> = ({
       if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const fetchedData = await getPostsByTaxonomy(tab.taxonomyId, {
+          const fetchedPosts = await getPostsByTaxonomy(tab.taxonomyId, {
             limit: 5,
             sticky: true,
           });
-          setPosts((prev) => ({ ...prev, [tab.slug]: fetchedData }));
+          setPosts((prev) => ({ ...prev, [tab.slug]: fetchedPosts }));
         } catch (e) {
           console.log("error: main posts");
         }
@@ -78,6 +81,7 @@ export const PostGridInside: FC<Props> = ({
                     post={{ ...item, taxonomies }}
                     titleTag="h2"
                     className="h-[260px] sm:h-[320px] lg:h-[460px]"
+                    urlPrefix={urlPrefix}
                   />
                 </div>
               );
@@ -93,19 +97,21 @@ export const PostGridInside: FC<Props> = ({
                   post={{ ...item, taxonomies }}
                   titleTag="h3"
                   className="hidden sm:block h-full"
+                  urlPrefix={urlPrefix}
                 />
                 {/* only for mobile - list style */}
                 <PostItemSimple
                   post={{ ...item, taxonomies }}
                   titleTag="h3"
                   className="sm:hidden border-b border-grey-400 pb-3"
+                  urlPrefix={urlPrefix}
                 />
               </div>
             );
           })}
         </div>
       ) : (
-        <div>Записи не найдены</div>
+        <div>{messages.post.notFound}</div>
       )}
     </>
   );

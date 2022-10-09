@@ -20,6 +20,11 @@ export const menuHomeItem = {
   icon: "house",
 };
 
+export const menuCommonNewsItem = {
+  id: 9996,
+  name: "Главные новости",
+};
+
 export const mainMenu = [
   {
     id: 16,

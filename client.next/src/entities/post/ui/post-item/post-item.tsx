@@ -2,34 +2,37 @@ import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import Link from "next/link";
 import cn from "clsx";
-import { PostMeta } from "@/shared/ui/post/post-meta";
-import { PostImage } from "@/shared/ui/post/post-image";
-import { PostLinkCategory } from "@/shared/ui/post/post-link-category";
+import { PostMeta } from "@/features/post/post-meta";
+import { PostImage } from "@/features/post/post-image";
+import { PostLinkCategory } from "@/features/post/post-link-category";
+import { getLink } from "@/entities/post/lib";
 
-interface PostItemProps extends PostProps {
+interface Props {
+  post: PostProps;
   isFirst?: boolean;
   className?: string;
-  parentSlug?: string;
+  urlPrefix: string;
 }
 
-export const PostItemCategory: FC<PostItemProps> = ({
+export const PostItem: FC<Props> = ({
+  post,
   isFirst = false,
-  preview,
-  title,
-  slug,
-  taxonomies,
-  excerpt,
-  createdAt,
-  views,
-  commentCount,
   className,
-  parentSlug,
+  urlPrefix,
 }) => {
+  const {
+    preview,
+    title,
+    slug,
+    taxonomies,
+    excerpt,
+    createdAt,
+    views,
+    commentCount,
+  } = post;
   const categories = taxonomies?.categories;
   const categorySlug = categories && categories[0] ? categories[0].slug : "";
-  const href = parentSlug
-    ? `/${parentSlug}/${categorySlug}/${slug}`
-    : `/${categorySlug}/${slug}`;
+  const href = getLink(urlPrefix, categorySlug, slug);
 
   return (
     <div
@@ -51,7 +54,7 @@ export const PostItemCategory: FC<PostItemProps> = ({
         <PostLinkCategory
           className="mt-3"
           color="dark"
-          parentSlug="news"
+          urlPrefix={urlPrefix}
           categories={categories}
         />
       )}
