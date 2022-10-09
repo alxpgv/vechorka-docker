@@ -23,13 +23,9 @@ export const MainLastArticles: FC<MainLastArticlesProps> = ({ articles }) => {
             return (
               <div key={id} className="flex flex-col sm:flex-row">
                 {/* image */}
-                <PostImage
-                  url={preview?.url}
-                  href={href}
-                  className={cn(
-                    "sm:flex-1 max-w-[420px] h-[190px] lg:h-[260px] mr-0 sm:mr-6"
-                  )}
-                />
+                <div className="sm:flex-1 max-w-[420px] h-[190px] lg:h-[260px] mr-0 sm:mr-6">
+                  <PostImage url={preview?.url} href={href} />
+                </div>
 
                 {/* content */}
                 <div className="sm:flex-1 flex flex-col border-b border-grey-200 pb-3">
