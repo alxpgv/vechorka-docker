@@ -1,7 +1,7 @@
 import React from "react";
 import { HomeLayout } from "@/shared/ui/layouts";
 import { NewsCategoriesTabbed } from "@/widgets/news-categories-tabbed";
-import { MainLastArticles } from "@/articles/main-last-articles";
+import { ArticleLast } from "@/widgets/article-last";
 import { NewsInterest } from "@/widgets/news-interest";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { getHomePosts } from "@/shared/api/posts";
@@ -46,7 +46,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
                 urlPrefix="news"
               />
             )}
-            {articles && <MainLastArticles articles={articles} />}
+            {articles && <ArticleLast posts={articles} />}
           </>
         }
       />
