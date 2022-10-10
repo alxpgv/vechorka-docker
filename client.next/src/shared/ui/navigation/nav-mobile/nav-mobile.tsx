@@ -15,11 +15,11 @@ import { InputSearch } from "@/shared/ui/inputs/input-search";
 import { MenuItem } from "@/shared/ui/navigation/nav-mobile/menu-item";
 import { useKey } from "@/shared/lib/hooks/useKey";
 
-interface NavMobileProps {
+interface Props {
   menu: MenuProps[];
 }
 
-export const NavMobile: FC<NavMobileProps> = ({ menu }) => {
+export const NavMobile: FC<Props> = ({ menu }) => {
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef() as MutableRefObject<HTMLDivElement>;
 
@@ -48,7 +48,7 @@ export const NavMobile: FC<NavMobileProps> = ({ menu }) => {
   return (
     <>
       {/* hamburger btn */}
-      <Hamburger handleClick={openMenu} />
+      <Hamburger onClick={openMenu} />
 
       {/* overlay */}
       <div

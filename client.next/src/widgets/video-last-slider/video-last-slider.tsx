@@ -92,7 +92,7 @@ export const VideoLastSlider = () => {
 
           {activeVideo && (
             <VideoModal
-              video={activeVideo}
+              item={activeVideo}
               onClose={() => setActiveVideo(null)}
             />
           )}

@@ -2,17 +2,17 @@ import React from "react";
 import Link from "next/link";
 import cn from "clsx";
 
-export type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div";
+export type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div";
 
 interface Props {
   className?: string;
   href?: string;
   title: string;
-  tag?: HeadingTag;
+  tag?: TagType;
   color?: "light" | "dark";
 }
 
-export const PostTitle = ({
+export const Heading = ({
   className,
   href,
   title,

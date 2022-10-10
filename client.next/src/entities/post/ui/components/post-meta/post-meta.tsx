@@ -3,7 +3,7 @@ import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
 import { formatISODate, formatISOTime } from "@/shared/lib/date";
 
-interface PostMetaProps {
+interface Props {
   date?: string;
   time?: string;
   views?: number;
@@ -12,7 +12,7 @@ interface PostMetaProps {
   className?: string;
 }
 
-export const PostMeta: FC<PostMetaProps> = ({
+export const PostMeta: FC<Props> = ({
   date,
   time,
   views,

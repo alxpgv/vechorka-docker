@@ -3,7 +3,7 @@ import { useSettings } from "@/app/contexts/settings-context";
 import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
 
-interface SocialLink {
+interface SocialLinkProps {
   href: string;
   label: string;
   name: string;
@@ -11,7 +11,7 @@ interface SocialLink {
 
 export const SocialLinks = () => {
   const settings = useSettings();
-  const socials: SocialLink[] = settings?.contacts?.socials;
+  const socials: SocialLinkProps[] = settings?.contacts?.socials;
   if (!socials || socials.length === 0) return null;
   return (
     <>

@@ -5,15 +5,15 @@ import cn from "clsx";
 import { useKey } from "@/shared/lib/hooks/useKey";
 import type { PostProps } from "@/shared/types";
 
-interface VideoModalProps {
-  video: PostProps;
+interface Props {
+  item: PostProps;
   onClose: () => void;
 }
 
-export const VideoModal: FC<VideoModalProps> = ({ video, onClose }) => {
+export const VideoModal: FC<Props> = ({ item, onClose }) => {
   const [loading, setLoading] = useState(true);
   useKey("Escape", onClose);
-  const youtubeId = video.meta?.youtubeId;
+  const youtubeId = item.meta?.youtubeId;
 
   return (
     <div

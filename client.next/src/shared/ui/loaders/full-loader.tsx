@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import cn from "clsx";
 
-interface FullLoaderProps {
+interface Props {
   color?: "light" | "dark";
 }
 
-export const FullLoader: FC<FullLoaderProps> = ({ color = "light" }) => {
+export const FullLoader: FC<Props> = ({ color = "light" }) => {
   return (
     <div
       className={cn(

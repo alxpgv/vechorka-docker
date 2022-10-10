@@ -5,12 +5,12 @@ import { Icon } from "@/shared/ui/icon";
 import type { MenuProps } from "../types";
 import cn from "clsx";
 
-interface MenuItemProps {
+interface Props {
   item: MenuProps;
   onClick?: () => void;
 }
 
-export const MenuItem: FC<MenuItemProps> = ({ item, onClick }) => {
+export const MenuItem: FC<Props> = ({ item, onClick }) => {
   const [openSubMenu, setOpenSubMenu] = useState(false);
   const { name, slug, child, icon } = item;
 

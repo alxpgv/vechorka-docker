@@ -3,14 +3,14 @@ import Link from "next/link";
 import type { MenuProps } from "../types";
 import cn from "clsx";
 
-interface SubMenuProps {
+interface Props {
   items: MenuProps[];
   parentSlug: string;
   isOpen: boolean;
   onClickItem?: () => void;
 }
 
-export const SubMenu: FC<SubMenuProps> = ({
+export const SubMenu: FC<Props> = ({
   items,
   parentSlug,
   isOpen,

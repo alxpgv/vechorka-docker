@@ -5,7 +5,7 @@ import { getLink } from "@/shared/lib/links";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 import { SimpleLoader } from "@/shared/ui/loaders";
 
-export interface PostListWidgetProps {
+interface Props {
   title: string;
   className?: string;
   urlPrefix: string;
@@ -19,7 +19,7 @@ export interface PostListWidgetProps {
   }) => React.ReactElement;
 }
 
-export const PostListWidget: FC<PostListWidgetProps> = ({
+export const PostListWidget: FC<Props> = ({
   title,
   className,
   urlPrefix,

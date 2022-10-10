@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { PostMeta } from "@/features/post/post-meta";
-import { PostImage } from "@/features/post/post-image";
+import { PostMeta } from "@/entities/post/ui/components/post-meta";
+import { ImagePreview } from "@/shared/ui/image-preview";
 import { getPosts } from "@/shared/api/posts";
-import { PostTitle } from "@/features/post/post-title";
+import { Heading } from "@/shared/ui/heading";
 import { PostListWidget } from "@/widgets/post-list-widget";
 
 export interface NewsTopProps {
@@ -25,7 +25,7 @@ export const NewsTop: FC<NewsTopProps> = ({ className }) => {
         <>
           {/* image */}
           <div className="relative w-[60px] min-h-[70px]">
-            <PostImage
+            <ImagePreview
               url={post.preview?.sizes?.thumbnail?.url || post.preview?.url}
               href={href}
             />
@@ -40,7 +40,7 @@ export const NewsTop: FC<NewsTopProps> = ({ className }) => {
             />
             {/* title */}
             {post.title && (
-              <PostTitle
+              <Heading
                 title={post.title}
                 href={href}
                 tag="h6"

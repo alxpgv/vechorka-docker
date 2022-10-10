@@ -1,15 +1,15 @@
 import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
-import { PostMeta } from "@/features/post/post-meta";
+import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { getLink } from "@/shared/lib/links";
 import cn from "clsx";
-import type { HeadingTag } from "@/features/post/post-title/post-title";
-import { PostTitle } from "@/features/post/post-title/post-title";
+import type { TagType } from "@/shared/ui/heading";
+import { Heading } from "@/shared/ui/heading";
 
 interface Props {
   post: PostProps;
   className?: string;
-  titleTag: HeadingTag;
+  titleTag: TagType;
   urlPrefix: string;
 }
 
@@ -27,11 +27,11 @@ export const PostItemSimple: FC<Props> = ({
   return (
     <div className={cn("flex", className)}>
       {/*<div className="flex-shrink-0 w-[60px] min-h-[70px] mr-3">*/}
-      {/*  <PostImage href={href} url={preview?.sizes?.thumbnail?.url} />*/}
+      {/*  <ImagePreview href={href} url={preview?.sizes?.thumbnail?.url} />*/}
       {/*</div>*/}
       <div>
         {/* title */}
-        {title && <PostTitle title={title} href={href} tag={titleTag} />}
+        {title && <Heading title={title} href={href} tag={titleTag} />}
 
         {/* meta info */}
         <PostMeta

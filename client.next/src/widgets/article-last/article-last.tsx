@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import Link from "next/link";
 import { Icon } from "@/shared/ui/icon";
-import { PostImage } from "@/features/post/post-image";
-import { PostMeta } from "@/features/post/post-meta";
-import { PostTitle } from "@/features/post/post-title";
+import { ImagePreview } from "@/shared/ui/image-preview";
+import { PostMeta } from "@/entities/post/ui/components/post-meta";
+import { Heading } from "@/shared/ui/heading";
 import { getLink } from "@/shared/lib/links";
 
 interface Props {
@@ -24,14 +24,14 @@ export const ArticleLast: FC<Props> = ({ posts }) => {
             <div key={id} className="flex flex-col sm:flex-row">
               {/* image */}
               <div className="sm:flex-1 max-w-[420px] h-[190px] lg:h-[260px] mr-0 sm:mr-6">
-                <PostImage url={preview?.url} href={href} />
+                <ImagePreview url={preview?.url} href={href} />
               </div>
 
               {/* content */}
               <div className="sm:flex-1 flex flex-col border-b border-grey-200 pb-3">
                 {/* title */}
                 {title && (
-                  <PostTitle
+                  <Heading
                     title={title}
                     href={href}
                     tag={"h3"}

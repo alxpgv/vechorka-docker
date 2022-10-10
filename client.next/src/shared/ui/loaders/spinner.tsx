@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import cn from "clsx";
 
-interface SpinnerProps {
+interface Props {
   size?: "md" | "sm";
 }
 
-export const Spinner: FC<SpinnerProps> = ({ size = "sm" }) => {
+export const Spinner: FC<Props> = ({ size = "sm" }) => {
   return (
     <div
       className={cn("spinner absolute bg-white", {

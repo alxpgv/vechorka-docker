@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { PostMeta } from "@/features/post/post-meta";
+import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { getPosts } from "@/shared/api/posts";
-import { PostTitle } from "@/features/post/post-title";
+import { Heading } from "@/shared/ui/heading";
 import { PostListWidget } from "@/widgets/post-list-widget";
 
 export interface NewsCommentedProps {
@@ -31,7 +31,7 @@ export const NewsCommented: FC<NewsCommentedProps> = ({ className }) => {
             />
             {/* title */}
             {post.title && (
-              <PostTitle
+              <Heading
                 title={post.title}
                 href={href}
                 tag="h6"

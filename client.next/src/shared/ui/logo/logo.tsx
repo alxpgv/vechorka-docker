@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-interface LogoProps {
+interface Props {
   priority?: boolean;
 }
 
-export const Logo = ({ priority = false }: LogoProps) => {
+export const Logo = ({ priority = false }: Props) => {
   const router = useRouter();
 
   const ImageLogo = () => (

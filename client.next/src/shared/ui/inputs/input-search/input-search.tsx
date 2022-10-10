@@ -2,11 +2,11 @@ import React, { FC } from "react";
 import cn from "clsx";
 import { Icon } from "@/shared/ui/icon";
 
-interface InputSearchProps {
+interface Props {
   variant?: "primary" | "secondary";
 }
 
-export const InputSearch: FC<InputSearchProps> = ({ variant = "primary" }) => {
+export const InputSearch: FC<Props> = ({ variant = "primary" }) => {
   const variantClasses =
     variant === "primary"
       ? "border-grey-200 focus:border-blue-300"

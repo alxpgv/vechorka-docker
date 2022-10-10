@@ -2,17 +2,13 @@ import React, { FC, MouseEvent } from "react";
 import cn from "clsx";
 import { Icon } from "@/shared/ui/icon";
 
-interface ArrowProps {
+interface Props {
   disabled?: boolean;
   left?: boolean;
   onClick: (e: MouseEvent) => void;
 }
 
-export const Arrow: FC<ArrowProps> = ({
-  disabled = false,
-  left = false,
-  onClick,
-}) => {
+export const Arrow: FC<Props> = ({ left = false, onClick }) => {
   return (
     <button
       className={cn(

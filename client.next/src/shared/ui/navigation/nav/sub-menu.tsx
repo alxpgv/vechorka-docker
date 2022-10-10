@@ -4,13 +4,13 @@ import { MenuProps } from "@/shared/ui/navigation/types";
 import cn from "clsx";
 import { useSettings } from "@/app/contexts/settings-context";
 
-interface SubMenuProps {
+interface Props {
   parentSlug: string;
   items: MenuProps[];
   isOpen: boolean;
 }
 
-export const SubMenu: FC<SubMenuProps> = ({ parentSlug, items, isOpen }) => {
+export const SubMenu: FC<Props> = ({ parentSlug, items, isOpen }) => {
   const settings = useSettings();
   const geographyTags = settings?.taxonomies?.geography?.length
     ? settings?.taxonomies?.geography

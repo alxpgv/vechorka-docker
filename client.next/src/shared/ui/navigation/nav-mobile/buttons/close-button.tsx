@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { Icon } from "@/shared/ui/icon";
 
-interface CloseButtonProps {
+interface Props {
   onClick: () => void;
 }
 
-export const CloseButton: FC<CloseButtonProps> = ({ onClick }) => {
+export const CloseButton: FC<Props> = ({ onClick }) => {
   return (
     <button
       className="flex items-center justify-center w-[32px] h-[32px] cursor-pointer active:bg-grey-600"

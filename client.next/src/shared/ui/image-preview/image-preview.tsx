@@ -5,7 +5,7 @@ import NextImage from "next/image";
 import type { ImageProps } from "@/shared/types";
 import { settings } from "@/shared/config";
 
-interface PostImageProps extends ImageProps {
+interface Props extends ImageProps {
   href?: string;
   className?: string;
   overlay?: boolean;
@@ -14,7 +14,7 @@ interface PostImageProps extends ImageProps {
   screenSizes?: string;
 }
 
-const Image: FC<PostImageProps> = ({ url, alt = "", className, screenSizes }) =>
+const Image: FC<Props> = ({ url, alt = "", className, screenSizes }) =>
   url ? (
     <NextImage
       className={cn(className, "pointer-events-auto")}
@@ -28,7 +28,7 @@ const Image: FC<PostImageProps> = ({ url, alt = "", className, screenSizes }) =>
     />
   ) : null;
 
-export const PostImage: FC<PostImageProps> = ({
+export const ImagePreview: FC<Props> = ({
   url,
   alt,
   href,

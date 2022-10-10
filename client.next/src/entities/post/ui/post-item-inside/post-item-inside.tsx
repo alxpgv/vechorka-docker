@@ -1,17 +1,17 @@
 import React, { FC } from "react";
-import { PostMeta } from "@/features/post/post-meta";
-import { PostImage } from "@/features/post/post-image";
-import { PostCategoryLink } from "@/features/post/post-category-link";
+import { PostMeta } from "@/entities/post/ui/components/post-meta";
+import { ImagePreview } from "@/shared/ui/image-preview";
+import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
 import { getLink } from "@/shared/lib/links";
 import cn from "clsx";
-import { PostTitle } from "@/features/post/post-title";
+import { Heading } from "@/shared/ui/heading";
 import type { PostProps } from "@/shared/types";
-import type { HeadingTag } from "@/features/post/post-title/post-title";
+import type { TagType } from "@/shared/ui/heading/heading";
 
 interface Props {
   post: PostProps;
   className?: string;
-  titleTag: HeadingTag;
+  titleTag: TagType;
   urlPrefix: string;
 }
 
@@ -31,11 +31,11 @@ export const PostItemInside: FC<Props> = ({
   return (
     <div className={cn("relative w-full", className)}>
       {/* image */}
-      <PostImage url={preview?.url} href={href} overlay hoverEffect>
+      <ImagePreview url={preview?.url} href={href} overlay hoverEffect>
         <div className="relative flex flex-col justify-end max-w-[80%] h-full p-5 lg:p-8">
           {/* title */}
           {title && (
-            <PostTitle
+            <Heading
               title={title}
               href={href}
               color="light"
@@ -64,7 +64,7 @@ export const PostItemInside: FC<Props> = ({
             color="light"
           />
         </div>
-      </PostImage>
+      </ImagePreview>
     </div>
   );
 };

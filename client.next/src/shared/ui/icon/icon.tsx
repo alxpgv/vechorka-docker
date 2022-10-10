@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 
-interface IconProps {
+interface Props {
   name: string;
   className?: string;
 }
 
-export const Icon: FC<IconProps> = ({ name, className }) => {
+export const Icon: FC<Props> = ({ name, className }) => {
   return (
     <svg className={className}>
       <use xlinkHref={`/sprites/icon.svg#${name.toLocaleLowerCase()}`} />

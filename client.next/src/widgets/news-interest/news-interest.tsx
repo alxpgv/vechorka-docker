@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
 import Link from "next/link";
-import { PostImage } from "@/features/post/post-image";
-import { PostCategoryLink } from "@/features/post/post-category-link";
-import { PostMeta } from "@/features/post/post-meta";
+import { ImagePreview } from "@/shared/ui/image-preview";
+import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
+import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { getLink } from "@/shared/lib/links";
-import { PostTitle } from "@/features/post/post-title";
+import { Heading } from "@/shared/ui/heading";
 
 interface Props {
   posts: PostProps[];
@@ -28,7 +28,7 @@ export const NewsInterest: FC<Props> = ({ posts, urlPrefix }) => {
           return (
             <div key={id} className="w-full sm:w-1/2 md:flex-1 p-3 sm:p-2">
               {/* image */}
-              <PostImage
+              <ImagePreview
                 url={preview?.url}
                 href={href}
                 className={"h-[190px] lg:h-[260px] xl:h-[320px]"}
@@ -50,7 +50,7 @@ export const NewsInterest: FC<Props> = ({ posts, urlPrefix }) => {
 
               {/* title */}
               {title && (
-                <PostTitle
+                <Heading
                   title={title}
                   href={href}
                   tag="h4"

@@ -1,12 +1,11 @@
 import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
-import Link from "next/link";
 import cn from "clsx";
-import { PostMeta } from "@/features/post/post-meta";
-import { PostImage } from "@/features/post/post-image";
-import { PostCategoryLink } from "@/features/post/post-category-link";
+import { PostMeta } from "@/entities/post/ui/components/post-meta";
+import { ImagePreview } from "@/shared/ui/image-preview";
+import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
 import { getLink } from "@/shared/lib/links";
-import { PostTitle } from "@/features/post/post-title";
+import { Heading } from "@/shared/ui/heading";
 
 interface Props {
   post: PostProps;
@@ -45,7 +44,7 @@ export const PostItem: FC<Props> = ({
     >
       {/* image */}
       <div className={cn("h-[190px]", isFirst && "sm:h-[320px] lg:h-[190px]")}>
-        <PostImage url={preview?.url} href={href} />
+        <ImagePreview url={preview?.url} href={href} />
       </div>
 
       {/* category */}
@@ -58,9 +57,7 @@ export const PostItem: FC<Props> = ({
       )}
 
       {/* title */}
-      {title && (
-        <PostTitle title={title} href={href} tag="h3" className="mt-3" />
-      )}
+      {title && <Heading title={title} href={href} tag="h3" className="mt-3" />}
 
       {/* text */}
       {excerpt && (

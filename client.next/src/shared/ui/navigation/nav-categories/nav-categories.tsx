@@ -6,7 +6,7 @@ import { useSettings } from "@/app/contexts/settings-context";
 import { useRouter } from "next/router";
 import { menuAllNewsItem } from "@/shared/config";
 
-interface NavCategoriesProps {
+interface Props {
   className?: string;
 }
 
@@ -48,7 +48,7 @@ const CategoriesView = ({
   );
 };
 
-export const NavCategories: FC<NavCategoriesProps> = ({ className }) => {
+export const NavCategories: FC<Props> = ({ className }) => {
   const { taxonomies } = useSettings();
   const categories = taxonomies?.categories;
   const geographyTags = taxonomies?.geography;

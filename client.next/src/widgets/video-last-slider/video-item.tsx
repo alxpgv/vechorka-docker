@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import { PostImage } from "@/features/post/post-image";
-import { PostProps } from "@/shared/types";
+import { ImagePreview } from "@/shared/ui/image-preview";
+import type { PostProps } from "@/shared/types";
 
-interface VideoItemProps {
+interface Props {
   item: PostProps;
 }
 
-export const VideoItem: FC<VideoItemProps> = ({ item }) => {
-  return <PostImage url={item.preview?.url} overlay />;
+export const VideoItem: FC<Props> = ({ item }) => {
+  return <ImagePreview url={item.preview?.url} overlay />;
 };
