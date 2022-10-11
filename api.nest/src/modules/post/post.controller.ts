@@ -3,8 +3,7 @@ import { PostService } from './post.service';
 
 @Controller('posts')
 export class PostController {
-  constructor(private readonly postService: PostService) {
-  }
+  constructor(private readonly postService: PostService) {}
 
   @Get('index')
   getIndexPosts() {
@@ -30,35 +29,18 @@ export class PostController {
     const sticky = Boolean(parseInt(query?.sticky));
     const taxonomy = Boolean(parseInt(query?.taxonomy));
 
-    return this.postService.getPosts({
-      sticky,
-      limit,
-      offset,
-      postType: query?.postType,
-      relations: { taxonomy },
-    });
-  }
-
-  // TODO: pipe validation query, min/max
-  @Get('taxonomy/id/:id?')
-  getPostsByTaxonomyId(@Query() query, @Param('id') id) {
-    let limit = parseInt(query?.limit);
-    limit = isNaN(limit) ? undefined : limit;
-
-    let offset = parseInt(query?.offset);
-    offset = isNaN(offset) ? undefined : offset;
-
-    const sticky = Boolean(parseInt(query?.sticky));
-    const taxonomy = Boolean(parseInt(query?.taxonomy));
-
-    let taxonomyId = parseInt(id);
+    let taxonomyId = parseInt(query?.taxonomyId);
     taxonomyId = isNaN(taxonomyId) ? undefined : taxonomyId;
+
+    const excludeIds = query?.excludeIds?.split(',');
+    console.log(excludeIds);
 
     return this.postService.getPosts({
       taxonomyId,
       sticky,
       limit,
       offset,
+      excludeIds,
       postType: query?.postType,
       relations: { taxonomy },
     });

@@ -20,9 +20,10 @@ export const menuHomeItem = {
   icon: "house",
 };
 
-export const menuCommonNewsItem = {
+export const menuMainNewsItem = {
   id: 9996,
   name: "Главные новости",
+  slug: "news",
 };
 
 export const mainMenu = [

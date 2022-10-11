@@ -6,6 +6,7 @@ export const parseContent = (body: string) => {
   const regexTags = /<.+>.+<\/.+>|<.+\/>/gm;
   for (const line in lines) {
     let currentLine = lines[Number(line)];
+    // condition not tag, wrapper text in paragraph
     if (currentLine && !currentLine.match(regexTags)) {
       currentLine = `<p>${currentLine}</p>`;
     }

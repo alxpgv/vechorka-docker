@@ -3,9 +3,11 @@ import { ListPostProps, PostProps, PostType } from "@/shared/types";
 import { encodeQueryData } from "@/shared/lib/helpers";
 
 interface PostParams {
+  taxonomyId?: number;
   offset?: number;
   limit?: number;
   postType?: PostType;
+  excludeIds?: string;
   relations?: { taxonomy?: boolean; user?: boolean };
   sticky?: boolean;
 }
@@ -26,16 +28,6 @@ export const getPost = (
 export const getPosts = (params: PostParams): Promise<PostProps[]> => {
   const queryParams = encodeQueryData(params);
   return api.get(`posts${queryParams ? `?${queryParams}` : ""}`);
-};
-
-export const getPostsByTaxonomyId = (
-  taxonomyId: number,
-  params: PostParams
-): Promise<PostProps[]> => {
-  const queryParams = encodeQueryData(params);
-  return api.get(
-    `posts/taxonomy/id/${taxonomyId}${queryParams ? `?${queryParams}` : ""}`
-  );
 };
 
 export const getPostsByTaxonomySlug = async (

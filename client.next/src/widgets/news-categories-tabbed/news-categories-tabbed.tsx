@@ -6,7 +6,7 @@ import type { ListPostProps, PostProps } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";
 import { PostItem } from "@/entities/post/ui/post-item";
-import { getPosts, getPostsByTaxonomyId } from "@/shared/api/posts";
+import { getPosts } from "@/shared/api/posts";
 import { messages } from "@/shared/constants";
 import { getLink } from "@/shared/lib/links";
 
@@ -16,6 +16,8 @@ interface Props {
   limit?: number;
   limitMore?: number;
   urlPrefix: string;
+  excludeIds?: string;
+  excludeInSlug?: string;
 }
 
 const LinkToCategory = ({
@@ -40,6 +42,8 @@ export const NewsCategoriesTabbed: FC<Props> = ({
   limit = 9,
   limitMore = 3,
   urlPrefix,
+  excludeIds,
+  excludeInSlug,
 }) => {
   const [posts, setPosts] = useState<ListPostProps>(initPosts || {});
   const [activeTab, setActiveTab] = useState<TaxonomyProps>(tabs[0] || {});
@@ -53,8 +57,13 @@ export const NewsCategoriesTabbed: FC<Props> = ({
       if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const fetchedPosts = await getPostsByTaxonomyId(tab.taxonomyId, {
+          const fetchedPosts = await getPosts({
+            taxonomyId: tab.taxonomyId,
             limit,
+            excludeIds:
+              excludeIds && excludeInSlug && tab.slug === excludeInSlug
+                ? excludeIds
+                : undefined,
             relations: { taxonomy: true },
           });
           setPosts((prev) => ({ ...prev, [tab.slug]: fetchedPosts }));
@@ -72,14 +81,17 @@ export const NewsCategoriesTabbed: FC<Props> = ({
     if (activeTab) {
       setLoading(true);
       const params = {
+        taxonomyId: activeTab.taxonomyId,
         offset: activePosts?.length ?? 0,
         limit,
+        excludeIds:
+          excludeIds && excludeInSlug && activeTab.slug === excludeInSlug
+            ? excludeIds
+            : undefined,
         relations: { taxonomy: true },
       };
       try {
-        const fetchedNews = activeTab.taxonomyId
-          ? await getPostsByTaxonomyId(activeTab.taxonomyId, params)
-          : await getPosts(params);
+        const fetchedNews = await getPosts(params);
         setPosts((prev) => ({
           ...prev,
           [activeTab.slug]: [...prev[activeTab.slug], ...fetchedNews],

@@ -71,6 +71,7 @@ function register_custom_post_type()
     'menu_icon' => 'dashicons-video-alt3',
   ));
 
+
 }
 
 add_action('init', 'register_custom_post_type');

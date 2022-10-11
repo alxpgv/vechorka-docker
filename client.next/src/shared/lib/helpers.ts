@@ -25,15 +25,17 @@ export const encodeQueryData = (params: any) => {
 
   const encodeParams = (params: any) => {
     for (const key in params) {
-      if (typeof params[key] === "object") {
-        encodeParams(params[key]);
-      } else {
-        if (typeof params[key] === "boolean") {
-          url.push(encodeURIComponent(key) + "=" + Number(params[key]));
+      if (params[key] !== undefined) {
+        if (typeof params[key] === "object") {
+          encodeParams(params[key]);
         } else {
-          url.push(
-            encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
-          );
+          if (typeof params[key] === "boolean") {
+            url.push(encodeURIComponent(key) + "=" + Number(params[key]));
+          } else {
+            url.push(
+              encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
+            );
+          }
         }
       }
     }

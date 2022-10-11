@@ -8,6 +8,7 @@ export interface BasePostParams {
   offset?: number;
   postType?: PostType;
   sticky?: boolean;
+  excludeIds?: number[];
   relations?: {
     taxonomy?: boolean;
     user?: boolean;

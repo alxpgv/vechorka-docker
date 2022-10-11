@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from './post.entity';
 import { PostMeta } from './post-meta.entity';
+import { unserializeValue } from '../../utils/helpers';
 import type { ImageWithSizes } from '../../types';
 import { TaxonomyService } from '../taxonomy/taxonomy.service';
 import type { PostResponse } from './post.interface';
@@ -23,20 +24,15 @@ export class PostService {
 
   // home page posts
   async getIndexPosts() {
-    const mainPosts: any = await this.getPosts({
+    const stavropol = await this.getPosts({
+      taxonomyId: 16,
       limit: 5,
-      isResponseIds: true,
       sticky: true,
       relations: { taxonomy: true },
     });
 
-    const mainNews = mainPosts?.data;
-    const mainNewsIds = mainPosts?.postsIds || undefined;
-
     const lastNews = await this.getPosts({
       limit: 9,
-      // sticky: true,
-      excludeIds: mainNewsIds,
       relations: { taxonomy: true },
     });
 
@@ -52,7 +48,7 @@ export class PostService {
     });
 
     return {
-      mainNews,
+      stavropol,
       lastNews,
       interestNews,
       articles,
@@ -92,6 +88,7 @@ export class PostService {
 
     if (post && Object.keys(post).length) {
       const metas = await this.getPostMetaByIds(post.post_ID);
+      // return metas;
       return this.responseData([post], metas, undefined, 'full')[0];
     }
 
@@ -104,14 +101,8 @@ export class PostService {
     offset = 0,
     postType = 'post',
     sticky = false,
-    excludeIds,
-    isResponseIds,
     relations = { taxonomy: false, user: false },
-  }: BasePostParams & {
-    taxonomyId?: number;
-    isResponseIds?: boolean;
-  }) {
-    // : Promise<PostResponse[] | { data: PostResponse[]; postsIds: number[] }>
+  }: BasePostParams & { taxonomyId?: number }): Promise<PostResponse[]> {
     let query = this.postRepository.createQueryBuilder('post');
     if (taxonomyId) {
       query = query.innerJoinAndSelect(
@@ -142,12 +133,6 @@ export class PostService {
       postType,
     });
 
-    if (excludeIds?.length > 0) {
-      query = query.andWhere('ID NOT IN (:excludeIds)', {
-        excludeIds,
-      });
-    }
-
     if (sticky) {
       query = query
         .orderBy('metaSticky.meta_value', 'DESC')
@@ -161,17 +146,14 @@ export class PostService {
 
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
-      const metas = await this.getPostMetaByIds(postsIds);
-
       let taxonomies = [];
+
       if (relations.taxonomy) {
         taxonomies = await this.getPostTaxonomyByIds(postsIds, true);
       }
       // return taxonomies;
-
-      const responsePosts = this.responseData(posts, metas, taxonomies);
-
-      return isResponseIds ? { data: responsePosts, postsIds } : responsePosts;
+      const metas = await this.getPostMetaByIds(postsIds);
+      return this.responseData(posts, metas, taxonomies);
     }
 
     return null;
@@ -187,30 +169,18 @@ export class PostService {
 
   private getPostMetaByIds(postIds: number | number[]) {
     if (postIds || (Array.isArray(postIds) && postIds.length)) {
-      return (
-        this.metaRepository
-          .createQueryBuilder('meta')
-          // thumbnail meta
-          .leftJoinAndSelect(
-            'meta.children',
-            'children',
-            'meta.meta_key="_thumbnail_id"',
-          )
-          .where('meta.post_id IN (:postIds)', { postIds })
-          .getRawMany()
-      );
+      return this.metaRepository
+        .createQueryBuilder('meta')
+        .leftJoinAndSelect(
+          'meta.children',
+          'children',
+          'meta.meta_key="_thumbnail_id"',
+        )
+        .where('meta.post_id IN (:postIds)', { postIds })
+        .getRawMany();
     }
     return null;
   }
-
-  // async getAttachmentsByIds(ids: number[]) {
-  //   return this.postRepository
-  //     .createQueryBuilder('post')
-  //     .leftJoinAndSelect('post.meta', 'meta', 'meta.post_id = post.ID')
-  //     .where('post.ID IN (:ids)', { ids })
-  //     .andWhere('post.post_type="attachment"')
-  //     .getMany();
-  // }
 
   private async getPostTaxonomyByIds(
     postIds: number | number[],
@@ -305,18 +275,17 @@ export class PostService {
               newPost.seo.description = meta.meta_meta_value;
             }
 
+            console.log(meta.meta_meta_key[0]);
             // if first letter not _ = additional meta field
             if (meta.meta_meta_key[0] !== '_') {
-              // let metaValue = meta.meta_meta_value;
-              //
-              // // gallery
+              let metaValue = meta.meta_meta_value;
+              // gallery fields
               // if (meta.meta_meta_key === 'gallery') {
               //   metaValue = unserializeValue(metaValue);
               // }
-
               newPost.meta = {
                 ...newPost.meta,
-                [meta.meta_meta_key]: meta.meta_meta_value,
+                [meta.meta_meta_key]: metaValue,
               };
             }
           }

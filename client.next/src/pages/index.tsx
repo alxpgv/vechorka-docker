@@ -9,12 +9,12 @@ import type { TaxonomiesProps } from "@/shared/types";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { FeedbackSocialsDynamic } from "@/widgets/feedback-socials";
-import { menuAllNewsItem } from "@/shared/config";
+import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 
 interface HomeProps {
   posts: {
-    stavropol: PostProps[];
+    mainNews: PostProps[];
     lastNews: PostProps[];
     interestNews: PostProps[];
     articles: PostProps[];
@@ -23,16 +23,19 @@ interface HomeProps {
 }
 
 const HomePage = ({ posts, taxonomies }: HomeProps) => {
-  const { stavropol, lastNews, interestNews, articles } = posts;
-  const categories = [menuAllNewsItem, ...taxonomies?.categories];
+  const { mainNews, lastNews, interestNews, articles } = posts;
+  const geographyTabs = [menuMainNewsItem, ...taxonomies?.geography];
+  const categoriesTabs = [menuAllNewsItem, ...taxonomies?.categories];
+
+  const mainNewsIds = mainNews.map((post) => post.id).join(",");
 
   return (
     <>
-      {stavropol && taxonomies?.geography && (
+      {mainNews && geographyTabs && (
         <NewsCategoriesGridTabbed
-          initPosts={{ stavropol }}
-          tabs={taxonomies?.geography}
-          defaultActiveSlug="stavropol"
+          initPosts={{ news: mainNews }}
+          tabs={geographyTabs}
+          defaultActiveSlug="news"
           urlPrefix="news"
         />
       )}
@@ -42,8 +45,10 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
             {lastNews && (
               <NewsCategoriesTabbed
                 initPosts={{ news: lastNews }}
-                tabs={categories}
+                tabs={categoriesTabs}
                 urlPrefix="news"
+                excludeIds={mainNewsIds}
+                excludeInSlug="news"
               />
             )}
             {articles && <ArticleLast posts={articles} />}
@@ -59,7 +64,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
 
 export const getStaticProps = async () => {
   let posts: ListPostProps = {
-    stavropol: [],
+    mainNews: [],
     lastNews: [],
     interestNews: [],
     articles: [],
