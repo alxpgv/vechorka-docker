@@ -6,12 +6,14 @@ import { PostController } from './post.controller';
 import { PostMeta } from './post-meta.entity';
 import { TaxonomyModule } from '../taxonomy/taxonomy.module';
 import { UserModule } from '../user/user.module';
+import { AttachmentModule } from '../attachment/attachment.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Post, PostMeta]),
     TaxonomyModule,
     UserModule,
+    AttachmentModule,
   ],
   providers: [PostService],
   controllers: [PostController],

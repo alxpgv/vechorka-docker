@@ -4,12 +4,13 @@ import { configuration } from './config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from './modules/post/post.module';
 import { TaxonomyModule } from './modules/taxonomy/taxonomy.module';
-import { SettingsModule } from './modules/settings/settings.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: !!Number(process.env.DOCKER) ? undefined : `.${process.env.NODE_ENV}.env`,
+      envFilePath: !!Number(process.env.DOCKER)
+        ? undefined
+        : `.${process.env.NODE_ENV}.env`,
       load: [configuration],
       isGlobal: true,
     }),
@@ -21,9 +22,7 @@ import { SettingsModule } from './modules/settings/settings.module';
     }),
     PostModule,
     TaxonomyModule,
-    SettingsModule,
   ],
   providers: [],
 })
-export class AppModule {
-}
+export class AppModule {}
