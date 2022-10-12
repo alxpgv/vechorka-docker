@@ -1,5 +1,16 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  DefaultValuePipe,
+  Get,
+  Param,
+  ParseArrayPipe,
+  ParseBoolPipe,
+  ParseIntPipe,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common';
 import { PostService } from './post.service';
+import { PostQueryParamsDTO } from './post.dto';
 
 @Controller('posts')
 export class PostController {
@@ -10,61 +21,29 @@ export class PostController {
     return this.postService.getIndexPosts();
   }
 
-  // TODO: pipe validation query, min/max
   @Get('slug/:slug')
   getPost(@Query() query, @Param('slug') slug: string) {
     const slugTaxonomy = query?.slugTaxonomy;
     return this.postService.getPost(slug, slugTaxonomy);
   }
 
-  // TODO: pipe validation query, min/max
   @Get()
-  getPosts(@Query() query) {
-    let limit = parseInt(query?.limit);
-    limit = isNaN(limit) ? undefined : limit;
-
-    let offset = parseInt(query?.offset);
-    offset = isNaN(offset) ? undefined : offset;
-
-    const sticky = Boolean(parseInt(query?.sticky));
-    const taxonomy = Boolean(parseInt(query?.taxonomy));
-
-    let taxonomyId = parseInt(query?.taxonomyId);
-    taxonomyId = isNaN(taxonomyId) ? undefined : taxonomyId;
-
-    const excludeIds = query?.excludeIds?.split(',');
-    console.log(excludeIds);
-
+  getPosts(@Query() query: PostQueryParamsDTO) {
     return this.postService.getPosts({
-      taxonomyId,
-      sticky,
-      limit,
-      offset,
-      excludeIds,
-      postType: query?.postType,
-      relations: { taxonomy },
+      ...query,
+      relations: { taxonomy: query.taxonomy, user: query.user },
     });
   }
 
-  // TODO: pipe validation query, min/max
   @Get('taxonomy/slug/:slug')
-  getPostsByTaxonomySlug(@Query() query, @Param('slug') slug) {
-    let limit = parseInt(query?.limit);
-    limit = isNaN(limit) ? undefined : limit;
-
-    let offset = parseInt(query?.offset);
-    offset = isNaN(offset) ? undefined : offset;
-
-    const sticky = Boolean(parseInt(query?.sticky));
-    const taxonomy = Boolean(parseInt(query?.taxonomy));
-
+  getPostsByTaxonomySlug(
+    @Query() query: PostQueryParamsDTO,
+    @Param('slug') slug,
+  ) {
     return this.postService.getPostsByTaxonomySlug({
       slug,
-      sticky,
-      limit,
-      offset,
-      postType: query?.postType,
-      relations: { taxonomy },
+      ...query,
+      relations: { taxonomy: query.taxonomy, user: query.user },
     });
   }
 }

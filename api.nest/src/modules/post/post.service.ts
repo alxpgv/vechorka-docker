@@ -103,10 +103,10 @@ export class PostService {
     limit = 20,
     offset = 0,
     postType = 'post',
-    sticky = false,
+    sticky,
     excludeIds,
     isResponseIds,
-    relations = { taxonomy: false, user: false },
+    relations,
   }: BasePostParams & {
     taxonomyId?: number;
     isResponseIds?: boolean;
@@ -181,6 +181,8 @@ export class PostService {
     if (!params.slug) return null;
     const taxonomies = await this.taxonomyService.getTaxonomies();
     const taxonomy = taxonomies.find((tax) => tax.terms.slug === params.slug);
+
+    if (!taxonomy) throw new NotFoundException('post not found');
 
     return await this.getPosts({ taxonomyId: taxonomy.term_id, ...params });
   }
