@@ -165,7 +165,7 @@ export class PostService {
 
       let taxonomies = [];
       if (relations.taxonomy) {
-        taxonomies = await this.getPostTaxonomyByIds(postsIds, true);
+        taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
       }
       // return taxonomies;
 
@@ -214,7 +214,7 @@ export class PostService {
   //     .getMany();
   // }
 
-  private async getPostTaxonomyByIds(
+  private async getTaxonomiesByPostsIds(
     postIds: number | number[],
     terms = false,
   ) {

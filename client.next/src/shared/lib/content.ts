@@ -3,11 +3,13 @@ export const parseContent = (body: string) => {
   const lines = content?.split("\r\n");
 
   let parsed = "";
-  const regexTags = /<.+>.+<\/.+>|<.+\/>/gm;
+  // const excludeRegexTags = /<.+>.+<\/.+>|<.+\/>/gm;
+  const excludeRegexTags =
+    /<h.>[\s\S]*?<\/h.>|<img[\s\S]*?\/>|<blockquote>[\s\S]*?<\/blockquote>/gm;
   for (const line in lines) {
     let currentLine = lines[Number(line)];
     // condition not tag, wrapper text in paragraph
-    if (currentLine && !currentLine.match(regexTags)) {
+    if (currentLine && !currentLine.match(excludeRegexTags)) {
       currentLine = `<p>${currentLine}</p>`;
     }
     parsed += currentLine;

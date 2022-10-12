@@ -29,12 +29,14 @@ export const Breadcrumbs = () => {
 
   if (segments[0]) {
     const crumbItem = menus?.main?.find((item) => item.slug === segments[0]);
-    crumbItem &&
+
+    if (crumbItem && (segments.length > 1 || segments[0] === "news")) {
       breadcrumbs.push({
         id: crumbItem.id,
         name: crumbItem.name,
         slug: `/${segments[0]}`,
       });
+    }
 
     if (segments[1]) {
       if (segments[0] === "news") {

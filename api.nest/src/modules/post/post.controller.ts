@@ -21,18 +21,18 @@ export class PostController {
     return this.postService.getIndexPosts();
   }
 
-  @Get('slug/:slug')
-  getPost(@Query() query, @Param('slug') slug: string) {
-    const slugTaxonomy = query?.slugTaxonomy;
-    return this.postService.getPost(slug, slugTaxonomy);
-  }
-
   @Get()
   getPosts(@Query() query: PostQueryParamsDTO) {
     return this.postService.getPosts({
       ...query,
       relations: { taxonomy: query.taxonomy, user: query.user },
     });
+  }
+
+  @Get('slug/:slug')
+  getPost(@Query() query, @Param('slug') slug: string) {
+    const slugTaxonomy = query?.slugTaxonomy;
+    return this.postService.getPost(slug, slugTaxonomy);
   }
 
   @Get('taxonomy/slug/:slug')

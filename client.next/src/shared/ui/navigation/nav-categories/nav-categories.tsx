@@ -19,9 +19,12 @@ const CategoriesView = ({
 }) => {
   const router = useRouter();
 
-  const active = (currentSlug: string) => {
-    const category = router.query.category || "news";
-    return currentSlug === category;
+  const active = (slug: string) => {
+    const category =
+      router.query.category ??
+      (router.asPath.split("/")[1] === "news" ? "news" : null);
+
+    return slug === category;
   };
 
   return (
@@ -30,6 +33,7 @@ const CategoriesView = ({
       <div className="flex flex-wrap gap-2 text-13px">
         {items.map(({ id, name, slug }) => {
           const href = slug === "news" ? `/news` : `/news/${slug}`;
+
           return (
             <Link key={id} href={href}>
               <a

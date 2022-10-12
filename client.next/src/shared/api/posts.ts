@@ -21,7 +21,7 @@ export const getPost = (
   slugTaxonomy?: string
 ): Promise<PostProps> => {
   return api.get(
-    `posts/slug/${slug}${slugTaxonomy && `?slugTaxonomy=${slugTaxonomy}`}`
+    `posts/slug/${slug}${slugTaxonomy ? `?slugTaxonomy=${slugTaxonomy}` : ""}`
   );
 };
 

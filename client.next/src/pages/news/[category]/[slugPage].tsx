@@ -8,12 +8,12 @@ import { PostDetail } from "@/entities/post/ui/post-detail";
 import { getPost, getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 
-interface NewsDetailProps {
+interface Props {
   post: PostProps;
   interestNews: PostProps[];
 }
 
-const NewsDetailPage = ({ post, interestNews }: NewsDetailProps) => {
+const NewsDetailPage = ({ post, interestNews }: Props) => {
   return (
     <>
       <PostLayout left={<PostDetail {...post} />} />
