@@ -31,17 +31,12 @@
 import {
   IsArray,
   IsBoolean,
-  IsDefined,
-  IsEnum,
   IsNumber,
-  IsNumberString,
   IsOptional,
   IsString,
-  ValidateNested,
 } from 'class-validator';
 import { PostType } from './post.interface';
-import { ParseIntPipe } from '@nestjs/common';
-import { Transform, Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 
 export class PostQueryParamsDTO {
   @IsOptional()
@@ -72,6 +67,11 @@ export class PostQueryParamsDTO {
   @IsBoolean()
   @Transform(({ value }) => Boolean(value))
   user?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  taxonomyId?: number;
 
   @IsOptional()
   @Transform(({ value }) => {

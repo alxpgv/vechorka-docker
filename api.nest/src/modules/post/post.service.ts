@@ -106,7 +106,7 @@ export class PostService {
     sticky,
     excludeIds,
     isResponseIds,
-    relations,
+    relations = { taxonomy: undefined, user: undefined },
   }: BasePostParams & {
     taxonomyId?: number;
     isResponseIds?: boolean;
