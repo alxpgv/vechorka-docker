@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import cn from "clsx";
 import { useKeenSlider } from "keen-slider/react";
 import { getPosts } from "@/shared/api/posts";
-import { PostProps } from "@/shared/types";
+import { ImageWithSizes, PostProps } from "@/shared/types";
 import { SimpleLoader } from "@/shared/ui/loaders";
 import { Arrow } from "@/shared/ui/button";
+import NextImage from "next/image";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
+import { settings } from "@/shared/config";
 
 interface Props {
   ids: string;
@@ -15,7 +17,7 @@ interface Props {
 }
 
 export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
-  const [images, setImages] = useState<PostProps[]>([]);
+  const [images, setImages] = useState<Array<PostProps & ImageWithSizes>>([]);
   const [loading, setLoading] = useState(true);
   const [sliderLoaded, setSliderLoaded] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -24,10 +26,9 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     loop: false,
-    // mode: "snap",
     slides: {
-      perView: perView,
-      spacing: 20,
+      perView,
+      spacing: 10,
     },
     created() {
       setSliderLoaded(true);
@@ -56,12 +57,14 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
 
   if (!loading && (!ids.length || !images.length)) return null;
 
+  console.log(images);
+
   return (
     <div className="mt-6 md:mt-12" ref={ref}>
       {loading && <SimpleLoader />}
       {!loading && images.length > 0 && (
         <>
-          <div className="flex items-center justify-between mb-7">
+          <div className="flex items-center justify-between mb-5">
             <div>{title && <h3 className="text-grey-500">{title}</h3>}</div>
             {/* navigation */}
             {sliderLoaded && (
@@ -83,13 +86,26 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
           </div>
 
           <div ref={sliderRef} className="keen-slider">
-            {images.map((image, index) => (
-              <div key={image.id} className={cn("keen-slider__slide")}>
-                <div className="relative w-full h-[190px] sm:h-[260px] md:h-[420px]">
-                  image
-                </div>
-              </div>
-            ))}
+            {images.map((image) => {
+              const src =
+                image.preview?.sizes?.medium?.url || image.preview?.url || null;
+              if (src) {
+                return (
+                  <div key={image.id} className={cn("keen-slider__slide")}>
+                    <div className="relative w-full h-[190px] sm:h-[260px]">
+                      <NextImage
+                        src={`${settings.uploadUrl}/${src}`}
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="top"
+                      />
+                    </div>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
           </div>
         </>
       )}

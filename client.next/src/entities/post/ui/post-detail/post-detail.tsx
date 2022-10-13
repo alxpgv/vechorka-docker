@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import type { PostProps } from "@/shared/types";
 import { ImagePreview } from "@/shared/ui/image-preview";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
@@ -36,11 +36,16 @@ export const PostDetail = ({
       />
       <div className="content">
         {components &&
-          components.map((component) => {
+          components.map((component, index) => {
             if (typeof component === "string") {
-              return <div dangerouslySetInnerHTML={{ __html: component }} />;
+              return (
+                <div
+                  key={index}
+                  dangerouslySetInnerHTML={{ __html: component }}
+                />
+              );
             } else if (typeof component === "object") {
-              return component;
+              return <Fragment key={index}>{component}</Fragment>;
             }
           })}
       </div>

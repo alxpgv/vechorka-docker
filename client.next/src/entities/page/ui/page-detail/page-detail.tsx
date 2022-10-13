@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, ReactElement } from "react";
 import type { PostProps } from "@/shared/types";
 import { Heading } from "@/shared/ui/heading";
 import { parseContent } from "@/shared/lib/content";
@@ -15,11 +15,16 @@ export const PageDetail = ({ title, content }: PostProps) => {
       )}
       <div className="content">
         {components &&
-          components.map((component) => {
+          components.map((component, index) => {
             if (typeof component === "string") {
-              return <div dangerouslySetInnerHTML={{ __html: component }} />;
+              return (
+                <div
+                  key={index}
+                  dangerouslySetInnerHTML={{ __html: component }}
+                />
+              );
             } else if (typeof component === "object") {
-              return component;
+              return <Fragment key={index}>{component}</Fragment>;
             }
           })}
       </div>
