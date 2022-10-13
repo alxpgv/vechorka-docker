@@ -1,14 +1,15 @@
 import React from "react";
+import cn from "clsx";
 
 interface Props {
   ids: number[] | string[];
-  className?: string;
   title?: string;
+  className?: string;
 }
 
-export const Gallery = ({ ids, className, title }: Props) => {
+export const Gallery = ({ ids, title, className }: Props) => {
   return (
-    <div className="bg-blue-300">
+    <div className={cn(className)}>
       Gallery {ids && ids.map((item) => item)}
       {title}
     </div>
