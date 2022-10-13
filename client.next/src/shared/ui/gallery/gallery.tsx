@@ -23,7 +23,7 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
   const isVisible = !!entry?.isIntersecting;
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    loop: true,
+    loop: false,
     // mode: "snap",
     slides: {
       perView: perView,
@@ -64,7 +64,7 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
           <div className="flex items-center justify-between mb-7">
             <div>{title && <h3 className="text-grey-500">{title}</h3>}</div>
             {/* navigation */}
-            {sliderLoaded && instanceRef.current && (
+            {sliderLoaded && (
               <div className="flex">
                 <Arrow
                   left
@@ -84,13 +84,8 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
 
           <div ref={sliderRef} className="keen-slider">
             {images.map((image, index) => (
-              <div
-                key={image.id}
-                className={cn(
-                  "keen-slider__slide w-full grid grid-cols-[1fr_1fr] md:grid-cols-[2fr_1fr_1fr] lg:grid-cols-[2.5fr_1fr_1fr] grid-rows-auto md:grid-rows-2 gap-4 select-none"
-                )}
-              >
-                <div className="relative w-full md:row-span-2 col-span-2 md:col-span-1 h-[190px] sm:h-[260px] md:h-[420px] bg-grey-500">
+              <div key={image.id} className={cn("keen-slider__slide")}>
+                <div className="relative w-full h-[190px] sm:h-[260px] md:h-[420px]">
                   image
                 </div>
               </div>

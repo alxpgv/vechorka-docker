@@ -33,30 +33,42 @@ export const parseContent = (body: string) => {
 
 const parseBlock = (block: string) => {
   const tagsRegex = /^<(?!strong|em).+?>/gim;
-  const galleryRegex =
-    /\[gallery.+ids=\\?"([\d,]+)\\?"(.+title=\\?"([\w\s\S]+)\\?")?/im;
   let element: React.ReactNode = null;
 
   const matchTags = block.match(tagsRegex);
 
-  if (!matchTags) {
+  if (!matchTags && block.match(/\[gallery/is)) {
     // gallery
-    const matchGallery = block.match(galleryRegex);
-    if (matchGallery) {
-      const galleryIds = matchGallery[1] ?? null;
-      const galleryTitle = matchGallery[3] ?? "";
-      console.log(matchGallery);
-
-      if (galleryIds) {
-        element = <Gallery ids={galleryIds} title={galleryTitle} />;
-      }
-    } else {
-      // if not tags, then this text wrapped by paragraph
-      element = `<p>${block.trim()}</p>`;
+    const gallery = parseGallery(block);
+    if (gallery) {
+      element = gallery;
     }
+  } else {
+    // if not tags, then this text wrapped by paragraph
+    element = `<p>${block.trim()}</p>`;
   }
 
   return element ?? block;
+};
+
+const parseGallery = (body: string) => {
+  const idsRegex = /\[gallery.+ids=\\?"([\d,]+)\\?"/im;
+  const colsRegex = /\[gallery.+columns=\\?"([\d]+)\\?"/im;
+  const titleRegex = /\[gallery.+title=\\?"([\w\s\S].+?)\\?"/im;
+
+  const matchIds = body.match(idsRegex);
+  const matchCols = body.match(colsRegex);
+  const matchTitle = body.match(titleRegex);
+
+  const ids = matchIds && matchIds[1] ? matchIds[1] : null;
+  const cols = matchCols && matchCols[1] ? matchCols[1] : 3;
+  const title = matchTitle && matchTitle[1] ? matchTitle[1] : "";
+
+  if (ids) {
+    return <Gallery ids={ids} title={title} perView={cols as number} />;
+  }
+
+  return null;
 };
 
 const replaceBlockquote = (body: string) => {
