@@ -71,7 +71,39 @@ function register_custom_post_type()
     'menu_icon' => 'dashicons-video-alt3',
   ));
 
-
+  register_post_type('employee', array(
+    'label' => 'Сотрудники',
+    'labels' => array(
+      'name' => 'Сотрудники',
+      'singular_name' => 'Сотрудники',
+      'menu_name' => 'Сотрудники',
+      'all_items' => 'Все сотрудники',
+      'add_new' => 'Добавить сотрудника',
+      'add_new_item' => 'Добавить сотрудника',
+      'edit' => 'Редактировать сотрудника',
+      'edit_item' => 'Редактировать сотрудника',
+      'new_item' => 'Новый сотрудник',
+    ),
+    'description' => '',
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true,
+    'show_in_rest' => false,
+    'rest_base' => '',
+    'show_in_menu' => true,
+    'exclude_from_search' => true,
+    'capability_type' => 'post',
+    'map_meta_cap' => true,
+    'hierarchical' => false,
+    //'rewrite'             => array('slug' => 'service', 'with_front' => true, 'pages'=>false, 'feeds'=>false, 'feed'=>false),
+    'has_archive' => true,
+    'can_export' => true,
+    'query_var' => true,
+    'supports' => array('title', 'thumbnail'),
+    //'taxonomies'          => array( 'service' ),
+    'menu_position' => 5,
+    'menu_icon' => 'dashicons-groups',
+  ));
 }
 
 add_action('init', 'register_custom_post_type');
@@ -139,6 +171,7 @@ function wpse_custom_menu_order($menu_ord)
     'edit.php?post_type=page', // Pages
     'edit-comments.php', // Comments
     'upload.php', // Media
+    'edit.php?post_type=employee', // Pages
     'link-manager.php', // Links
     'separator2', // Second separator
     'themes.php', // Appearance
