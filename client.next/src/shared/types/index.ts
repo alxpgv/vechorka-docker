@@ -1,6 +1,6 @@
 import { SEOProps } from "@/shared/ui/SEO";
 
-export type PostType = "post" | "page" | "article" | "video";
+export type PostType = "post" | "page" | "article" | "video" | "attachment";
 
 export interface PostProps {
   id: number;

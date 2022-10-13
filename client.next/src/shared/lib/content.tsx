@@ -1,5 +1,4 @@
 import React from "react";
-import * as ReactDOMServer from "react-dom/server";
 import { Gallery } from "@/shared/ui/gallery";
 
 export const parseContent = (body: string) => {
@@ -7,17 +6,29 @@ export const parseContent = (body: string) => {
   body = body.replace(/\t|\s\t/gi, "");
 
   const blocks = body?.split("\r\n");
-  const components: React.ReactNode[] = [];
+  const components: Array<string | React.ReactNode> = [];
+  let indexComponentType = 0;
 
   blocks?.length > 0 &&
     blocks.map((block) => {
       if (block) {
         const component = parseBlock(block);
-        component && components.push(component);
+        // html markup
+        if (typeof component === "string") {
+          if (!components[indexComponentType]) {
+            components[indexComponentType] = component;
+          } else {
+            components[indexComponentType] += component;
+          }
+        }
+        // react component
+        if (typeof component === "object") {
+          components[++indexComponentType] = component;
+          indexComponentType++;
+        }
       }
     });
-
-  return components.join("");
+  return components;
 };
 
 const parseBlock = (block: string) => {
@@ -32,15 +43,13 @@ const parseBlock = (block: string) => {
     // gallery
     const matchGallery = block.match(galleryRegex);
     if (matchGallery) {
-      const galleryIds = matchGallery[1] && matchGallery[1].split(",");
+      const galleryIds = matchGallery[1] ?? null;
       const galleryTitle = matchGallery[3] ?? "";
-      const galleryComponent = galleryIds ? (
-        <Gallery ids={galleryIds} title={galleryTitle} />
-      ) : null;
+      console.log(matchGallery);
 
-      element =
-        galleryComponent &&
-        ReactDOMServer.renderToStaticMarkup(galleryComponent);
+      if (galleryIds) {
+        element = <Gallery ids={galleryIds} title={galleryTitle} />;
+      }
     } else {
       // if not tags, then this text wrapped by paragraph
       element = `<p>${block.trim()}</p>`;

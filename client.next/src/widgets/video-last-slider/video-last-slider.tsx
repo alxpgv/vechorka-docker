@@ -7,7 +7,7 @@ import cn from "clsx";
 import { SimpleLoader } from "@/shared/ui/loaders";
 import { VideoModal } from "@/widgets/video-last-slider/video-modal";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
-import { Arrow } from "@/widgets/video-last-slider/arrow";
+import { Arrow } from "@/shared/ui/button";
 import { getPosts } from "@/shared/api/posts";
 import type { PostProps } from "@/shared/types";
 

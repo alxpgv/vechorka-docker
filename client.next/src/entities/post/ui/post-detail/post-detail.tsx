@@ -14,6 +14,10 @@ export const PostDetail = ({
   views,
   user,
 }: PostProps) => {
+  const components: Array<string | React.ReactNode> = content
+    ? parseContent(content)
+    : [];
+
   return (
     <>
       {preview && Object.keys(preview).length > 0 && (
@@ -30,12 +34,16 @@ export const PostDetail = ({
         views={views}
         commentCount={commentCount}
       />
-      {content && (
-        <div
-          className="content mt-5"
-          dangerouslySetInnerHTML={{ __html: parseContent(content) }}
-        />
-      )}
+      <div className="content">
+        {components &&
+          components.map((component) => {
+            if (typeof component === "string") {
+              return <div dangerouslySetInnerHTML={{ __html: component }} />;
+            } else if (typeof component === "object") {
+              return component;
+            }
+          })}
+      </div>
       {user && (
         <div className="mt-5 text-grey-500">
           <strong>Автор:</strong> {user}

@@ -8,6 +8,7 @@ interface PostParams {
   limit?: number;
   postType?: PostType;
   excludeIds?: string;
+  includeIds?: string;
   relations?: { taxonomy?: boolean; user?: boolean };
   sticky?: boolean;
 }
