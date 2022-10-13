@@ -7,6 +7,7 @@ import {
 } from 'class-validator';
 import { PostType } from './post.interface';
 import { Transform } from 'class-transformer';
+import { transformToArrayNumber } from '../../utils/pipes';
 
 export class PostQueryParamsDTO {
   @IsOptional()
@@ -44,26 +45,12 @@ export class PostQueryParamsDTO {
   taxonomyId?: number;
 
   @IsOptional()
-  @Transform(({ value }) => {
-    const checkArrNumber = (arr) => {
-      const arrNumber = [];
-      arr.forEach((item) => {
-        const number = parseInt(item);
-        if (!isNaN(number)) {
-          arrNumber.push(number);
-        }
-      });
+  @Transform(({ value }) => transformToArrayNumber(value))
+  @IsArray()
+  includeIds?: number[];
 
-      return arrNumber;
-    };
-
-    if (typeof value === 'string') {
-      const arr = checkArrNumber(value.split(','));
-      return arr.length ? arr : value;
-    }
-
-    return value;
-  })
+  @IsOptional()
+  @Transform(({ value }) => transformToArrayNumber(value))
   @IsArray()
   excludeIds?: number[];
 }

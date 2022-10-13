@@ -106,6 +106,7 @@ export class PostService {
     postType = 'post',
     sticky,
     excludeIds,
+    includeIds,
     isResponseIds,
     relations = { taxonomy: undefined, user: undefined },
   }: BasePostParams & {
@@ -139,13 +140,25 @@ export class PostService {
       ]);
     }
 
-    query = query.where('post_status = "publish" AND post_type=:postType', {
-      postType,
-    });
+    if (postType === 'attachment') {
+      query = query.where('post_type=:postType', {
+        postType,
+      });
+    } else {
+      query = query.where('post_status = "publish" AND post_type=:postType', {
+        postType,
+      });
+    }
 
     if (excludeIds?.length > 0) {
       query = query.andWhere('ID NOT IN (:excludeIds)', {
         excludeIds,
+      });
+    }
+
+    if (includeIds?.length > 0) {
+      query = query.andWhere('ID IN (:includeIds)', {
+        includeIds,
       });
     }
 
@@ -163,6 +176,7 @@ export class PostService {
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
+      // return metas;
 
       let taxonomies = [];
       if (relations.taxonomy) {
@@ -287,14 +301,24 @@ export class PostService {
             if (meta.meta_meta_key === 'sticky') {
               newPost.sticky = !!Number(meta.meta_meta_value);
             }
-
-            // image
+            // image in post_type = post
             if (
               meta.children_meta_key === '_wp_attachment_metadata' &&
               meta.children_meta_value
             ) {
               newPost.preview = this.attachmentService.unserializeImageMeta(
                 meta.children_meta_value,
+                'wp-content/uploads',
+              );
+            }
+
+            // image in post_type = attachment
+            if (
+              meta.meta_meta_key === '_wp_attachment_metadata' &&
+              meta.meta_meta_value
+            ) {
+              newPost.preview = this.attachmentService.unserializeImageMeta(
+                meta.meta_meta_value,
                 'wp-content/uploads',
               );
             }
