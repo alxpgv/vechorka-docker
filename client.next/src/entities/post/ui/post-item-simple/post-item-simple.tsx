@@ -3,13 +3,13 @@ import type { PostProps } from "@/shared/types";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { getLink } from "@/shared/lib/links";
 import cn from "clsx";
-import type { TagType } from "@/shared/ui/heading";
+import type { HeadingTagType } from "@/shared/ui/heading";
 import { Heading } from "@/shared/ui/heading";
 
 interface Props {
   post: PostProps;
   className?: string;
-  titleTag: TagType;
+  titleTag: HeadingTagType;
   urlPrefix: string;
 }
 

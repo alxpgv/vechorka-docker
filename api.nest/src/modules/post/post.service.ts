@@ -9,6 +9,7 @@ import type { PostResponse } from './post.interface';
 import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { BasePostParams } from './post.interface';
 import { AttachmentService } from '../attachment/attachment.service';
+import { unserializeValue } from '../../utils/helpers';
 
 @Injectable()
 export class PostService {
@@ -310,10 +311,14 @@ export class PostService {
             // if first letter not _ = additional meta field
             if (meta.meta_meta_key[0] !== '_') {
               // let metaValue = meta.meta_meta_value;
-              //
-              // // gallery
-              // if (meta.meta_meta_key === 'gallery') {
+
+              // gallery
+              // if (meta.meta_meta_key === 'gallery' && type === 'full') {
               //   metaValue = unserializeValue(metaValue);
+              //   const galleryImages = async () =>
+              //     await this.getPostMetaByIds(metaValue);
+              //   console.log('=====galleryImages()');
+              //   console.log(galleryImages());
               // }
 
               newPost.meta = {

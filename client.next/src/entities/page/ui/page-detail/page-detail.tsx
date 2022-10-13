@@ -1,7 +1,7 @@
 import React from "react";
 import type { PostProps } from "@/shared/types";
-import { parseContent } from "@/shared/lib/content";
 import { Heading } from "@/shared/ui/heading";
+import { parseContent } from "@/shared/lib/content";
 
 export const PageDetail = ({ title, content }: PostProps) => {
   return (
@@ -11,7 +11,7 @@ export const PageDetail = ({ title, content }: PostProps) => {
       )}
       {content && (
         <div
-          className="content mt-5"
+          className="content"
           dangerouslySetInnerHTML={{ __html: parseContent(content) }}
         />
       )}

@@ -6,12 +6,12 @@ import { getLink } from "@/shared/lib/links";
 import cn from "clsx";
 import { Heading } from "@/shared/ui/heading";
 import type { PostProps } from "@/shared/types";
-import type { TagType } from "@/shared/ui/heading/heading";
+import type { HeadingTagType } from "@/shared/ui/heading/heading";
 
 interface Props {
   post: PostProps;
   className?: string;
-  titleTag: TagType;
+  titleTag: HeadingTagType;
   urlPrefix: string;
 }
 

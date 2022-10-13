@@ -2,7 +2,7 @@
 .idea
 
 .resources
-.docker-example
+.parts-example
 
 .env.*
 !.env.example

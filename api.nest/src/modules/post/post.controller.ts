@@ -1,14 +1,4 @@
-import {
-  Controller,
-  DefaultValuePipe,
-  Get,
-  Param,
-  ParseArrayPipe,
-  ParseBoolPipe,
-  ParseIntPipe,
-  Query,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { PostService } from './post.service';
 import { PostQueryParamsDTO } from './post.dto';
 

@@ -1,1 +1,1 @@
-export { Heading, type TagType } from "./heading";
+export { Heading, type HeadingTagType } from "./heading";

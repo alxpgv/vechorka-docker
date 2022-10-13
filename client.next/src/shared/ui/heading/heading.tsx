@@ -2,13 +2,13 @@ import React from "react";
 import Link from "next/link";
 import cn from "clsx";
 
-export type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div";
+export type HeadingTagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div";
 
 interface Props {
   className?: string;
   href?: string;
   title: string;
-  tag?: TagType;
+  tag?: HeadingTagType;
   color?: "light" | "dark";
 }
 

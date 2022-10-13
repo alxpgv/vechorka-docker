@@ -2,8 +2,8 @@ import React from "react";
 import type { PostProps } from "@/shared/types";
 import { ImagePreview } from "@/shared/ui/image-preview";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
-import { parseContent } from "@/shared/lib/content";
 import { Heading } from "@/shared/ui/heading";
+import { parseContent } from "@/shared/lib/content";
 
 export const PostDetail = ({
   title,
