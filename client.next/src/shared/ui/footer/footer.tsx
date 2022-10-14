@@ -73,6 +73,9 @@ export const Footer = () => {
               <Link href="/news" prefetch={false}>
                 <a>Новости</a>
               </Link>
+              <Link href="/articles" prefetch={false}>
+                <a>Статьи</a>
+              </Link>
               <Link href="/newspaper" prefetch={false}>
                 <a>Газета</a>
               </Link>
