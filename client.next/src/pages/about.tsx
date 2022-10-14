@@ -4,7 +4,7 @@ import { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { NewsInterest } from "@/widgets/news-interest";
 import { FeedbackSocials } from "@/widgets/feedback-socials";
-import { PageDetail } from "@/entities/page/ui/page-detail";
+import { PageAbout } from "@/entities/page/ui/page-about";
 
 interface Props {
   post: PostProps;
@@ -14,7 +14,7 @@ interface Props {
 const About = ({ post, interestNews }: Props) => {
   return (
     <>
-      <PostLayout left={<PageDetail {...post} />} />
+      <PostLayout left={<PageAbout {...post} />} />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
       <FeedbackSocials />
     </>

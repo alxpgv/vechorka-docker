@@ -28,13 +28,10 @@ export const NewsInterest: FC<Props> = ({ posts, urlPrefix }) => {
           return (
             <div key={id} className="w-full sm:w-1/2 md:flex-1 p-3 sm:p-2">
               {/* image */}
-              <ImagePreview
-                url={preview?.url}
-                href={href}
-                className={"h-[190px] lg:h-[260px] xl:h-[320px]"}
-              />
+              <div className="h-[190px] lg:h-[260px] xl:h-[320px]">
+                <ImagePreview url={preview?.url} href={href} />
+              </div>
 
-              {/* meta */}
               <div className="flex flex-wrap items-center justify-between mt-3">
                 {/* category */}
                 {categories && (

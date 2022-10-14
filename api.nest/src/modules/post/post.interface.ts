@@ -1,7 +1,13 @@
 import { ImageWithSizes } from '../../types';
 import { TaxonomiesProps } from '../taxonomy/taxonomy.interface';
 
-export type PostType = 'post' | 'page' | 'article' | 'video' | 'attachment';
+export type PostType =
+  | 'post'
+  | 'page'
+  | 'article'
+  | 'video'
+  | 'attachment'
+  | 'employee';
 
 export interface BasePostParams {
   limit?: number;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Gallery } from "@/shared/ui/gallery";
+import { GalleryByIds } from "@/widgets/gallery-by-ids";
 
 export const parseContent = (body: string) => {
   body = replaceBlockquote(body);
@@ -32,10 +32,10 @@ export const parseContent = (body: string) => {
 };
 
 const parseBlock = (block: string) => {
-  const tagsRegex = /^<(?!strong|em).+?>/gim;
+  const tagsExcludeRegex = /^<(?!strong|em).+?>/gim;
   let element: React.ReactNode = null;
 
-  const matchTags = block.match(tagsRegex);
+  const matchTags = block.match(tagsExcludeRegex);
 
   if (!matchTags && block.match(/\[gallery/is)) {
     // gallery
@@ -65,7 +65,7 @@ const parseGallery = (body: string) => {
   const title = matchTitle && matchTitle[1] ? matchTitle[1] : "";
 
   if (ids) {
-    return <Gallery ids={ids} title={title} perView={cols as number} />;
+    return <GalleryByIds ids={ids} title={title} perView={cols as number} />;
   }
 
   return null;

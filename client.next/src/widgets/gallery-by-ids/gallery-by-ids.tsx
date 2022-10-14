@@ -16,7 +16,7 @@ interface Props {
   className?: string;
 }
 
-export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
+export const GalleryByIds = ({ ids, title, perView = 3, className }: Props) => {
   const [images, setImages] = useState<Array<PostProps & ImageWithSizes>>([]);
   const [loading, setLoading] = useState(true);
   const [sliderLoaded, setSliderLoaded] = useState(false);
@@ -26,6 +26,14 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     loop: false,
+    breakpoints: {
+      "(max-width: 1000px)": {
+        slides: { perView: 2, spacing: 5 },
+      },
+      "(max-width: 420px)": {
+        slides: { perView: 1, spacing: 5 },
+      },
+    },
     slides: {
       perView,
       spacing: 10,
@@ -57,8 +65,6 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
 
   if (!loading && (!ids.length || !images.length)) return null;
 
-  console.log(images);
-
   return (
     <div className="mt-6 md:mt-12" ref={ref}>
       {loading && <SimpleLoader />}
@@ -75,7 +81,6 @@ export const Gallery = ({ ids, title, perView = 3, className }: Props) => {
                     e.stopPropagation() || instanceRef.current?.prev()
                   }
                 />
-
                 <Arrow
                   onClick={(e: any) =>
                     e.stopPropagation() || instanceRef.current?.next()

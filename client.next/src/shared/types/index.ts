@@ -1,6 +1,19 @@
 import { SEOProps } from "@/shared/ui/SEO";
 
-export type PostType = "post" | "page" | "article" | "video" | "attachment";
+export type PostType =
+  | "post"
+  | "page"
+  | "article"
+  | "video"
+  | "attachment"
+  | "employee";
+
+export enum EmployerRoleEnum {
+  chief = "Главный редактор",
+  correspondent = "Корреспондент",
+  editor = "Редактор службы информации",
+  photographer = "Фотограф",
+}
 
 export interface PostProps {
   id: number;

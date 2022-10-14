@@ -34,21 +34,20 @@ export const PostDetail = ({
         views={views}
         commentCount={commentCount}
       />
-      <div className="content">
-        {components &&
-          components.map((component, index) => {
-            if (typeof component === "string") {
-              return (
-                <div
-                  key={index}
-                  dangerouslySetInnerHTML={{ __html: component }}
-                />
-              );
-            } else if (typeof component === "object") {
-              return <Fragment key={index}>{component}</Fragment>;
-            }
-          })}
-      </div>
+      {components &&
+        components.map((component, index) => {
+          if (typeof component === "string") {
+            return (
+              <div
+                key={index}
+                className="content"
+                dangerouslySetInnerHTML={{ __html: component }}
+              />
+            );
+          } else if (typeof component === "object") {
+            return <Fragment key={index}>{component}</Fragment>;
+          }
+        })}
       {user && (
         <div className="mt-5 text-grey-500">
           <strong>Автор:</strong> {user}
