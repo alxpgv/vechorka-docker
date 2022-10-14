@@ -116,6 +116,14 @@
   .content img.aligncenter {
     @apply mx-auto;
   }
+
+  .content table{
+    @apply overflow-x-scroll;
+  }
+
+  .content table td {
+    @apply p-5 border border-grey-200;
+  }
 }
 
 @layer utilities {

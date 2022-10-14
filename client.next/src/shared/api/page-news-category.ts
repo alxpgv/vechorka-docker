@@ -9,8 +9,8 @@ export const getPageNewsCategory = async ({
   slugTaxonomy?: string;
 }): Promise<GetServerSidePropsResult<any>> => {
   const posts: ListPostProps = {
-    news: null,
-    interestNews: null,
+    news: [],
+    interestNews: [],
   };
 
   if (!slugTaxonomy) {

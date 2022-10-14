@@ -28,7 +28,7 @@ export const NewsCategoriesGridTabbed: FC<Props> = ({
   const [loading, setLoading] = useState(false);
 
   const activePosts: PostProps[] =
-    posts && activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
+    activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
 
   const changeActiveTab = useCallback(
     async (tab: TaxonomyProps) => {

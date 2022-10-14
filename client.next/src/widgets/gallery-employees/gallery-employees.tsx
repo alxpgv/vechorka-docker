@@ -57,7 +57,6 @@ export const GalleryEmployees = ({ className }: Props) => {
 
         if (fetchedPosts?.length) {
           fetchedPosts.sort((a, b) => {
-            console.log(a, b);
             return a.meta?.order > b.meta?.order ? 1 : -1;
           });
           setPosts(fetchedPosts);

@@ -39,7 +39,7 @@ export interface PostProps {
 }
 
 export interface ListPostProps {
-  [key: string]: PostProps[] | PostProps | null;
+  [key: string]: PostProps[];
 }
 
 export interface ImageProps {

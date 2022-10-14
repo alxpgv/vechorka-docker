@@ -143,7 +143,7 @@ export const Footer = () => {
       <div className="py-6 bg-grey-500">
         <Container>
           <div className="flex flex-col lg:flex-row items-center gap-3 lg:items-start justify-between w-full text-14px text-grey-400 text-center">
-            <Link href="/">
+            <Link href="/privacy-policy">
               <a className="text-grey-400 hover:text-white underline order-0">
                 Политика конфиденциальности
               </a>
@@ -153,7 +153,7 @@ export const Footer = () => {
               © ИД «Вечерний Ставрополь», 2022
             </p>
 
-            <Link href="/">
+            <Link href="/user-agreement">
               <a className="text-grey-400 hover:text-white underline order-2">
                 Пользовательское соглашение
               </a>
