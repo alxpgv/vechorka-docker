@@ -7,7 +7,7 @@ interface Props {
 
 export const LayoutColumn: FC<Props> = ({ left, right }) => {
   return (
-    <div className="flex flex-wrap md:flex-nowrap mt-8">
+    <div className="flex flex-wrap md:flex-nowrap mt-5 lg:mt-8">
       {/* left column */}
       <div className="w-full md:flex-1 md:mr-6 lg:mr-12 overflow-hidden">
         {left}
