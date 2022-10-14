@@ -332,19 +332,8 @@ export class PostService {
               newPost.seo.description = meta.meta_meta_value;
             }
 
-            // if first letter not _ = additional meta field
+            // if first letter not _ then this additional meta field
             if (meta.meta_meta_key[0] !== '_') {
-              // let metaValue = meta.meta_meta_value;
-
-              // gallery
-              // if (meta.meta_meta_key === 'gallery' && type === 'full') {
-              //   metaValue = unserializeValue(metaValue);
-              //   const galleryImages = async () =>
-              //     await this.getPostMetaByIds(metaValue);
-              //   console.log('=====galleryImages()');
-              //   console.log(galleryImages());
-              // }
-
               newPost.meta = {
                 ...newPost.meta,
                 [meta.meta_meta_key]: meta.meta_meta_value,
