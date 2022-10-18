@@ -16,9 +16,6 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
   const additionalPhones = getFieldsRepeater(meta, "additional_phones");
   const correspondents = getFieldsRepeater(meta, "correspondents");
 
-  console.log(preview);
-  console.log(additionalPhones, correspondents);
-
   return (
     <>
       {title && (
@@ -27,7 +24,7 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
       <div className="flex flex-col lg:flex-row">
         <div className="w-full lg:w-[40%] lg:mr-5 p-8 bg-grey-100">
           {fullAddress && (
-            <p className="mt-5">
+            <p>
               <strong>Адрес:</strong> {fullAddress}
             </p>
           )}
@@ -38,12 +35,12 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
             </p>
           )}
           {fax && (
-            <p className="mt-2">
+            <p className="mt-5">
               <strong>Факс:</strong> {fax}
             </p>
           )}
           {email && (
-            <p className="mt-2">
+            <p className="mt-5">
               <strong>Email:</strong> <a href={`mailto:${email}`}>{email}</a>
             </p>
           )}
@@ -56,11 +53,11 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
       </div>
 
       <div className="flex flex-col lg:flex-row text-grey-500">
-        <div className="w-full lg:w-[40%] lg:mr-5 mt-5">
-          <h3 className="mb-3">Дополнительные телефоны:</h3>
-          <div className="divide-y divide-grey-200">
-            {additionalPhones?.length > 0 &&
-              additionalPhones.map((item: { [key: string]: string }) => {
+        {additionalPhones?.length > 0 && (
+          <div className="w-full lg:w-[40%] lg:mr-5 mt-5">
+            <h3 className="mb-3">Дополнительные телефоны:</h3>
+            <div className="divide-y divide-grey-200">
+              {additionalPhones.map((item: { [key: string]: string }) => {
                 return (
                   <div className="flex py-3 text-14px">
                     <div className="w-[50%] flex-shrink-0 pr-3">
@@ -70,13 +67,14 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
                   </div>
                 );
               })}
+            </div>
           </div>
-        </div>
-        <div className="w-full lg:w-[60%] mt-5">
-          <h3 className="mb-3">Корреспонденты:</h3>
-          <div className="divide-y divide-grey-200">
-            {correspondents?.length > 0 &&
-              correspondents.map((item: { [key: string]: string }) => {
+        )}
+        {correspondents?.length > 0 && (
+          <div className="w-full lg:w-[60%] mt-5">
+            <h3 className="mb-3">Корреспонденты:</h3>
+            <div className="divide-y divide-grey-200">
+              {correspondents.map((item: { [key: string]: string }) => {
                 return (
                   <div className="flex py-3 text-14px">
                     <div className="w-[50%] flex-shrink-0 pr-3">
@@ -93,8 +91,9 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
                   </div>
                 );
               })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );
