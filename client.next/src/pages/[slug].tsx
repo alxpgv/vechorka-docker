@@ -14,7 +14,7 @@ interface Props {
 const Page = ({ post, interestNews }: Props) => {
   return (
     <>
-      <PostLayout left={<PageDetail {...post} />} />
+      <PostLayout left={<PageDetail {...post} />} showNewsWidgets={false} />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
     </>
   );

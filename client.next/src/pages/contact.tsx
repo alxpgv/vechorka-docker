@@ -13,7 +13,7 @@ interface Props {
 const Contact = ({ post, interestNews }: Props) => {
   return (
     <>
-      <PostLayout left={<PageContact {...post} />} />
+      <PostLayout left={<PageContact {...post} />} showNewsWidgets={false} />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
     </>
   );

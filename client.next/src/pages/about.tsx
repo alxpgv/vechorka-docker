@@ -13,7 +13,7 @@ interface Props {
 const About = ({ post, interestNews }: Props) => {
   return (
     <>
-      <PostLayout left={<PageAbout {...post} />} />
+      <PostLayout left={<PageAbout {...post} />} showNewsWidgets={false} />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
     </>
   );
