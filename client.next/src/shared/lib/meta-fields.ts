@@ -8,6 +8,7 @@
 // "employees_6_full_name"
 // "employees_6_image"
 // }
+// repeaterFieldName: "employees"
 
 export const getFieldsRepeater = (fields: any = {}, repeaterFieldName = "") => {
   const count =
@@ -23,7 +24,6 @@ export const getFieldsRepeater = (fields: any = {}, repeaterFieldName = "") => {
       const fieldPrefixName = `${repeaterFieldName}_${i}_`;
       if (key?.startsWith(fieldPrefixName)) {
         const fieldName = key.replace(fieldPrefixName, "");
-        console.log(fieldName);
 
         items[i] = {
           ...items[i],
