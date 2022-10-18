@@ -5,6 +5,7 @@ import { useSettings } from "@/app/contexts/settings-context";
 import { getPhoneFromString } from "@/shared/lib/string";
 import Link from "next/link";
 import cn from "clsx";
+import { SocialLinks } from "@/shared/ui/social-links";
 
 const ListTitle = ({
   title,
@@ -65,6 +66,10 @@ export const Footer = () => {
                 Email: <a href={`mailto:${email}`}>{email}</a>
               </p>
             )}
+
+            <div className="flex justify-center md:justify-start mt-5 space-x-3">
+              <SocialLinks />
+            </div>
           </div>
 
           {/* col */}

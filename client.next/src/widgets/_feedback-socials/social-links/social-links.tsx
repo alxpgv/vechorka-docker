@@ -23,7 +23,7 @@ export const SocialLinks = () => {
           target="_blank"
           rel="noreferrer noopener nofollow"
           className={cn(
-            "flex items-center w-full mb-2 py-2.5 px-3 text-14px font-bold link-light rounded-2xl bg-opacity-80 hover:bg-opacity-100",
+            "flex items-center w-[32px] h-[32px] p-2 rounded-full bg-opacity-80 hover:bg-opacity-100",
             {
               "bg-ok": name === "ok",
               "bg-vk": name === "vk",
@@ -36,11 +36,6 @@ export const SocialLinks = () => {
           {name && (
             <Icon name={name} className="w-[18px] h-[18px] fill-white" />
           )}
-          <span className="flex-1 ml-2">{label}</span>
-          <Icon
-            name="arrow"
-            className="h-[8px] w-[10px] ml-1.5 stroke-white -rotate-90"
-          />
         </a>
       ))}
     </>

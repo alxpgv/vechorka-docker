@@ -3,7 +3,6 @@ import type { GetServerSideProps, NextPage } from "next";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
 import { NewsInterest } from "@/widgets/news-interest";
-import { FeedbackSocials } from "@/widgets/feedback-socials";
 import { ListPostProps, PostProps } from "@/shared/types";
 import { getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
@@ -23,7 +22,6 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
         left={<PostListShowMore initPosts={articles} urlPrefix="articles" />}
       />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
-      <FeedbackSocials />
     </>
   );
 };

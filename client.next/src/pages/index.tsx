@@ -8,7 +8,6 @@ import { getHomePosts } from "@/shared/api/posts";
 import type { TaxonomiesProps } from "@/shared/types";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
-import { FeedbackSocialsDynamic } from "@/widgets/feedback-socials";
 import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 
@@ -57,7 +56,6 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
       />
       <VideoLastSliderDynamic />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
-      <FeedbackSocialsDynamic />
     </>
   );
 };

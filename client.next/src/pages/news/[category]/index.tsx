@@ -2,7 +2,6 @@ import React from "react";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
 import { NewsInterest } from "@/widgets/news-interest";
-import { FeedbackSocials } from "@/widgets/feedback-socials";
 import { getPageNewsCategory } from "@/shared/api/page-news-category";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
@@ -22,7 +21,6 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
         left={<PostListShowMore initPosts={news} urlPrefix="news" />}
       />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
-      <FeedbackSocials />
     </>
   );
 };

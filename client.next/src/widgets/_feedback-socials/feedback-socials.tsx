@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { FormFeedback } from "@/widgets/feedback-socials/form-feedback";
-import { SocialLinks } from "@/widgets/feedback-socials/social-links";
+import { FormFeedback } from "@/widgets/_feedback-socials/form-feedback";
+import { SocialLinks } from "@/widgets/_feedback-socials/social-links";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 
 export const FeedbackSocials = () => {

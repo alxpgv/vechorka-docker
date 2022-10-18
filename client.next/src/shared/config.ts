@@ -54,7 +54,7 @@ export const mainMenu = [
   {
     id: 20,
     name: "Контакты",
-    slug: "contacts",
+    slug: "contact",
     icon: "phone",
   },
 ];
@@ -90,6 +90,7 @@ export const settings = {
     phone: "+7(8652)75-99-59",
     fax: "+7(8652)75-93-50",
     email: "vechorka@vechorka.ru",
+    fullAddress: "355037, г. Ставрополь, ул. Доваторцев 28/30",
     socials: [
       { href: "https://telegram.org", label: "Telegram", name: "telegram" },
       { href: "https://vk.com", label: "Вконтакте", name: "vk" },

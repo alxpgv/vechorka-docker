@@ -1,7 +1,6 @@
 import { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { NewsInterest } from "@/widgets/news-interest";
-import { FeedbackSocials } from "@/widgets/feedback-socials";
 import { getPage } from "@/shared/api/pages";
 import React from "react";
 import { GetServerSideProps } from "next";
@@ -17,7 +16,6 @@ const Page = ({ post, interestNews }: Props) => {
     <>
       <PostLayout left={<PageDetail {...post} />} />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
-      <FeedbackSocials />
     </>
   );
 };

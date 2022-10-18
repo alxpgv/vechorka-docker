@@ -3,7 +3,6 @@ import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { NewsInterest } from "@/widgets/news-interest";
-import { FeedbackSocials } from "@/widgets/feedback-socials";
 import { PostDetail } from "@/entities/post/ui/post-detail";
 import { getPost, getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
@@ -18,7 +17,6 @@ const NewsDetailPage = ({ post, interestNews }: Props) => {
     <>
       <PostLayout left={<PostDetail {...post} />} />
       {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
-      <FeedbackSocials />
     </>
   );
 };
