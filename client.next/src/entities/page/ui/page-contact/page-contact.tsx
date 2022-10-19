@@ -54,7 +54,7 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
 
       <div className="flex flex-col lg:flex-row text-grey-500">
         {additionalPhones?.length > 0 && (
-          <div className="w-full lg:w-[40%] lg:mr-5 mt-5">
+          <div className="w-full lg:w-[40%] lg:mr-5 mt-8">
             <h3 className="mb-3">Дополнительные телефоны:</h3>
             <div className="divide-y divide-grey-200">
               {additionalPhones.map(
@@ -73,7 +73,7 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
           </div>
         )}
         {correspondents?.length > 0 && (
-          <div className="w-full lg:w-[60%] mt-5">
+          <div className="w-full lg:w-[60%] mt-8">
             <h3 className="mb-3">Корреспонденты:</h3>
             <div className="divide-y divide-grey-200">
               {correspondents.map(
