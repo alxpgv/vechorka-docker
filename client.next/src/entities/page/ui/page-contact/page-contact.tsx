@@ -57,16 +57,18 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
           <div className="w-full lg:w-[40%] lg:mr-5 mt-5">
             <h3 className="mb-3">Дополнительные телефоны:</h3>
             <div className="divide-y divide-grey-200">
-              {additionalPhones.map((item: { [key: string]: string }) => {
-                return (
-                  <div className="flex py-3 text-14px">
-                    <div className="w-[50%] flex-shrink-0 pr-3">
-                      <strong>{item.title}</strong>
+              {additionalPhones.map(
+                (item: { [key: string]: string }, index: number) => {
+                  return (
+                    <div key={index} className="flex py-3 text-14px">
+                      <div className="w-[50%] flex-shrink-0 pr-3">
+                        <strong>{item.title}</strong>
+                      </div>
+                      <div>{item.phone}</div>
                     </div>
-                    <div>{item.phone}</div>
-                  </div>
-                );
-              })}
+                  );
+                }
+              )}
             </div>
           </div>
         )}
@@ -74,23 +76,25 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
           <div className="w-full lg:w-[60%] mt-5">
             <h3 className="mb-3">Корреспонденты:</h3>
             <div className="divide-y divide-grey-200">
-              {correspondents.map((item: { [key: string]: string }) => {
-                return (
-                  <div className="flex py-3 text-14px">
-                    <div className="w-[50%] flex-shrink-0 pr-3">
-                      <strong>{item.full_name}</strong>
+              {correspondents.map(
+                (item: { [key: string]: string }, index: number) => {
+                  return (
+                    <div key={index} className="flex py-3 text-14px">
+                      <div className="w-[50%] flex-shrink-0 pr-3">
+                        <strong>{item.full_name}</strong>
+                      </div>
+                      <div>
+                        <div>{item.phone}</div>
+                        {item.email && (
+                          <div>
+                            <a href={`mailto:${item.email}`}>{item.email}</a>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <div>{item.phone}</div>
-                      {item.email && (
-                        <div>
-                          <a href={`mailto:${item.email}`}>{item.email}</a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                }
+              )}
             </div>
           </div>
         )}

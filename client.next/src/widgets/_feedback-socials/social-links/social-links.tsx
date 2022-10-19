@@ -5,7 +5,6 @@ import cn from "clsx";
 
 interface SocialLinkProps {
   href: string;
-  label: string;
   name: string;
 }
 
@@ -16,7 +15,7 @@ export const SocialLinks = () => {
   return (
     <>
       <h4 className="mb-5">Мы в социальных сетях</h4>
-      {socials.map(({ name, href, label }, index) => (
+      {socials.map(({ name, href }, index) => (
         <a
           key={index}
           href={href}

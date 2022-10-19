@@ -10,6 +10,11 @@ wp-content/*
 !wp-content/themes/
 !wp-content/uploads/
 
+!wp-content/plugins/
+wp-content/plugins/*
+!wp-content/plugins/advanced-custom-fields
+!wp-content/plugins/clearfy-pro
+
 wp-content/themes/*
 !wp-content/themes/vechorka/
 

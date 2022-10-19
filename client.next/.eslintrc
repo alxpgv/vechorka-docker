@@ -46,6 +46,8 @@
             "singleQuote": false
           }
         ],
+        // TODO: check types
+        // "@typescript-eslint/no-explicit-any": "off",
         "react/no-unescaped-entities": 0,
         "react/destructuring-assignment": "off",
         // Vscode doesn't support automatically destructuring, it's a pain to add a new variable

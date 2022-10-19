@@ -10,11 +10,7 @@ import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObser
 import { settings } from "@/shared/config";
 import { EmployerRoleEnum } from "@/shared/types";
 
-interface Props {
-  className?: string;
-}
-
-export const GalleryEmployees = ({ className }: Props) => {
+export const GalleryEmployees = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [sliderLoaded, setSliderLoaded] = useState(false);

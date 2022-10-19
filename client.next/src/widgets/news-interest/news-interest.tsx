@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import type { PostProps } from "@/shared/types";
-import Link from "next/link";
 import { ImagePreview } from "@/shared/ui/image-preview";
 import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";

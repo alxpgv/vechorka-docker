@@ -13,10 +13,9 @@ interface Props {
   ids: string;
   title?: string;
   perView?: number;
-  className?: string;
 }
 
-export const GalleryByIds = ({ ids, title, perView = 3, className }: Props) => {
+export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
   const [images, setImages] = useState<Array<PostProps & ImageWithSizes>>([]);
   const [loading, setLoading] = useState(true);
   const [sliderLoaded, setSliderLoaded] = useState(false);
