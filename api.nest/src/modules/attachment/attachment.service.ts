@@ -15,7 +15,7 @@ export class AttachmentService {
       const { image_meta = null, ...imageProps }: any =
         unserializeValue(serializeValue);
 
-      if (imageProps && Object.keys(imageProps).length) {
+      if (imageProps && Object.keys(imageProps).length && imageProps.file) {
         const pathSegments = imageProps.file?.split('/');
         const path = pathSegments.slice(0, -1).join('/');
 
@@ -31,13 +31,6 @@ export class AttachmentService {
                 ? `${pathPrefix}/${path}/${imageProps.sizes?.large?.file}`
                 : null,
             },
-            // mediumSm: {
-            //   width: imageProps.sizes?.medium_sm?.width ?? null,
-            //   height: imageProps.sizes?.medium_sm?.height ?? null,
-            //   url: imageProps.sizes?.medium_sm?.file
-            //     ? `${pathPrefix}/${path}/${imageProps.sizes?.medium_sm?.file}`
-            //     : null,
-            // },
             medium: {
               width: imageProps.sizes?.medium?.width ?? null,
               height: imageProps.sizes?.medium?.height ?? null,

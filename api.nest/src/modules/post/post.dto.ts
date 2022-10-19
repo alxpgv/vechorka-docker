@@ -4,6 +4,8 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Max,
+  Min,
 } from 'class-validator';
 import { PostType } from './post.interface';
 import { Transform } from 'class-transformer';
@@ -12,6 +14,8 @@ import { transformToArrayNumber } from '../../utils/pipes';
 export class PostQueryParamsDTO {
   @IsOptional()
   @IsNumber()
+  @Max(100)
+  @Min(1)
   @Transform(({ value }) => Number(value))
   limit?: number;
 

@@ -301,7 +301,8 @@ export class PostService {
             if (meta.meta_meta_key === 'sticky') {
               newPost.sticky = !!Number(meta.meta_meta_value);
             }
-            // image in post_type = post
+
+            // image preview
             if (
               meta.children_meta_key === '_wp_attachment_metadata' &&
               meta.children_meta_value
