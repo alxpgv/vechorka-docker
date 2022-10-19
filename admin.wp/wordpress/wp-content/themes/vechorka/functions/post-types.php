@@ -101,8 +101,40 @@ function register_custom_post_type()
     'query_var' => true,
     'supports' => array('title', 'thumbnail'),
     //'taxonomies'          => array( 'service' ),
-    'menu_position' => 5,
+    'menu_position' => 6,
     'menu_icon' => 'dashicons-groups',
+  ));
+
+  register_post_type('newspaper', array(
+    'label' => 'Газета',
+    'labels' => array(
+      'name' => 'Газета',
+      'singular_name' => 'Газета',
+      'menu_name' => 'Газета',
+      'all_items' => 'Все выпуски',
+      'add_new' => 'Добавить выпуск',
+      'add_new_item' => 'Добавить выпуск',
+      'edit' => 'Редактировать выпуск',
+      'edit_item' => 'Редактировать выпуск',
+      'new_item' => 'Новый выпуск',
+    ),
+    'description' => '',
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true,
+    'show_in_rest' => false,
+    'rest_base' => '',
+    'show_in_menu' => true,
+    'exclude_from_search' => true,
+    'capability_type' => 'post',
+    'map_meta_cap' => true,
+    'hierarchical' => false,
+    'has_archive' => true,
+    'can_export' => true,
+    'query_var' => true,
+    'supports' => array('title', 'editor'),
+    'menu_position' => 7,
+    'menu_icon' => 'dashicons-calendar',
   ));
 }
 
@@ -171,7 +203,8 @@ function wpse_custom_menu_order($menu_ord)
     'edit.php?post_type=page', // Pages
     'edit-comments.php', // Comments
     'upload.php', // Media
-    'edit.php?post_type=employee', // Pages
+    'edit.php?post_type=employee', // Employee
+    'edit.php?post_type=newspaper', // Newspaper
     'link-manager.php', // Links
     'separator2', // Second separator
     'themes.php', // Appearance
