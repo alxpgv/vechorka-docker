@@ -4,6 +4,7 @@ import cn from "clsx";
 import useDrag from "@/shared/ui/scroll-tabs/useDrag";
 import type { TaxonomyProps } from "@/shared/types";
 import { LeftArrow, RightArrow } from "@/shared/ui/scroll-tabs/arrows";
+import { Button } from "@/shared/ui/button";
 
 interface Props {
   tabs: TaxonomyProps[];
@@ -42,7 +43,7 @@ export const ScrollTabs = ({ tabs, active, onChange }: Props) => {
         }
       });
 
-  const tabClick = (tab: TaxonomyProps) => () => {
+  const tabClick = (tab: TaxonomyProps) => {
     if (dragging) {
       return false;
     }
@@ -64,18 +65,15 @@ export const ScrollTabs = ({ tabs, active, onChange }: Props) => {
       >
         {tabs.map((tab) => {
           return (
-            <div
+            <Button
               key={tab.id}
-              className={cn(
-                "px-3 py-2 text-14px cursor-pointer select-none transition-colors",
-                active?.id === tab.id
-                  ? "bg-blue-300 text-white"
-                  : "bg-grey-100 text-grey-400 [@media(hover:hover){&:hover}]:text-white [@media(hover:hover){&:hover}]:bg-blue-300"
-              )}
-              onClick={tabClick(tab)}
+              active={active?.id === tab.id}
+              variant="filled"
+              size="sm"
+              onClick={() => tabClick(tab)}
             >
               {tab.name}
-            </div>
+            </Button>
           );
         })}
       </ScrollMenu>
