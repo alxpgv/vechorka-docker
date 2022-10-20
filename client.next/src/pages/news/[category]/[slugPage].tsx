@@ -21,7 +21,7 @@ const NewsDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
         <PostRelated
           title="Похожие статьи по теме"
           posts={relatedPosts}
-          urlPrefix="articles"
+          urlPrefix="news"
         />
       )}
       {interestNews && (
