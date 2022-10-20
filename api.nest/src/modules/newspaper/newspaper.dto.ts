@@ -13,4 +13,9 @@ export class NewspaperParamsDTO {
   @IsBoolean()
   @Transform(({ value }) => Boolean(value))
   allYears?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => Boolean(value))
+  lastRelease?: boolean;
 }
