@@ -9,14 +9,14 @@ import { Heading } from "@/shared/ui/heading";
 
 interface Props {
   post: PostProps;
-  isFirst?: boolean;
+  imageClassName?: string;
   className?: string;
   urlPrefix: string;
 }
 
 export const PostItem: FC<Props> = ({
   post,
-  isFirst = false,
+  imageClassName,
   className,
   urlPrefix,
 }) => {
@@ -35,15 +35,9 @@ export const PostItem: FC<Props> = ({
   const href = getLink(urlPrefix, categorySlug, slug);
 
   return (
-    <div
-      className={cn(
-        className,
-        "flex flex-col w-full mb-6",
-        isFirst ? "lg:w-1/3" : "sm:w-1/2 lg:w-1/3"
-      )}
-    >
+    <div className={cn(className, "flex flex-col w-full mb-6")}>
       {/* image */}
-      <div className={cn("h-[190px]", isFirst && "sm:h-[320px] lg:h-[190px]")}>
+      <div className={cn("h-[190px]", imageClassName)}>
         <ImagePreview url={preview?.url} href={href} />
       </div>
 

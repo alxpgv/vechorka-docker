@@ -83,7 +83,7 @@ export const PostListShowMore: FC<Props> = ({
             <PostItem
               key={post.id}
               post={post}
-              className="p-2"
+              className="p-2 sm:w-1/2 lg:w-1/3"
               urlPrefix={urlPrefix}
             />
           );

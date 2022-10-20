@@ -1,11 +1,11 @@
 import React from "react";
 import { NewsPaperAllProps, PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
-import { NewsInterest } from "@/widgets/news-interest";
 import { NewspaperArchive } from "@/entities/newspaper/ui/newspaper-archive";
 import { getNewspapers } from "@/shared/api/newspaper";
 import { getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
+import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   newspapers: NewsPaperAllProps;
@@ -19,7 +19,9 @@ const NewsPaperIndex = ({ newspapers, interestNews }: Props) => {
         left={<NewspaperArchive newspapers={newspapers} />}
         showNewsWidgets={false}
       />
-      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
+      {interestNews && (
+        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+      )}
     </>
   );
 };

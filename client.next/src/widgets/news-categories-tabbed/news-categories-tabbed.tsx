@@ -9,6 +9,7 @@ import { PostItem } from "@/entities/post/ui/post-item";
 import { getPosts } from "@/shared/api/posts";
 import { messages } from "@/shared/constants";
 import { getLink } from "@/shared/lib/links";
+import cn from "clsx";
 
 interface Props {
   initPosts: ListPostProps;
@@ -122,8 +123,11 @@ export const NewsCategoriesTabbed: FC<Props> = ({
               <PostItem
                 key={post.id}
                 post={post}
-                className="p-2"
-                isFirst={isFirst}
+                className={cn(
+                  "p-2",
+                  isFirst ? "lg:w-1/3" : "sm:w-1/2 lg:w-1/3"
+                )}
+                imageClassName={isFirst ? "sm:h-[320px] lg:h-[190px]" : ""}
                 urlPrefix={urlPrefix}
               />
             );

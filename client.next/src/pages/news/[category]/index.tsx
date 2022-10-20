@@ -1,10 +1,10 @@
 import React from "react";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
-import { NewsInterest } from "@/widgets/news-interest";
 import { getPageNewsCategory } from "@/shared/api/page-news-category";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
+import { PostRelated } from "@/widgets/post-related";
 
 export interface NewsCategoryProps {
   posts: {
@@ -20,7 +20,9 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
       <PostLayout
         left={<PostListShowMore initPosts={news} urlPrefix="news" />}
       />
-      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
+      {interestNews && (
+        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+      )}
     </>
   );
 };

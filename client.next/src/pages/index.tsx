@@ -2,7 +2,6 @@ import React from "react";
 import { HomeLayout } from "@/shared/ui/layouts";
 import { NewsCategoriesTabbed } from "@/widgets/news-categories-tabbed";
 import { ArticleLast } from "@/widgets/article-last";
-import { NewsInterest } from "@/widgets/news-interest";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { getHomePosts } from "@/shared/api/posts";
 import type { TaxonomiesProps } from "@/shared/types";
@@ -10,6 +9,7 @@ import type { ListPostProps, PostProps } from "@/shared/types";
 import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
+import { PostRelated } from "@/widgets/post-related";
 
 interface HomeProps {
   posts: {
@@ -55,7 +55,9 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
         }
       />
       <VideoLastSliderDynamic />
-      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
+      {interestNews && (
+        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+      )}
     </>
   );
 };

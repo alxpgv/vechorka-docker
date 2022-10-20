@@ -2,10 +2,10 @@ import React from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
-import { NewsInterest } from "@/widgets/news-interest";
 import { ListPostProps, PostProps } from "@/shared/types";
 import { getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
+import { PostRelated } from "@/widgets/post-related";
 
 export interface Props {
   posts: {
@@ -21,7 +21,9 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
       <PostLayout
         left={<PostListShowMore initPosts={articles} urlPrefix="articles" />}
       />
-      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
+      {interestNews && (
+        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+      )}
     </>
   );
 };

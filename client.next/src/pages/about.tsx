@@ -2,8 +2,8 @@ import React from "react";
 import { getPage } from "@/shared/api/pages";
 import { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
-import { NewsInterest } from "@/widgets/news-interest";
 import { PageAbout } from "@/entities/page/ui/page-about";
+import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   post: PostProps;
@@ -14,7 +14,9 @@ const About = ({ post, interestNews }: Props) => {
   return (
     <>
       <PostLayout left={<PageAbout {...post} />} showNewsWidgets={false} />
-      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
+      {interestNews && (
+        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+      )}
     </>
   );
 };

@@ -2,21 +2,31 @@ import React from "react";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
-import { NewsInterest } from "@/widgets/news-interest";
 import { PostDetail } from "@/entities/post/ui/post-detail";
 import { getPost, getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
+import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   post: PostProps;
   interestNews: PostProps[];
+  relatedPosts: PostProps[];
 }
 
-const NewsDetailPage = ({ post, interestNews }: Props) => {
+const NewsDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
   return (
     <>
       <PostLayout left={<PostDetail {...post} />} />
-      {interestNews && <NewsInterest posts={interestNews} urlPrefix="news" />}
+      {relatedPosts && (
+        <PostRelated
+          title="Похожие статьи по теме"
+          posts={relatedPosts}
+          urlPrefix="articles"
+        />
+      )}
+      {interestNews && (
+        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+      )}
     </>
   );
 };
@@ -25,16 +35,19 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const slug = params?.slugPage as string;
   const slugTaxonomy = params?.category as string;
 
-  let post = null;
-  let interestNews: PostProps[] = [];
+  let posts = { post: null, relatedPosts: null };
 
   try {
-    post = await getPost(slug, slugTaxonomy);
+    posts = await getPost(slug, {
+      slugTaxonomy,
+      postType: "post",
+      withRelatedPosts: true,
+    });
   } catch (error) {
     console.log("news detail post", error);
   }
 
-  if (!post) {
+  if (!posts || !posts.post) {
     return {
       notFound: true,
     };
@@ -43,6 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   // global settings
   const { settings, taxonomies } = await getGeneralSettings();
 
+  let interestNews: PostProps[] = [];
   try {
     interestNews = await getPosts({
       limit: 4,
@@ -54,7 +68,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   return {
     props: {
-      post,
+      post: posts.post,
+      relatedPosts: posts.relatedPosts,
       interestNews,
       settings,
       taxonomies,
