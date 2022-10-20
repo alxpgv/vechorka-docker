@@ -101,7 +101,7 @@ export const NewspaperArchive = ({
               <a
                 href={post.attached}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="ml-3 font-bold"
               >
                 {post.title}

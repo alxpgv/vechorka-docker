@@ -13,7 +13,7 @@ export const LastRelease = ({ item }: { item: NewsPaperPost }) => {
           <a
             href={item.attached}
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             className="block mt-5 font-bold"
           >
             Скачать / смотреть в формате PDF
