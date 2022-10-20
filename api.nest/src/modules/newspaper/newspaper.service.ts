@@ -88,7 +88,7 @@ export class NewspaperService {
         const newPost = {
           id: post.ID,
           title: post.post_title,
-          attached: attached[1] || null,
+          attached: (attached && attached[1]) || null,
           createdAt: post.post_date,
         };
 

@@ -21,8 +21,9 @@ export const PostItemInside: FC<Props> = ({
   titleTag,
   urlPrefix,
 }) => {
-  const { preview, title, slug, createdAt, views, taxonomies, commentCount } =
+  const { preview, title, slug, createdAt, meta, taxonomies, commentCount } =
     post;
+  const views = meta?.views || null;
 
   const categories = taxonomies?.categories;
   const categorySlug = categories && categories[0] ? categories[0].slug : "";

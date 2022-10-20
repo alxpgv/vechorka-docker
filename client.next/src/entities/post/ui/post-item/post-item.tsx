@@ -27,12 +27,13 @@ export const PostItem: FC<Props> = ({
     taxonomies,
     excerpt,
     createdAt,
-    views,
+    meta,
     commentCount,
   } = post;
   const categories = taxonomies?.categories;
   const categorySlug = categories && categories[0] ? categories[0].slug : "";
   const href = getLink(urlPrefix, categorySlug, slug);
+  const views = meta?.views || null;
 
   return (
     <div className={cn(className, "flex flex-col w-full mb-6")}>

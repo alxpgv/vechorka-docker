@@ -11,12 +11,13 @@ export const PostDetail = ({
   preview,
   commentCount,
   createdAt,
-  views,
+  meta,
   user,
 }: PostProps) => {
   const components: Array<string | React.ReactNode> = content
     ? parseContent(content)
     : [];
+  const views = meta?.views || null;
 
   return (
     <>

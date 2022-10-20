@@ -64,12 +64,12 @@ export class PostService {
     slug,
     slugTaxonomy,
     withRelatedPosts = false,
-    postType = 'post',
+    postTypeRelated = 'post',
   }: {
     slug: string;
     slugTaxonomy?: string;
     withRelatedPosts?: boolean;
-    postType?: PostType;
+    postTypeRelated?: PostType;
   }) {
     let query = this.postRepository.createQueryBuilder('post');
 
@@ -109,12 +109,15 @@ export class PostService {
         relatedPosts: null,
       };
 
+      //add post count views to meta
+      await this.addPostViews(post.post_ID);
+
       // related posts, exclude current post
       if (withRelatedPosts) {
         response.relatedPosts = await this.getPosts({
           excludeIds: [post.post_ID],
           limit: 4,
-          postType,
+          postType: postTypeRelated,
           relations: { taxonomy: true },
         });
       }
@@ -281,6 +284,30 @@ export class PostService {
     }
 
     return null;
+  }
+
+  async addPostViews(postId: number) {
+    let metaViews = await this.metaRepository
+      .createQueryBuilder('meta')
+      .select()
+      .where('meta.post_id=:postId AND meta.meta_key="views"', { postId })
+      .getOne();
+
+    if (metaViews) {
+      await this.metaRepository.update(
+        { post_id: postId, meta_key: 'views' },
+        {
+          meta_value: String(Number(metaViews.meta_value) + 1),
+        },
+      );
+    } else {
+      await this.metaRepository.insert({
+        meta_key: 'views',
+        post_id: postId,
+        meta_value: String(1),
+      });
+    }
+    return metaViews;
   }
 
   private responseData(
