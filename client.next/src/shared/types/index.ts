@@ -73,3 +73,20 @@ export interface TaxonomiesProps {
   geography: TaxonomyProps[];
   tags: TaxonomyProps[];
 }
+
+export interface NewsPaperPost extends Partial<PostProps> {
+  attached: string;
+}
+
+export interface NewsPaperPosts {
+  // key is month
+  [key: number]: NewsPaperPost[];
+}
+
+export interface NewsPaperAllProps {
+  posts: NewsPaperPosts;
+  postsMonths: number[];
+  postsYear: number;
+  allYears: number[];
+  lastRelease: NewsPaperPost;
+}
