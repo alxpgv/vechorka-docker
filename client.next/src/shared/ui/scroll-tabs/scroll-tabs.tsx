@@ -1,6 +1,5 @@
 import React from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import cn from "clsx";
 import useDrag from "@/shared/ui/scroll-tabs/useDrag";
 import type { TaxonomyProps } from "@/shared/types";
 import { LeftArrow, RightArrow } from "@/shared/ui/scroll-tabs/arrows";
@@ -15,9 +14,9 @@ interface Props {
 type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
 
 function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
-  const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
+  const isTouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
 
-  if (isThouchpad) {
+  if (isTouchpad) {
     ev.stopPropagation();
     return;
   }
