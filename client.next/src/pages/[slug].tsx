@@ -4,7 +4,6 @@ import { getPage } from "@/shared/api/pages";
 import React from "react";
 import { GetServerSideProps } from "next";
 import { PageDetail } from "@/entities/page/ui/page-detail";
-import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   post: PostProps;
@@ -14,10 +13,11 @@ interface Props {
 const Page = ({ post, interestNews }: Props) => {
   return (
     <>
-      <PostLayout left={<PageDetail {...post} />} showNewsWidgets={false} />
-      {interestNews && (
-        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
-      )}
+      <PostLayout
+        left={<PageDetail {...post} />}
+        interestPosts={interestNews}
+        showNewsWidgets={false}
+      />
     </>
   );
 };

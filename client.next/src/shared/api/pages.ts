@@ -14,16 +14,16 @@ export const getPage = async ({
     };
   }
 
-  let post = null;
+  let posts = { post: null };
   let interestNews: PostProps[] = [];
 
   try {
-    post = await getPost(slug);
+    posts = await getPost(slug);
   } catch (error) {
     console.log("page", error);
   }
 
-  if (!post) {
+  if (!posts.post) {
     return {
       notFound: true,
     };
@@ -44,7 +44,7 @@ export const getPage = async ({
 
   return {
     props: {
-      post,
+      post: posts.post,
       interestNews,
       settings,
       taxonomies,

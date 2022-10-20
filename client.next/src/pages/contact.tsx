@@ -3,7 +3,6 @@ import { getPage } from "@/shared/api/pages";
 import { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PageContact } from "@/entities/page/ui/page-contact";
-import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   post: PostProps;
@@ -13,10 +12,11 @@ interface Props {
 const Contact = ({ post, interestNews }: Props) => {
   return (
     <>
-      <PostLayout left={<PageContact {...post} />} showNewsWidgets={false} />
-      {interestNews && (
-        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
-      )}
+      <PostLayout
+        left={<PageContact {...post} />}
+        interestPosts={interestNews}
+        showNewsWidgets={false}
+      />
     </>
   );
 };

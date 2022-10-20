@@ -4,7 +4,6 @@ import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
 import { getPageNewsCategory } from "@/shared/api/page-news-category";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
-import { PostRelated } from "@/widgets/post-related";
 
 export interface NewsCategoryProps {
   posts: {
@@ -19,10 +18,8 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
     <>
       <PostLayout
         left={<PostListShowMore initPosts={news} urlPrefix="news" />}
+        interestPosts={interestNews}
       />
-      {interestNews && (
-        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
-      )}
     </>
   );
 };

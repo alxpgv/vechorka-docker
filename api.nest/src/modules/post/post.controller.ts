@@ -25,6 +25,7 @@ export class PostController {
     const withRelatedPosts = Boolean(query?.withRelatedPosts);
     const postType = query?.postType;
 
+    console.log(slug);
     console.log(query);
 
     return this.postService.getPost({

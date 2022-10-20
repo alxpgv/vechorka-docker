@@ -4,13 +4,20 @@ import { NewsCommentedDynamic } from "@/widgets/news-commented";
 import { NewsTopDynamic } from "@/widgets/news-top";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import { NavCategories } from "@/shared/ui/navigation/nav-categories";
+import { PostProps } from "@/shared/types";
+import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   left: React.ReactNode;
   showNewsWidgets?: boolean;
+  interestPosts?: PostProps[];
 }
 
-export const PostLayout: FC<Props> = ({ left, showNewsWidgets = true }) => {
+export const PostLayout: FC<Props> = ({
+  left,
+  interestPosts,
+  showNewsWidgets = true,
+}) => {
   return (
     <>
       <LayoutColumn
@@ -31,6 +38,13 @@ export const PostLayout: FC<Props> = ({ left, showNewsWidgets = true }) => {
           </>
         }
       />
+      {interestPosts && interestPosts.length > 0 && (
+        <PostRelated
+          title="Интересное"
+          posts={interestPosts}
+          urlPrefix="news"
+        />
+      )}
     </>
   );
 };

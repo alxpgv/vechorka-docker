@@ -5,7 +5,6 @@ import { NewspaperArchive } from "@/entities/newspaper/ui/newspaper-archive";
 import { getNewspapers } from "@/shared/api/newspaper";
 import { getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
-import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   newspapers: NewsPaperAllProps;
@@ -18,10 +17,8 @@ const NewsPaperIndex = ({ newspapers, interestNews }: Props) => {
       <PostLayout
         left={<NewspaperArchive newspapers={newspapers} />}
         showNewsWidgets={false}
+        interestPosts={interestNews}
       />
-      {interestNews && (
-        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
-      )}
     </>
   );
 };
