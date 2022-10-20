@@ -22,7 +22,17 @@ export class PostController {
   @Get('slug/:slug')
   getPost(@Query() query, @Param('slug') slug: string) {
     const slugTaxonomy = query?.slugTaxonomy;
-    return this.postService.getPost(slug, slugTaxonomy);
+    const withRelatedPosts = Boolean(query?.withRelatedPosts);
+    const postType = query?.postType;
+
+    console.log(query);
+
+    return this.postService.getPost({
+      slug,
+      slugTaxonomy,
+      postType,
+      withRelatedPosts,
+    });
   }
 
   @Get('taxonomy/slug/:slug')

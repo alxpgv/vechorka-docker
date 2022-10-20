@@ -5,7 +5,7 @@ import { Post } from './post.entity';
 import { PostMeta } from './post-meta.entity';
 import type { ImageWithSizes } from '../../types';
 import { TaxonomyService } from '../taxonomy/taxonomy.service';
-import type { PostResponse } from './post.interface';
+import type { PostResponse, PostType } from './post.interface';
 import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { BasePostParams } from './post.interface';
 import { AttachmentService } from '../attachment/attachment.service';
@@ -60,7 +60,17 @@ export class PostService {
     };
   }
 
-  async getPost(slug: string, slugTaxonomy?: string) {
+  async getPost({
+    slug,
+    slugTaxonomy,
+    withRelatedPosts = false,
+    postType = 'post',
+  }: {
+    slug: string;
+    slugTaxonomy?: string;
+    withRelatedPosts?: boolean;
+    postType?: PostType;
+  }) {
     let query = this.postRepository.createQueryBuilder('post');
 
     if (slugTaxonomy) {
@@ -93,7 +103,23 @@ export class PostService {
 
     if (post && Object.keys(post).length) {
       const metas = await this.getPostMetaByIds(post.post_ID);
-      return this.responseData([post], metas, undefined, 'full')[0];
+
+      const response = {
+        post: this.responseData([post], metas, undefined, 'full')[0],
+        relatedPosts: null,
+      };
+
+      // related posts, exclude current post
+      if (withRelatedPosts) {
+        response.relatedPosts = await this.getPosts({
+          excludeIds: [post.post_ID],
+          limit: 4,
+          postType,
+          relations: { taxonomy: true },
+        });
+      }
+
+      return response;
     }
 
     throw new NotFoundException('post not found');
