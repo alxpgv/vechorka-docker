@@ -10,6 +10,7 @@ import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 import { PostRelated } from "@/widgets/post-related";
+import { GetStaticProps } from "next";
 
 interface HomeProps {
   posts: {
@@ -62,7 +63,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   let posts: ListPostProps = {
     mainNews: [],
     lastNews: [],
@@ -84,6 +85,7 @@ export const getStaticProps = async () => {
       taxonomies,
       settings,
     },
+    revalidate: 60,
   };
 };
 
