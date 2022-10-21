@@ -46,11 +46,7 @@ export class PostService {
       postType: 'article',
     });
 
-    const interestNews = await this.getPosts({
-      limit: 4,
-      postType: 'post',
-      relations: { taxonomy: true },
-    });
+    const interestNews = await this.getPostsInterest();
 
     return {
       mainNews,
@@ -491,14 +487,60 @@ export class PostService {
     return metaViews;
   }
 
-  // popularity posts
+  // top posts
   async getPostsTop() {
     const posts = await this.postRepository
       .createQueryBuilder('post')
-      .leftJoinAndSelect('post.meta', 'meta', 'meta.meta_key="popularity"')
+      .leftJoinAndSelect('post.meta', 'meta', 'meta.meta_key="views"')
       .where('post_status = "publish" AND post_type="post"')
-      .orderBy('meta.meta_value', 'DESC')
+      .andWhere('YEARWEEK(post_date) = YEARWEEK(CURDATE())')
+      .orderBy('cast(meta.meta_value as unsigned)', 'DESC')
       .limit(5)
+      .getRawMany();
+
+    // metas, taxonomies
+    if (posts?.length) {
+      const postsIds = posts.map((post) => Number(post.post_ID));
+      const metas = await this.getPostMetaByIds(postsIds);
+      const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
+      return this.responseData(posts, metas, taxonomies);
+    }
+
+    throw new NotFoundException('posts not found');
+  }
+
+  // commented posts
+  async getPostsCommented() {
+    const posts = await this.postRepository
+      .createQueryBuilder('post')
+      .where(
+        'post_status = "publish" AND post_type="post" AND comment_count > 0',
+      )
+      .andWhere('YEARWEEK(post_date) = YEARWEEK(CURDATE())')
+      .orderBy('comment_count', 'DESC')
+      .limit(5)
+      .getRawMany();
+
+    // metas, taxonomies
+    if (posts?.length) {
+      const postsIds = posts.map((post) => Number(post.post_ID));
+      const metas = await this.getPostMetaByIds(postsIds);
+      const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
+      return this.responseData(posts, metas, taxonomies);
+    }
+
+    throw new NotFoundException('posts not found');
+  }
+
+  // interest posts
+  async getPostsInterest() {
+    const posts = await this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.meta', 'meta', 'meta.meta_key="interest"')
+      .where('post_status = "publish" AND post_type="post"')
+      .orderBy('meta.meta_value+0.0', 'DESC')
+      .addOrderBy('post_date', 'DESC')
+      .limit(4)
       .getRawMany();
 
     // return posts;
@@ -511,6 +553,6 @@ export class PostService {
       return this.responseData(posts, metas, taxonomies);
     }
 
-    return null;
+    throw new NotFoundException('posts not found');
   }
 }

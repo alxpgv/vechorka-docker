@@ -50,6 +50,16 @@ export class PostController {
     return this.postService.getPostsTop();
   }
 
+  @Get('commented')
+  getPostsCommented() {
+    return this.postService.getPostsCommented();
+  }
+
+  @Get('interest')
+  getPostsInterest() {
+    return this.postService.getPostsInterest();
+  }
+
   @Get('search')
   getPostsSearch(@Query() query: PostSearchQueryParamsDTO) {
     return this.postService.getPostsSearch(query);
