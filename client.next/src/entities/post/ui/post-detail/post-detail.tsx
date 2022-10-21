@@ -62,9 +62,11 @@ export const PostDetail = ({
         <div className="mt-5">
           <CommentForm postId={id} />
         </div>
-        <div className="mt-8">
-          <CommentList postId={id} />
-        </div>
+        {Number(commentCount) > 0 && (
+          <div className="mt-8">
+            <CommentList postId={id} />
+          </div>
+        )}
       </div>
     </>
   );
