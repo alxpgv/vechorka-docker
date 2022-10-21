@@ -7,16 +7,14 @@ import { parseContent } from "@/shared/lib/content";
 import { CommentForm } from "@/entities/comment/ui/comment-form";
 import { CommentList } from "@/entities/comment/ui/comment-list";
 
-export const PostDetail = ({
-  id,
-  title,
-  content,
-  preview,
-  commentCount,
-  createdAt,
-  meta,
-  user,
-}: PostProps) => {
+interface Props {
+  post: PostProps;
+  showComment?: boolean;
+}
+
+export const PostDetail = ({ post, showComment = false }: Props) => {
+  const { id, title, content, preview, commentCount, createdAt, meta, user } =
+    post;
   const components: Array<string | React.ReactNode> = content
     ? parseContent(content)
     : [];
@@ -57,17 +55,19 @@ export const PostDetail = ({
           <strong>Автор:</strong> {user}
         </div>
       )}
-      <div className="mt-8">
-        <h3 className="text-grey-500">Комментарии</h3>
-        <div className="mt-5">
-          <CommentForm postId={id} />
-        </div>
-        {Number(commentCount) > 0 && (
-          <div className="mt-8">
-            <CommentList postId={id} />
+      {showComment && (
+        <div className="mt-8">
+          <h3 className="text-grey-500">Комментарии</h3>
+          <div className="mt-5">
+            <CommentForm postId={id} />
           </div>
-        )}
-      </div>
+          {Number(commentCount) > 0 && (
+            <div className="mt-8">
+              <CommentList postId={id} />
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

@@ -16,7 +16,10 @@ interface Props {
 const ArticlesDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
   return (
     <>
-      <PostLayout left={<PostDetail {...post} />} showNewsWidgets={false} />
+      <PostLayout
+        left={<PostDetail post={post} showComment />}
+        showNewsWidgets={false}
+      />
       {relatedPosts && (
         <PostRelated
           title="Статьи из раздела"

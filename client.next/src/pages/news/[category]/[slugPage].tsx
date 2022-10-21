@@ -16,7 +16,7 @@ interface Props {
 const NewsDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
   return (
     <>
-      <PostLayout left={<PostDetail {...post} />} />
+      <PostLayout left={<PostDetail post={post} showComment />} />
       {relatedPosts && (
         <PostRelated
           title="Другие новости"
