@@ -72,7 +72,10 @@ export const NavMobile: FC<Props> = ({ menu }) => {
           <div className="flex items-center justify-between h-[60px] px-4 border-b border-grey-600 bg-grey-450">
             {/* search */}
             <div className="h-[30px] w-[80%]">
-              <InputSearch variant={"secondary"} />
+              <InputSearch
+                variant={"secondary"}
+                onSubmit={() => setIsOpen(false)}
+              />
             </div>
             {/* close btn */}
             <CloseButton onClick={() => setIsOpen(false)} />

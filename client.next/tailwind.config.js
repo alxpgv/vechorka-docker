@@ -5,6 +5,7 @@ module.exports = {
     "./src/entities/post/ui/**/*.{js,ts,jsx,tsx}",
     "./src/entities/page/ui/**/*.{js,ts,jsx,tsx}",
     "./src/entities/newspaper/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/entities/search/ui/**/*.{js,ts,jsx,tsx}",
     "./src/features/**/*.{js,ts,jsx,tsx}",
     "./src/widgets/**/*.{js,ts,jsx,tsx}",
     "./src/shared/ui/**/*.{js,ts,jsx,tsx}",
@@ -20,6 +21,7 @@ module.exports = {
       raleway: ["Raleway", "sans-serif"],
     },
     fontSize: {
+      "10px": ["10px", "1.2"],
       "13px": ["13px", "1.3"],
       "14px": ["14px", "1.3"],
       "16px": ["16px", "1.3"],
@@ -48,6 +50,7 @@ module.exports = {
       "blue-100": "#4DB2E7",
       "blue-200": "#3E8EB9",
       "blue-300": "#154291",
+      error: "#ff3333",
 
       telegram: "#2F89CE",
       vk: "#7294C7",
