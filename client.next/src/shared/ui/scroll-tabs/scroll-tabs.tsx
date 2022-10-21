@@ -3,7 +3,7 @@ import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import useDrag from "@/shared/ui/scroll-tabs/useDrag";
 import type { TaxonomyProps } from "@/shared/types";
 import { LeftArrow, RightArrow } from "@/shared/ui/scroll-tabs/arrows";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/buttons";
 
 interface Props {
   tabs: TaxonomyProps[];

@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState } from "react";
 import { ScrollTabs } from "@/shared/ui/scroll-tabs";
 import { FullLoader } from "@/shared/ui/loaders";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/buttons";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";

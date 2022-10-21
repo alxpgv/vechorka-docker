@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "@/shared/ui/container";
 import { useSettings } from "@/app/contexts/settings-context";
 import { Logo } from "@/shared/ui/logo";
-import { InputSearch } from "@/shared/ui/inputs/input-search";
+import { SearchForm } from "@/entities/search/ui/search-form";
 import { Nav } from "@/shared/ui/navigation/nav";
 import { NavMobile } from "@/shared/ui/navigation/nav-mobile";
 import { menuHomeItem } from "@/shared/config";
@@ -28,7 +28,7 @@ export const Navbar = () => {
 
             {/* search */}
             <div className="hidden md:flex justify-end w-[310px] h-[30px]">
-              <InputSearch />
+              <SearchForm />
             </div>
 
             {/* mobile */}

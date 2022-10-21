@@ -4,7 +4,7 @@ import { useKeenSlider } from "keen-slider/react";
 import { getPosts } from "@/shared/api/posts";
 import { ImageWithSizes, PostProps } from "@/shared/types";
 import { SimpleLoader } from "@/shared/ui/loaders";
-import { Arrow } from "@/shared/ui/button";
+import { Arrow } from "@/shared/ui/buttons";
 import NextImage from "next/image";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 import { settings } from "@/shared/config";

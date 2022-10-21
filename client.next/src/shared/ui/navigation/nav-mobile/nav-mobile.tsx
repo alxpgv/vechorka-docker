@@ -11,7 +11,7 @@ import {
   Hamburger,
 } from "@/shared/ui/navigation/nav-mobile/buttons";
 import cn from "clsx";
-import { InputSearch } from "@/shared/ui/inputs/input-search";
+import { SearchForm } from "@/entities/search/ui/search-form";
 import { MenuItem } from "@/shared/ui/navigation/nav-mobile/menu-item";
 import { useKey } from "@/shared/lib/hooks/useKey";
 
@@ -72,7 +72,7 @@ export const NavMobile: FC<Props> = ({ menu }) => {
           <div className="flex items-center justify-between h-[60px] px-4 border-b border-grey-600 bg-grey-450">
             {/* search */}
             <div className="h-[30px] w-[80%]">
-              <InputSearch
+              <SearchForm
                 variant={"secondary"}
                 onSubmit={() => setIsOpen(false)}
               />

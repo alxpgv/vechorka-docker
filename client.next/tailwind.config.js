@@ -6,14 +6,12 @@ module.exports = {
     "./src/entities/page/ui/**/*.{js,ts,jsx,tsx}",
     "./src/entities/newspaper/ui/**/*.{js,ts,jsx,tsx}",
     "./src/entities/search/ui/**/*.{js,ts,jsx,tsx}",
-    "./src/features/**/*.{js,ts,jsx,tsx}",
+    "./src/entities/comment/ui/**/*.{js,ts,jsx,tsx}",
+    // "./src/features/**/*.{js,ts,jsx,tsx}",
     "./src/widgets/**/*.{js,ts,jsx,tsx}",
     "./src/shared/ui/**/*.{js,ts,jsx,tsx}",
     "./src/shared/libs/**/*.{js,ts,jsx,tsx}",
     "./src/ads/**/*.{js,ts,jsx,tsx}",
-    "./src/articles/**/*.{js,ts,jsx,tsx}",
-    "./src/newspaper/**/*.{js,ts,jsx,tsx}",
-    "./src/video/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     fontFamily: {

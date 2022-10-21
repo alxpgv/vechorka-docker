@@ -4,8 +4,11 @@ import { ImagePreview } from "@/shared/ui/image-preview";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { Heading } from "@/shared/ui/heading";
 import { parseContent } from "@/shared/lib/content";
+import { CommentForm } from "@/entities/comment/ui/comment-form";
+import { CommentList } from "@/entities/comment/ui/comment-list";
 
 export const PostDetail = ({
+  id,
   title,
   content,
   preview,
@@ -54,6 +57,15 @@ export const PostDetail = ({
           <strong>Автор:</strong> {user}
         </div>
       )}
+      <div className="mt-8">
+        <h3 className="text-grey-500">Комментарии</h3>
+        <div className="mt-5">
+          <CommentForm postId={id} />
+        </div>
+        <div className="mt-8">
+          <CommentList postId={id} />
+        </div>
+      </div>
     </>
   );
 };

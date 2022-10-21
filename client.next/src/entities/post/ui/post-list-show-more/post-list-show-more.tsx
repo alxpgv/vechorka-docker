@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import type { PostProps } from "@/shared/types";
 import { FullLoader } from "@/shared/ui/loaders";
 import { useRouter } from "next/router";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/buttons";
 import { PostItem } from "@/entities/post/ui/post-item";
 import { getPosts, getPostsByTaxonomySlug } from "@/shared/api/posts";
 import { PostItemInside } from "@/entities/post/ui/post-item-inside";

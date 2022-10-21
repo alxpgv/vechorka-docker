@@ -3,7 +3,7 @@ import { Heading } from "@/shared/ui/heading";
 import { useRouter } from "next/router";
 import { PostProps, PostType } from "@/shared/types";
 import { searchPosts } from "@/shared/api/search";
-import { InputSearch } from "@/shared/ui/inputs/input-search";
+import { SearchForm } from "@/entities/search/ui/search-form";
 import { PostItem } from "@/entities/post/ui/post-item";
 import { messages } from "@/shared/constants";
 
@@ -46,7 +46,7 @@ export const SearchList = () => {
     <>
       <Heading className="text-grey-500 mb-5" tag="h1" title="Поиск по сайту" />
       <div>
-        <InputSearch defaultValue={query} />
+        <SearchForm defaultValue={query} />
       </div>
       {posts.length > 0 ? (
         <div className="relative flex flex-wrap -m-2 mt-5">

@@ -5,7 +5,7 @@ import {
   formatISOToLocaleDateMonth,
   formatISOToLocaleMonth,
 } from "@/shared/lib/date";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/buttons";
 import { Heading } from "@/shared/ui/heading";
 import { LastRelease } from "@/entities/newspaper/ui/newspaper-archive/last-release";
 

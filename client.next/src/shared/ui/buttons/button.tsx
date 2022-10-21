@@ -3,7 +3,7 @@ import cn from "clsx";
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: "outline" | "filled";
+  variant?: "outline" | "filled" | "filled-secondary";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   active?: boolean;
@@ -24,6 +24,7 @@ const variantClasses = {
   filled:
     "bg-grey-100 text-grey-400 [@media(hover:hover){&:hover}]:text-white [@media(hover:hover){&:hover}]:bg-blue-300",
   filledActive: "bg-blue-300 text-white",
+  "filled-secondary": "bg-blue-100 hover:bg-blue-300 text-white",
 };
 
 export const Button: FC<
@@ -49,6 +50,7 @@ export const Button: FC<
           [variantClasses.outlineActive]: variant === "outline" && active,
           [variantClasses.filled]: variant === "filled" && !active,
           [variantClasses.filledActive]: variant === "filled" && active,
+          [variantClasses["filled-secondary"]]: variant === "filled-secondary",
           [sizeClasses.md]: size === "md",
           [sizeClasses.sm]: size === "sm",
         }

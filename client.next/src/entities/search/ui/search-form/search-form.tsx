@@ -1,7 +1,8 @@
-import React, { FC, FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import cn from "clsx";
 import { Icon } from "@/shared/ui/icon";
 import router from "next/router";
+import { InputText } from "@/shared/ui/inputs";
 
 interface Props {
   defaultValue?: string;
@@ -9,11 +10,11 @@ interface Props {
   onSubmit?: () => void;
 }
 
-export const InputSearch: FC<Props> = ({
+export const SearchForm = ({
   defaultValue,
   variant = "primary",
   onSubmit,
-}) => {
+}: Props) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
@@ -47,26 +48,14 @@ export const InputSearch: FC<Props> = ({
 
   return (
     <form className="relative w-full h-full" onSubmit={onSearch} noValidate>
-      {error && (
-        <span className="absolute -top-3 left-1 bg-white p-0.5 text-10px text-error">
-          {error}
-        </span>
-      )}
-      <input
-        // ref={refInput}
-        className={cn(
-          "border w-full h-full p-2 pr-8 text-14px",
-          variant === "primary"
-            ? "border-grey-200 focus:border-blue-300"
-            : "border-white bg-grey-450 focus:border-blue-100 text-white",
-          {
-            "border border-error": error,
-          }
-        )}
+      <InputText
+        variant={variant}
         onChange={onChange}
-        type="text"
         placeholder="Поиск по сайту..."
         value={value}
+        isError={Boolean(error)}
+        errorMessage={error}
+        className="pr-8"
       />
       <button
         type="submit"
