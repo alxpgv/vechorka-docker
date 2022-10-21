@@ -45,6 +45,11 @@ export class PostController {
     });
   }
 
+  @Get('top')
+  getPostsTop() {
+    return this.postService.getPostsTop();
+  }
+
   @Get('search')
   getPostsSearch(@Query() query: PostSearchQueryParamsDTO) {
     return this.postService.getPostsSearch(query);

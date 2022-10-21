@@ -490,4 +490,27 @@ export class PostService {
     }
     return metaViews;
   }
+
+  // popularity posts
+  async getPostsTop() {
+    const posts = await this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.meta', 'meta', 'meta.meta_key="popularity"')
+      .where('post_status = "publish" AND post_type="post"')
+      .orderBy('meta.meta_value', 'DESC')
+      .limit(5)
+      .getRawMany();
+
+    // return posts;
+
+    // metas, taxonomies
+    if (posts?.length) {
+      const postsIds = posts.map((post) => Number(post.post_ID));
+      const metas = await this.getPostMetaByIds(postsIds);
+      const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
+      return this.responseData(posts, metas, taxonomies);
+    }
+
+    return null;
+  }
 }
