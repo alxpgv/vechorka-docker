@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from './modules/post/post.module';
 import { TaxonomyModule } from './modules/taxonomy/taxonomy.module';
 import { NewspaperModule } from './modules/newspaper/newspaper.module';
+import { CommentModule } from './modules/comment/comment.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { NewspaperModule } from './modules/newspaper/newspaper.module';
     PostModule,
     NewspaperModule,
     TaxonomyModule,
+    CommentModule,
   ],
   providers: [],
 })
