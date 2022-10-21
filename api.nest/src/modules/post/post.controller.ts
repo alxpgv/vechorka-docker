@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { PostService } from './post.service';
-import { PostQueryParamsDTO } from './post.dto';
+import { PostQueryParamsDTO, PostSearchQueryParamsDTO } from './post.dto';
 
 @Controller('posts')
 export class PostController {
@@ -43,5 +43,10 @@ export class PostController {
       ...query,
       relations: { taxonomy: query.taxonomy, user: query.user },
     });
+  }
+
+  @Get('search')
+  getPostsSearch(@Query() query: PostSearchQueryParamsDTO) {
+    return this.postService.getPostsSearch(query);
   }
 }

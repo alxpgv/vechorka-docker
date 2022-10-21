@@ -58,3 +58,20 @@ export class PostQueryParamsDTO {
   @IsArray()
   excludeIds?: number[];
 }
+
+export class PostSearchQueryParamsDTO {
+  @IsString()
+  q: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Max(100)
+  @Min(1)
+  @Transform(({ value }) => Number(value))
+  limit?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  offset?: number;
+}

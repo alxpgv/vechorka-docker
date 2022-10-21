@@ -9,7 +9,7 @@ import type { PostResponse, PostType } from './post.interface';
 import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { BasePostParams } from './post.interface';
 import { AttachmentService } from '../attachment/attachment.service';
-import { unserializeValue } from '../../utils/helpers';
+import { PostSearchQueryParamsDTO } from './post.dto';
 
 @Injectable()
 export class PostService {
@@ -202,6 +202,7 @@ export class PostService {
     const posts = await query.offset(offset).limit(limit).getRawMany();
     // return posts;
 
+    // metas, taxonomies
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
@@ -213,9 +214,9 @@ export class PostService {
       }
       // return taxonomies;
 
-      const responsePosts = this.responseData(posts, metas, taxonomies);
+      const response = this.responseData(posts, metas, taxonomies);
 
-      return isResponseIds ? { data: responsePosts, postsIds } : responsePosts;
+      return isResponseIds ? { data: response, postsIds } : response;
     }
 
     return null;
@@ -231,6 +232,7 @@ export class PostService {
     return await this.getPosts({ taxonomyId: taxonomy.term_id, ...params });
   }
 
+  // get post meta fields, and children _thumbnail_id - preview image
   private getPostMetaByIds(postIds: number | number[]) {
     if (postIds || (Array.isArray(postIds) && postIds.length)) {
       return (
@@ -258,11 +260,45 @@ export class PostService {
   //     .getMany();
   // }
 
-  private async getTaxonomiesByPostsIds(
-    postIds: number | number[],
-    terms = false,
-  ) {
-    if (postIds || (Array.isArray(postIds) && postIds.length)) {
+  // search
+  async getPostsSearch({
+    q,
+    offset = 0,
+    limit = 20,
+  }: PostSearchQueryParamsDTO) {
+    const search = q
+      .replace(/([^\w\u0430-\u044f\d\s\-,]+)/gi, '')
+      .trim()
+      .slice(0, 60);
+
+    const query = this.postRepository
+      .createQueryBuilder('post')
+      .where('post_status="publish"')
+      .andWhere('(post_type="post" OR post_type="article")')
+      .andWhere(
+        '(post_title LIKE :q OR post_excerpt LIKE :q OR post_content LIKE :q)',
+        {
+          q: `%${search}%`,
+        },
+      )
+      .orderBy('post_date', 'DESC');
+
+    const posts = await query.offset(offset).limit(limit).getRawMany();
+
+    // metas, taxonomies
+    if (posts?.length) {
+      const postsIds = posts.map((post) => Number(post.post_ID));
+      const metas = await this.getPostMetaByIds(postsIds);
+      const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
+      return this.responseData(posts, metas, taxonomies);
+    }
+
+    throw new NotFoundException('posts not found');
+  }
+
+  private async getTaxonomiesByPostsIds(postIds: number[], terms = false) {
+    console.log(postIds);
+    if (Array.isArray(postIds) && postIds.length) {
       let query = this.postRepository
         .createQueryBuilder('post')
         .select('post.ID')
@@ -284,30 +320,6 @@ export class PostService {
     }
 
     return null;
-  }
-
-  async addPostViews(postId: number) {
-    let metaViews = await this.metaRepository
-      .createQueryBuilder('meta')
-      .select()
-      .where('meta.post_id=:postId AND meta.meta_key="views"', { postId })
-      .getOne();
-
-    if (metaViews) {
-      await this.metaRepository.update(
-        { post_id: postId, meta_key: 'views' },
-        {
-          meta_value: String(Number(metaViews.meta_value) + 1),
-        },
-      );
-    } else {
-      await this.metaRepository.insert({
-        meta_key: 'views',
-        post_id: postId,
-        meta_value: String(1),
-      });
-    }
-    return metaViews;
   }
 
   private responseData(
@@ -453,5 +465,29 @@ export class PostService {
     });
 
     return data;
+  }
+
+  private async addPostViews(postId: number) {
+    const metaViews = await this.metaRepository
+      .createQueryBuilder('meta')
+      .select()
+      .where('meta.post_id=:postId AND meta.meta_key="views"', { postId })
+      .getOne();
+
+    if (metaViews) {
+      await this.metaRepository.update(
+        { post_id: postId, meta_key: 'views' },
+        {
+          meta_value: String(Number(metaViews.meta_value) + 1),
+        },
+      );
+    } else {
+      await this.metaRepository.insert({
+        meta_key: 'views',
+        post_id: postId,
+        meta_value: String(1),
+      });
+    }
+    return metaViews;
   }
 }
