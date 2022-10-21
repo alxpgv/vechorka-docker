@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import cn from "clsx";
 import type { PostProps } from "@/shared/types";
 import { getLink } from "@/shared/lib/links";
@@ -19,13 +19,13 @@ interface Props {
   }) => React.ReactElement;
 }
 
-export const PostListWidget: FC<Props> = ({
+export const PostListWidget = ({
   title,
   className,
   urlPrefix,
   fetchCallback,
   view,
-}) => {
+}: Props) => {
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLDivElement | null>(null);

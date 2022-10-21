@@ -42,3 +42,7 @@ export const getPostsByTaxonomySlug = async (
     `posts/taxonomy/slug/${slug}${queryParams ? `?${queryParams}` : ""}`
   );
 };
+
+export const getPostsTop = (): Promise<PostProps[]> => {
+  return api.get("posts/top");
+};

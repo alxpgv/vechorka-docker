@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { ImagePreview } from "@/shared/ui/image-preview";
-import { getPosts } from "@/shared/api/posts";
+import { getPostsTop } from "@/shared/api/posts";
 import { Heading } from "@/shared/ui/heading";
 import { PostListWidget } from "@/widgets/post-list-widget";
 
@@ -15,12 +15,7 @@ export const NewsTop: FC<NewsTopProps> = ({ className }) => {
       className={className}
       urlPrefix="news"
       title="Популярные"
-      fetchCallback={() =>
-        getPosts({
-          limit: 5,
-          relations: { taxonomy: true },
-        })
-      }
+      fetchCallback={() => getPostsTop()}
       view={({ post, href }) => (
         <>
           {/* image */}
