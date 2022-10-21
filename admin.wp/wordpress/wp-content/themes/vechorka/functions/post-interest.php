@@ -1,15 +1,15 @@
 <?php
 // добавляем запланированный хук
-add_action('admin_head', 'post_popularity_schedule');
-function post_popularity_schedule()
+add_action('admin_head', 'post_interest_schedule');
+function post_interest_schedule()
 {
-  if (!wp_next_scheduled('post_popularity_event')) {
-    wp_schedule_event(time(), 'hourly', 'post_popularity_event');
+  if (!wp_next_scheduled('post_interest_event')) {
+    wp_schedule_event(time(), 'hourly', 'post_interest_event');
   }
 }
 
 // добавляем функцию к указанному хуку
-function do_post_popularity()
+function do_post_interest()
 {
   global $wpdb;
   $postids = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_status='publish' AND post_type='post' ORDER BY ID ASC");
@@ -27,7 +27,7 @@ function do_post_popularity()
 
     // считаем комментарии и сумму просмотров с комментариями
     $comments = get_comments_number($postid);
-    $sum = $views + $comments;
+    $sum = ($comments * 10) + $views;
     // считаем индекс популярности
     if ($days = '0') {
       $pop_index = $sum / 1;
@@ -37,8 +37,8 @@ function do_post_popularity()
     }
     $pop = round($pop_index, 2);
     // записываем индекс популярности в произвольное поле поста
-    update_post_meta($postid, 'popularity', $pop);
+    update_post_meta($postid, 'interest', $pop);
   }
 }
 
-add_action('post_popularity_event', 'do_post_popularity', 10, 2);
+add_action('post_interest_event', 'do_post_interest', 10, 2);
