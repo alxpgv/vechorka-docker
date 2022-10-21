@@ -3,7 +3,7 @@ import { NewsPaperAllProps, PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { NewspaperArchive } from "@/entities/newspaper/ui/newspaper-archive";
 import { getNewspapers } from "@/shared/api/newspaper";
-import { getPosts } from "@/shared/api/posts";
+import { getPostsInterest } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 
 interface Props {
@@ -53,10 +53,7 @@ export const getServerSideProps = async () => {
   // interest news
   let interestNews: PostProps[] = [];
   try {
-    interestNews = await getPosts({
-      limit: 4,
-      relations: { taxonomy: true },
-    });
+    interestNews = await getPostsInterest();
   } catch (error) {
     console.log("newspaper interest", error);
   }

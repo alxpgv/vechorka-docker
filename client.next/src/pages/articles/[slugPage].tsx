@@ -3,7 +3,7 @@ import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostDetail } from "@/entities/post/ui/post-detail";
-import { getPost, getPosts } from "@/shared/api/posts";
+import { getPost, getPostsInterest } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { PostRelated } from "@/widgets/post-related";
 
@@ -59,10 +59,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   let interestNews: PostProps[] = [];
   try {
-    interestNews = await getPosts({
-      limit: 4,
-      relations: { taxonomy: true },
-    });
+    interestNews = await getPostsInterest();
   } catch (error) {
     console.log("article detail interest", error);
   }

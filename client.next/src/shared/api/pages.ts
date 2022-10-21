@@ -1,5 +1,5 @@
 import { getGeneralSettings } from "@/shared/api/settings";
-import { getPost, getPosts } from "@/shared/api/posts";
+import { getPost, getPostsInterest } from "@/shared/api/posts";
 import type { GetServerSidePropsResult } from "next";
 import type { PostProps } from "@/shared/types";
 
@@ -34,10 +34,7 @@ export const getPage = async ({
 
   // interest news
   try {
-    interestNews = await getPosts({
-      limit: 4,
-      relations: { taxonomy: true },
-    });
+    interestNews = await getPostsInterest();
   } catch (error) {
     console.log("interest", error);
   }

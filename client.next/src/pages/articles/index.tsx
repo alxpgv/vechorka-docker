@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
 import { ListPostProps, PostProps } from "@/shared/types";
-import { getPosts } from "@/shared/api/posts";
+import { getPosts, getPostsInterest } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 
 export interface Props {
@@ -56,10 +56,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   // interest news
   try {
-    posts.interestNews = await getPosts({
-      limit: 4,
-      relations: { taxonomy: true },
-    });
+    posts.interestNews = await getPostsInterest();
   } catch (error) {
     console.log("articles index interest", error);
   }

@@ -1,7 +1,7 @@
 import { PostLayout } from "@/shared/ui/layouts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import type { PostProps } from "@/shared/types";
-import { getPosts } from "@/shared/api/posts";
+import { getPostsInterest } from "@/shared/api/posts";
 import { SearchList } from "@/entities/search/ui/search-list";
 
 interface Props {
@@ -26,10 +26,7 @@ export const getServerSideProps = async () => {
   // interest news
   let interestNews: PostProps[] = [];
   try {
-    interestNews = await getPosts({
-      limit: 4,
-      relations: { taxonomy: true },
-    });
+    interestNews = await getPostsInterest();
   } catch (error) {
     console.log("newspaper interest", error);
   }

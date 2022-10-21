@@ -1,5 +1,9 @@
 import { getGeneralSettings } from "@/shared/api/settings";
-import { getPosts, getPostsByTaxonomySlug } from "@/shared/api/posts";
+import {
+  getPosts,
+  getPostsByTaxonomySlug,
+  getPostsInterest,
+} from "@/shared/api/posts";
 import type { GetServerSidePropsResult } from "next";
 import type { ListPostProps } from "@/shared/types";
 
@@ -50,10 +54,7 @@ export const getPageNewsCategory = async ({
 
   // interest news
   try {
-    posts.interestNews = await getPosts({
-      limit: 4,
-      relations: { taxonomy: true },
-    });
+    posts.interestNews = await getPostsInterest();
   } catch (error) {
     console.log("category interest", error);
   }

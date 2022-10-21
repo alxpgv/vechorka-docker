@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
-import { getPosts } from "@/shared/api/posts";
+import { getPostsCommented } from "@/shared/api/posts";
 import { Heading } from "@/shared/ui/heading";
 import { PostListWidget } from "@/widgets/post-list-widget";
 
@@ -14,12 +14,7 @@ export const NewsCommented: FC<NewsCommentedProps> = ({ className }) => {
       className={className}
       urlPrefix="news"
       title="Комментируют"
-      fetchCallback={() =>
-        getPosts({
-          limit: 5,
-          relations: { taxonomy: true },
-        })
-      }
+      fetchCallback={() => getPostsCommented()}
       view={({ post, href }) => (
         <>
           <div>

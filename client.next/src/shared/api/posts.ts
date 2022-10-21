@@ -46,3 +46,11 @@ export const getPostsByTaxonomySlug = async (
 export const getPostsTop = (): Promise<PostProps[]> => {
   return api.get("posts/top");
 };
+
+export const getPostsCommented = (): Promise<PostProps[]> => {
+  return api.get("posts/commented");
+};
+
+export const getPostsInterest = (): Promise<PostProps[]> => {
+  return api.get("posts/interest");
+};
