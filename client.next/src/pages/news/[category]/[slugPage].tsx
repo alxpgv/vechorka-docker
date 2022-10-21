@@ -19,7 +19,7 @@ const NewsDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
       <PostLayout left={<PostDetail {...post} />} />
       {relatedPosts && (
         <PostRelated
-          title="Похожие статьи по теме"
+          title="Другие новости"
           posts={relatedPosts}
           urlPrefix="news"
         />
