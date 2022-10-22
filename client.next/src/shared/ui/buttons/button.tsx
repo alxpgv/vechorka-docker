@@ -25,6 +25,7 @@ const variantClasses = {
     "bg-grey-100 text-grey-400 [@media(hover:hover){&:hover}]:text-white [@media(hover:hover){&:hover}]:bg-blue-300",
   filledActive: "bg-blue-300 text-white",
   "filled-secondary": "bg-blue-100 hover:bg-blue-300 text-white",
+  disabled: "bg-grey-200 text-grey-400",
 };
 
 export const Button: FC<
@@ -44,16 +45,18 @@ export const Button: FC<
     <button
       className={cn(
         "cursor-pointer select-none transition-colors duration-300",
-        {
-          [variantClasses.default]: !variant,
-          [variantClasses.outline]: variant === "outline" && !active,
-          [variantClasses.outlineActive]: variant === "outline" && active,
-          [variantClasses.filled]: variant === "filled" && !active,
-          [variantClasses.filledActive]: variant === "filled" && active,
-          [variantClasses["filled-secondary"]]: variant === "filled-secondary",
-          [sizeClasses.md]: size === "md",
-          [sizeClasses.sm]: size === "sm",
-        }
+        !disabled
+          ? {
+              [variantClasses.default]: !variant,
+              [variantClasses.outline]: variant === "outline" && !active,
+              [variantClasses.outlineActive]: variant === "outline" && active,
+              [variantClasses.filled]: variant === "filled" && !active,
+              [variantClasses.filledActive]: variant === "filled" && active,
+              [variantClasses["filled-secondary"]]:
+                variant === "filled-secondary",
+            }
+          : variantClasses.disabled,
+        { [sizeClasses.md]: size === "md", [sizeClasses.sm]: size === "sm" }
       )}
       onClick={onClick}
       disabled={disabled}
