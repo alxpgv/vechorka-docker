@@ -1,4 +1,11 @@
-import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  Length,
+  Max,
+  Min,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class CommentByPostIdParamsDTO {
@@ -25,8 +32,10 @@ export class CreateCommentDto {
   postId: number;
 
   @IsString()
+  @Length(3, 32)
   author: string;
 
+  @Length(3)
   @IsString()
   content: string;
 }
