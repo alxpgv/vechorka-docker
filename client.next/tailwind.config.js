@@ -49,6 +49,7 @@ module.exports = {
       "blue-200": "#3E8EB9",
       "blue-300": "#154291",
       error: "#ff3333",
+      success: "#4BB543",
 
       telegram: "#2F89CE",
       vk: "#7294C7",
