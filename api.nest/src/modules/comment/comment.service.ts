@@ -19,7 +19,8 @@ export class CommentService {
   }: CommentByPostIdParamsDTO) {
     const comments = await this.commentRepository
       .createQueryBuilder('comment')
-      .where('comment_post_ID=:postId', { postId })
+      .where('comment_approved = 1 AND comment_post_ID=:postId', { postId })
+      .orderBy('comment_date', 'ASC')
       .offset(offset)
       .limit(limit)
       .getMany();
