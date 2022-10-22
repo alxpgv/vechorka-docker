@@ -2,25 +2,32 @@ import React, { FormEvent, useState } from "react";
 import { InputText } from "@/shared/ui/inputs";
 import cn from "clsx";
 import { Button } from "@/shared/ui/buttons";
+import { createComment } from "@/shared/api/comments";
 
 interface Props {
   postId: number;
 }
 
 export const CommentForm = ({ postId }: Props) => {
-  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [sendingErrors, setSendingErrors] = useState<{ [key: string]: string }>(
+    {}
+  );
+  const [status, setStatus] = useState<
+    "intl" | "sending" | "success" | "error"
+  >("intl");
 
   const validate = (field: string, value: string) => {
     const _value = value.trim();
     let validate = false;
 
-    if (field === "name") {
+    if (field === "author") {
       if (_value.length < 3) {
-        setErrors((prev) => ({ ...prev, name: "Минимум 3 символа" }));
+        setErrors((prev) => ({ ...prev, author: "Минимум 3 символа" }));
       } else {
-        const { name, ...removedError } = errors;
+        const { author, ...removedError } = errors;
         setErrors(removedError);
         validate = true;
       }
@@ -39,9 +46,9 @@ export const CommentForm = ({ postId }: Props) => {
     return validate;
   };
 
-  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-    validate("name", e.target.value);
+  const onChangeAuthor = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAuthor(e.target.value);
+    validate("author", e.target.value);
   };
 
   const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -51,27 +58,75 @@ export const CommentForm = ({ postId }: Props) => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const validateName = validate("name", name);
+    const validateAuthor = validate("author", author);
     const validateContent = validate("content", content);
 
-    if (validateName && validateContent) {
-      console.log("okkkkk");
-    } else {
-      console.log("errrrrr");
+    if (validateAuthor && validateContent) {
+      const addComment = async () => {
+        setStatus("sending");
+        try {
+          const comment = await createComment({
+            postId,
+            author,
+            content,
+          });
+          setStatus("success");
+          setAuthor("");
+          setContent("");
+        } catch (error: any) {
+          console.log("post comment", error);
+          setStatus("error");
+          const errorMessage =
+            typeof error?.message === "object"
+              ? error.message
+              : {
+                  server:
+                    "Произошла ошибка при отправке, повторите запрос поздее или сообщите нам",
+                };
+          setSendingErrors(errorMessage);
+        }
+      };
+      addComment();
     }
   };
 
-  // console.log(errors);
+  const StatusSending = () => {
+    if (status === "success") {
+      return (
+        <div className="mt-3 text-success text-14px">
+          <strong>
+            Ваш комментарий успешно отправлен, после проверки модератором он
+            будет опубликован
+          </strong>
+        </div>
+      );
+    }
+
+    if (status === "error") {
+      const errors = Object.entries(sendingErrors);
+      return (
+        <div className="mt-3 text-error text-14px">
+          {errors.map(([key, value], index) => (
+            <div key={index} className="mt-1">
+              <strong>{key}</strong>: <span>{value}</span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <form className="bg-grey-100 p-5" onSubmit={onSubmit} noValidate>
       <div className="relative h-[40px] w-full sm:w-[300px]">
         <InputText
-          value={name}
+          value={author}
           placeholder="Имя"
-          onChange={onChangeName}
-          isError={Boolean(errors.name)}
-          errorMessage={errors.name ?? ""}
+          onChange={onChangeAuthor}
+          isError={Boolean(errors.author)}
+          errorMessage={errors.author ?? ""}
         />
       </div>
       <div className="relative mt-3">
@@ -90,13 +145,20 @@ export const CommentForm = ({ postId }: Props) => {
           rows={4}
           placeholder="Комментарий"
           onChange={onChangeContent}
+          value={content}
         />
       </div>
       <div className="mt-1">
-        <Button type="submit" variant="filled-secondary" size="md">
+        <Button
+          type="submit"
+          variant="filled-secondary"
+          size="md"
+          disabled={status === "sending"}
+        >
           Добавить комментарий
         </Button>
       </div>
+      <StatusSending />
     </form>
   );
 };
