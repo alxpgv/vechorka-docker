@@ -26,10 +26,10 @@ export class Comment {
   comment_author_IP: string;
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-  comment_date: string;
+  comment_date: Date;
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-  comment_date_gmt: string;
+  comment_date_gmt: Date;
 
   @Column({ type: 'text' })
   comment_content: string;
@@ -37,7 +37,7 @@ export class Comment {
   @Column({ type: 'int', width: 11, default: 0 })
   comment_karma: number;
 
-  @Column({ type: 'varchar', length: 20, default: 0 })
+  @Column({ type: 'varchar', length: 20, default: 1 })
   comment_approved: string;
 
   @Column({ type: 'varchar', length: 255, default: '' })

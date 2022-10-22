@@ -56,6 +56,10 @@ export class PostService {
     };
   }
 
+  getPostById(postId: number): Promise<Post> {
+    return this.postRepository.findOneBy({ ID: postId });
+  }
+
   async getPost({
     slug,
     slugTaxonomy,
@@ -293,7 +297,6 @@ export class PostService {
   }
 
   private async getTaxonomiesByPostsIds(postIds: number[], terms = false) {
-    console.log(postIds);
     if (Array.isArray(postIds) && postIds.length) {
       let query = this.postRepository
         .createQueryBuilder('post')

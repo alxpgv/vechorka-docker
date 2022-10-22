@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Comment } from './comment.entity';
-import { CommentByPostIdParamsDTO } from './comment.dto';
+import { CommentByPostIdParamsDTO, CreateCommentDto } from './comment.dto';
 import { CommentResponse } from './comment.interface';
+import { PostService } from '../post/post.service';
 
 @Injectable()
 export class CommentService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
+    private postService: PostService,
   ) {}
 
   async getCommentsByPostId({
@@ -26,6 +28,31 @@ export class CommentService {
       .getMany();
 
     return this.responseData(comments);
+  }
+
+  async createComment(body: CreateCommentDto) {
+    const { postId, author, content } = body;
+
+    const post = await this.postService.getPostById(postId);
+    if (!post) {
+      throw new BadRequestException('Post not found');
+    }
+
+    const date: Date = new Date();
+
+    const comment = this.commentRepository.create({
+      comment_post_ID: postId,
+      comment_author: author,
+      comment_content: content,
+      comment_date: date,
+      comment_date_gmt: date,
+      comment_approved: '0',
+      // comment_parent
+      // comment_author_IP
+    });
+
+    await this.commentRepository.save(comment);
+    return this.responseData([comment])[0];
   }
 
   private responseData(comments: Comment[]): CommentResponse[] {

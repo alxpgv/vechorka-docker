@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, Max, Min } from 'class-validator';
+import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class CommentByPostIdParamsDTO {
@@ -17,4 +17,16 @@ export class CommentByPostIdParamsDTO {
   @IsNumber()
   @Transform(({ value }) => Number(value))
   offset?: number;
+}
+
+export class CreateCommentDto {
+  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  postId: number;
+
+  @IsString()
+  author: string;
+
+  @IsString()
+  content: string;
 }

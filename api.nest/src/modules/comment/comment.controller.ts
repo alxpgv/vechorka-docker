@@ -1,6 +1,7 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CommentService } from './comment.service';
-import { CommentByPostIdParamsDTO } from './comment.dto';
+import { CommentByPostIdParamsDTO, CreateCommentDto } from './comment.dto';
+import { IpAddress } from '../../utils/decorators/ip-address';
 
 @Controller('comments')
 export class CommentController {
@@ -9,5 +10,11 @@ export class CommentController {
   @Get()
   getComments(@Query() query: CommentByPostIdParamsDTO) {
     return this.commentService.getCommentsByPostId(query);
+  }
+
+  @Post()
+  create(@Body() body: CreateCommentDto, @IpAddress() ipAddress) {
+    console.log(ipAddress);
+    return this.commentService.createComment(body);
   }
 }
