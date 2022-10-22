@@ -13,8 +13,17 @@ interface Props {
 }
 
 export const PostDetail = ({ post, showComment = false }: Props) => {
-  const { id, title, content, preview, commentCount, createdAt, meta, user } =
-    post;
+  const {
+    id,
+    title,
+    content,
+    preview,
+    commentCount,
+    commentStatus,
+    createdAt,
+    meta,
+    user,
+  } = post;
   const components: Array<string | React.ReactNode> = content
     ? parseContent(content)
     : [];
@@ -58,11 +67,13 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
       {showComment && (
         <div className="mt-8">
           <h3 className="text-grey-500">Комментарии</h3>
-          <div className="mt-5">
-            <CommentForm postId={id} />
-          </div>
+          {commentStatus === "open" && (
+            <div className="mt-5">
+              <CommentForm postId={id} />
+            </div>
+          )}
           {Number(commentCount) > 0 && (
-            <div className="mt-8">
+            <div className="mt-5">
               <CommentList postId={id} />
             </div>
           )}

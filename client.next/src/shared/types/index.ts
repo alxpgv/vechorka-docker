@@ -100,6 +100,7 @@ export interface CommentProps {
   authorIP?: string;
   createdAt: string;
   createdAtGmt?: string;
+  commentStatus: string;
   content: string;
   karma?: number;
   approved?: string;
