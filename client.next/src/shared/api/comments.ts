@@ -15,3 +15,11 @@ export const getCommentByPostId = (
     `comments?postId=${postId}${queryParams ? `&${queryParams}` : ""}`
   );
 };
+
+export const createComment = (body: {
+  postId: number;
+  author: string;
+  content: string;
+}) => {
+  return api.post("comments", body);
+};
