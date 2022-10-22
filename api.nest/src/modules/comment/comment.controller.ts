@@ -14,7 +14,7 @@ export class CommentController {
 
   @Post()
   create(@Body() body: CreateCommentDto, @IpAddress() ipAddress) {
-    console.log(ipAddress);
+    console.log('=====ip:', ipAddress);
     return this.commentService.createComment(body);
   }
 }
