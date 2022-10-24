@@ -66,7 +66,9 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
       )}
       {showComment && (
         <div className="mt-8">
-          <h3 className="text-grey-500">Комментарии</h3>
+          {commentStatus === "open" || Number(commentCount) > 0 ? (
+            <h3 className="text-grey-500">Комментарии</h3>
+          ) : null}
           {commentStatus === "open" && (
             <div className="mt-5">
               <CommentForm postId={id} />
