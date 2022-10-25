@@ -44,7 +44,7 @@ export const PostListWidget = ({
       setLoading(false);
     };
     isVisible && fetchData();
-  }, [isVisible]);
+  }, [fetchCallback, isVisible]);
 
   return (
     <div className={cn(className, "p-6 bg-grey-100")} ref={ref}>
