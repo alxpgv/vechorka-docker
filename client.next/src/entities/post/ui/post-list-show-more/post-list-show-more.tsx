@@ -15,11 +15,11 @@ interface Props {
 }
 
 export const PostListShowMore: FC<Props> = ({
-  initPosts,
+  initPosts = [],
   limit = 13,
   urlPrefix,
 }) => {
-  const [posts, setPosts] = useState<PostProps[]>(initPosts || []);
+  const [posts, setPosts] = useState<PostProps[]>(initPosts);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const categorySlug = router.query.category ?? urlPrefix;
