@@ -7,6 +7,10 @@ export const getGeneralSettings = async (isSSG = false) => {
 
   try {
     taxonomies = await getTaxonomiesGroup(isSSG);
+    // remove news category
+    taxonomies.categories = taxonomies.categories.filter(
+      (cat) => cat.slug !== "news"
+    );
   } catch (error) {
     console.log("settings taxonomies: ", error);
   }
