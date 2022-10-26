@@ -18,7 +18,7 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
   return (
     <>
       <PostLayout
-        left={<PostListShowMore initPosts={articles} urlPrefix="articles" />}
+        left={<PostListShowMore initPosts={articles} urlPrefix="article" />}
         interestPosts={interestNews}
       />
     </>

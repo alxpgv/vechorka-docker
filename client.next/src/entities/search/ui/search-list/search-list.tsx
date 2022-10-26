@@ -13,7 +13,7 @@ const getPrefixFromType = (type: PostType) => {
   }
 
   if (type === "article") {
-    return "articles";
+    return "article";
   }
 
   return type;

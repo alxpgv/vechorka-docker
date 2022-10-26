@@ -30,7 +30,7 @@ export const mainMenu = [
   {
     id: 16,
     name: "Статьи",
-    slug: "articles",
+    slug: "article",
     icon: "articles",
   },
   {

@@ -19,7 +19,7 @@ export const ArticleLast: FC<Props> = ({ posts }) => {
       <h2 className="mb-7 text-grey-500">Статьи</h2>
       <div className="space-y-5 md:space-y-7 lg:space-y-8">
         {posts.map(({ id, preview, slug, title, excerpt, createdAt }) => {
-          const href = getLink("articles", undefined, slug);
+          const href = getLink("article", undefined, slug);
           return (
             <div key={id} className="flex flex-col sm:flex-row">
               {/* image */}
