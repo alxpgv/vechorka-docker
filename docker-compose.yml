@@ -23,6 +23,7 @@ services:
     volumes:
       - ./admin.wp/config/php.conf.ini:/usr/local/etc/php/conf.d/php.ini
       - ./admin.wp/wordpress:/var/www/html
+      - ./admin.wp/wordpress/wp-config.php:/var/www/html/wp-config.php
     environment:
       - WORDPRESS_DB_HOST=db
       - WORDPRESS_DB_NAME=${DB_NAME:-wordpress}
