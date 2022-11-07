@@ -23,11 +23,13 @@ export const getFieldsRepeater = (fields: any = {}, repeaterFieldName = "") => {
     for (const key in fields) {
       const fieldPrefixName = `${repeaterFieldName}_${i}_`;
       if (key?.startsWith(fieldPrefixName)) {
-        const fieldName = key.replace(fieldPrefixName, "");
+        // const fieldName = key.replace(fieldPrefixName, "");
 
         items[i] = {
           ...items[i],
-          [fieldName]: fields[`${fieldPrefixName}${fieldName}`],
+          // [fieldName]: fields[`${fieldPrefixName}${fieldName}`],
+          [key]: fields[key],
+          // _key: key,
         };
       }
     }
