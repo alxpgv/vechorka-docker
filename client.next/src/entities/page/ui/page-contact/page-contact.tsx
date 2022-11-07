@@ -59,12 +59,14 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
             <div className="divide-y divide-grey-200">
               {additionalPhones.map(
                 (item: { [key: string]: string }, index: number) => {
+                  const title = item[`additional_phones_${index}_title`];
+                  const phone = item[`additional_phones_${index}_phone`];
                   return (
                     <div key={index} className="flex py-3 text-14px">
                       <div className="w-[50%] flex-shrink-0 pr-3">
-                        <strong>{item.title}</strong>
+                        <strong>{title}</strong>
                       </div>
-                      <div>{item.phone}</div>
+                      <div>{phone}</div>
                     </div>
                   );
                 }
@@ -78,16 +80,20 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
             <div className="divide-y divide-grey-200">
               {correspondents.map(
                 (item: { [key: string]: string }, index: number) => {
+                  const fullName = item[`correspondents_${index}_full_name`];
+                  const phone = item[`correspondents_${index}_phone`];
+                  const email = item[`correspondents_${index}_email`];
+
                   return (
                     <div key={index} className="flex py-3 text-14px">
                       <div className="w-[50%] flex-shrink-0 pr-3">
-                        <strong>{item.full_name}</strong>
+                        <strong>{fullName}</strong>
                       </div>
                       <div>
-                        <div>{item.phone}</div>
-                        {item.email && (
+                        <div>{phone}</div>
+                        {email && (
                           <div>
-                            <a href={`mailto:${item.email}`}>{item.email}</a>
+                            <a href={`mailto:${email}`}>{email}</a>
                           </div>
                         )}
                       </div>
