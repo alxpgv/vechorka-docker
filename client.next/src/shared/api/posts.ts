@@ -63,3 +63,11 @@ export const getPostsCommented = (): Promise<PostProps[]> => {
 export const getPostsInterest = (): Promise<PostProps[]> => {
   return api.get("posts/interest");
 };
+
+export const addPostPollReply = (body: {
+  postId: number;
+  pollId: number;
+  pollKey: string;
+}) => {
+  return api.post("posts/poll", body);
+};
