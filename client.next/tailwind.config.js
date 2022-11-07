@@ -7,7 +7,7 @@ module.exports = {
     "./src/entities/newspaper/ui/**/*.{js,ts,jsx,tsx}",
     "./src/entities/search/ui/**/*.{js,ts,jsx,tsx}",
     "./src/entities/comment/ui/**/*.{js,ts,jsx,tsx}",
-    // "./src/features/**/*.{js,ts,jsx,tsx}",
+    "./src/entities/poll/ui/**/*.{js,ts,jsx,tsx}",
     "./src/widgets/**/*.{js,ts,jsx,tsx}",
     "./src/shared/ui/**/*.{js,ts,jsx,tsx}",
     "./src/shared/libs/**/*.{js,ts,jsx,tsx}",
