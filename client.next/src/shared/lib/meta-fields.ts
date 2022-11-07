@@ -10,7 +10,10 @@
 // }
 // repeaterFieldName: "employees"
 
-export const getFieldsRepeater = (fields: any = {}, repeaterFieldName = "") => {
+export const getFieldsRepeater = (
+  fields: any = {},
+  repeaterFieldName = ""
+): Array<{ [key: string]: string }> | null => {
   const count =
     repeaterFieldName && fields[repeaterFieldName]
       ? fields[repeaterFieldName]
