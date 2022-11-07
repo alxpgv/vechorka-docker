@@ -33,7 +33,7 @@ export class CommentService {
   async createComment(body: CreateCommentDto) {
     const { postId, author, content } = body;
 
-    const post = await this.postService.getPostById(postId);
+    const post = await this.postService.getPostById({ postId });
     if (!post) {
       throw new BadRequestException('Post not found');
     }
