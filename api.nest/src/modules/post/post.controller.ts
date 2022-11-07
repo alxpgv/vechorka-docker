@@ -86,7 +86,7 @@ export class PostController {
   }
 
   @Post('poll')
-  addPollReply(@Body() body: AddPollReply) {
-    return this.postService.addPollReply(body);
+  addPostPollReply(@Body() body: AddPollReply) {
+    return this.postService.addPostPollReply(body);
   }
 }

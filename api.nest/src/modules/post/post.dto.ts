@@ -91,5 +91,5 @@ export class AddPollReply {
   @IsString()
   @IsNotEmpty()
   @Transform(({ value }) => value.trim())
-  key: string;
+  pollKey: string;
 }

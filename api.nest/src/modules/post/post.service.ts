@@ -521,83 +521,99 @@ export class PostService {
     return metaViews;
   }
 
-  async addPollReply(body: AddPollReply) {
-    const { postId, pollId, key } = body;
-    const metaKey = 'poll_results';
+  async addPostPollReply(body: AddPollReply) {
+    const { postId, pollId, pollKey } = body;
+    const postPollFieldName = 'poll_results';
 
+    // exist post
     if (!(await this.postRepository.findOneBy({ ID: postId }))) {
       throw new BadRequestException('Post not found');
     }
 
-    if (
-      !(await this.postRepository.findOneBy({ ID: pollId, post_type: 'poll' }))
-    ) {
-      throw new BadRequestException('Poll not found');
+    // exist poll and poll key
+    const poll = await this.postRepository
+      .createQueryBuilder('post')
+      .innerJoinAndSelect(
+        'post.meta',
+        'meta',
+        'meta.post_id = post.ID AND meta.meta_key=:pollKey',
+        { pollKey },
+      )
+      .where('ID=:pollId AND post_type="poll"', { pollId })
+      .getOne();
+
+    if (!poll) {
+      throw new BadRequestException('Poll or poll key not found');
     }
 
-    const metaPoll = await this.metaRepository
+    const metaPost = await this.metaRepository
       .createQueryBuilder('meta')
       .select()
-      .where('meta.post_id=:postId AND meta.meta_key=:metaKey', {
+      .where('meta.post_id=:postId AND meta.meta_key=:postPollFieldName', {
         postId,
-        metaKey,
+        postPollFieldName,
       })
       .getOne();
 
-    if (metaPoll) {
-      const metaResults = JSON.parse(metaPoll.meta_value);
-      if (
-        metaResults &&
-        metaResults[pollId] &&
-        Object.keys(metaResults[pollId]).length
-      ) {
-        const newMetaValue = metaResults[pollId][key]
-          ? Number(metaResults[pollId][key]) + 1
+    // exist meta results value
+    if (metaPost) {
+      const pollValues = JSON.parse(metaPost.meta_value);
+
+      let updatedPollValues: Record<string, number>;
+
+      // exist in metaResults pollId
+      if (pollValues[pollId]) {
+        const count = pollValues[pollId][pollKey]
+          ? Number(pollValues[pollId][pollKey]) + 1
           : 1;
 
-        const newMetaResult = {
+        updatedPollValues = {
+          ...pollValues,
           [pollId]: {
-            ...metaResults[pollId],
-            [key]: newMetaValue,
+            ...pollValues[pollId],
+            [pollKey]: count,
           },
         };
-
-        const updated = {
-          post_id: postId,
-          meta_key: metaKey,
-          meta_value: newMetaResult,
+      } else {
+        updatedPollValues = {
+          ...pollValues,
+          [pollId]: {
+            [pollKey]: 1,
+          },
         };
-
-        await this.metaRepository.update(
-          {
-            // meta_id: metaPoll.meta_id,
-            post_id: postId,
-            meta_key: metaKey,
-          },
-          {
-            meta_value: JSON.stringify(newMetaResult),
-          },
-        );
-
-        return updated;
       }
 
-      throw new BadRequestException('Poll meta not found');
+      await this.metaRepository.update(
+        {
+          // meta_id: metaPoll.meta_id,
+          post_id: postId,
+          meta_key: postPollFieldName,
+        },
+        {
+          meta_value: JSON.stringify(updatedPollValues),
+        },
+      );
+
+      return {
+        post_id: postId,
+        meta_key: postPollFieldName,
+        meta_value: updatedPollValues,
+      };
     } else {
-      const metaValue = {
+      const pollValues = {
         [pollId]: {
-          [key]: 1,
+          [pollKey]: 1,
         },
       };
       await this.metaRepository.insert({
         post_id: postId,
-        meta_key: metaKey,
-        meta_value: JSON.stringify(metaValue),
+        meta_key: postPollFieldName,
+        meta_value: JSON.stringify(pollValues),
       });
       return {
         post_id: postId,
-        meta_key: metaKey,
-        meta_value: metaValue,
+        meta_key: postPollFieldName,
+        meta_value: pollValues,
       };
     }
   }
