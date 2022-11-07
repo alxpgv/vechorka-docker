@@ -523,7 +523,7 @@ export class PostService {
 
   async addPollReply(body: AddPollReply) {
     const { postId, pollId, key } = body;
-    const meta_key = 'poll_results';
+    const metaKey = 'poll_results';
 
     if (!(await this.postRepository.findOneBy({ ID: postId }))) {
       throw new BadRequestException('Post not found');
@@ -538,8 +538,9 @@ export class PostService {
     const metaPoll = await this.metaRepository
       .createQueryBuilder('meta')
       .select()
-      .where('meta.post_id=:postId AND meta.meta_key="poll_results"', {
+      .where('meta.post_id=:postId AND meta.meta_key=:metaKey', {
         postId,
+        metaKey,
       })
       .getOne();
 
@@ -563,7 +564,7 @@ export class PostService {
 
         const updated = {
           post_id: postId,
-          meta_key,
+          meta_key: metaKey,
           meta_value: newMetaResult,
         };
 
@@ -571,7 +572,7 @@ export class PostService {
           {
             // meta_id: metaPoll.meta_id,
             post_id: postId,
-            meta_key,
+            meta_key: metaKey,
           },
           {
             meta_value: JSON.stringify(newMetaResult),
@@ -590,12 +591,12 @@ export class PostService {
       };
       await this.metaRepository.insert({
         post_id: postId,
-        meta_key,
+        meta_key: metaKey,
         meta_value: JSON.stringify(metaValue),
       });
       return {
         post_id: postId,
-        meta_key,
+        meta_key: metaKey,
         meta_value: metaValue,
       };
     }
