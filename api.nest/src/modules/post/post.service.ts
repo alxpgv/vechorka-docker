@@ -593,7 +593,6 @@ export class PostService {
 
       await this.metaRepository.update(
         {
-          // meta_id: metaPoll.meta_id,
           post_id: postId,
           meta_key: postPollFieldName,
         },
@@ -604,8 +603,7 @@ export class PostService {
 
       return {
         post_id: postId,
-        meta_key: postPollFieldName,
-        meta_value: updatedPollValues,
+        results: updatedPollValues[pollId],
       };
     } else {
       const pollValues = {
@@ -620,8 +618,7 @@ export class PostService {
       });
       return {
         post_id: postId,
-        meta_key: postPollFieldName,
-        meta_value: pollValues,
+        results: pollValues[pollId],
       };
     }
   }
