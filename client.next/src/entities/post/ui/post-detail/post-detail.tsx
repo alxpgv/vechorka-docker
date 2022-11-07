@@ -6,6 +6,7 @@ import { Heading } from "@/shared/ui/heading";
 import { parseContent } from "@/shared/lib/content";
 import { CommentForm } from "@/entities/comment/ui/comment-form";
 import { CommentList } from "@/entities/comment/ui/comment-list";
+import { PollView } from "@/entities/poll/ui/poll-view";
 
 interface Props {
   post: PostProps;
@@ -28,6 +29,9 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     ? parseContent(content)
     : [];
   const views = meta?.views || null;
+  const pollId = meta?.poll_id || null;
+
+  console.log(pollId);
 
   return (
     <>
@@ -45,6 +49,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
         views={views}
         commentCount={commentCount}
       />
+      {/* content parse */}
       {components &&
         components.map((component, index) => {
           if (typeof component === "string") {
@@ -59,11 +64,21 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
             return <Fragment key={index}>{component}</Fragment>;
           }
         })}
-      {user && (
-        <div className="mt-5 text-grey-500">
-          <strong>Автор:</strong> {user}
-        </div>
-      )}
+      <div className="flex flex-wrap border">
+        {/* poll */}
+        {pollId && (
+          <div className="border w-full lg:w-[300px] lg:flex-shrink-0 lg:mr-5 mt-5">
+            <PollView pollId={pollId} />
+          </div>
+        )}
+        {/* author */}
+        {user && (
+          <div className="border mt-5 text-grey-500">
+            <strong>Автор:</strong> {user}
+          </div>
+        )}
+      </div>
+      {/* comments */}
       {showComment && (
         <div className="mt-8">
           {commentStatus === "open" || Number(commentCount) > 0 ? (
