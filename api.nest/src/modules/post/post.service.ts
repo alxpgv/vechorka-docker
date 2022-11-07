@@ -496,7 +496,6 @@ export class PostService {
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.meta', 'meta', 'meta.meta_key="views"')
       .where('post_status = "publish" AND post_type="post"')
-      // .andWhere('YEARWEEK(post_date) = YEARWEEK(CURDATE())')
       .andWhere('post_date > NOW() - INTERVAL 7 DAY')
       .orderBy('cast(meta.meta_value as unsigned)', 'DESC')
       .limit(5)
@@ -520,7 +519,6 @@ export class PostService {
       .where(
         'post_status = "publish" AND post_type="post" AND comment_count > 0',
       )
-      // .andWhere('YEARWEEK(post_date) = YEARWEEK(CURDATE())')
       .andWhere('post_date > NOW() - INTERVAL 7 DAY')
       .orderBy('comment_count', 'DESC')
       .limit(5)
@@ -547,8 +545,6 @@ export class PostService {
       .addOrderBy('post_date', 'DESC')
       .limit(4)
       .getRawMany();
-
-    // return posts;
 
     // metas, taxonomies
     if (posts?.length) {
