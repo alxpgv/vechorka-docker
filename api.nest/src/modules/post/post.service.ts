@@ -56,11 +56,33 @@ export class PostService {
     };
   }
 
-  getPostById(postId: number): Promise<Post> {
-    return this.postRepository.findOneBy({ ID: postId });
+  async getPostById({
+    postId,
+    withMeta = false,
+  }: {
+    postId: number;
+    withMeta?: boolean;
+  }) {
+    let query = this.postRepository.createQueryBuilder('post');
+    query = query.where('ID=:postId AND post_status = "publish"', {
+      postId,
+    });
+
+    const post: any = await query.getRawOne();
+
+    if (post && Object.keys(post).length) {
+      if (withMeta) {
+        const metas = await this.getPostMetaByIds(post.post_ID);
+        return this.responseData([post], metas, undefined)[0];
+      }
+
+      return this.responseData([post])[0];
+    }
+
+    throw new NotFoundException('post not found');
   }
 
-  async getPost({
+  async getPostBySlug({
     slug,
     slugTaxonomy,
     withRelatedPosts = false,
@@ -94,10 +116,11 @@ export class PostService {
 
     query = query
       .leftJoin('post.user', 'user')
-      .addSelect(['user.display_name'])
-      .where('post_name=:slug AND post_status = "publish"', {
-        slug,
-      });
+      .addSelect(['user.display_name']);
+
+    query = query.where('post_name=:slug AND post_status = "publish"', {
+      slug,
+    });
 
     const post: any = await query.getRawOne();
 

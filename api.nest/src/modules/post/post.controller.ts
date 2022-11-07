@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { PostService } from './post.service';
 import { PostQueryParamsDTO, PostSearchQueryParamsDTO } from './post.dto';
 
@@ -19,13 +19,20 @@ export class PostController {
     });
   }
 
+  @Get('id/:id')
+  getPostById(@Query() query, @Param('id', ParseIntPipe) postId: number) {
+    const withMeta = Boolean(query?.withMeta);
+
+    return this.postService.getPostById({ postId, withMeta });
+  }
+
   @Get('slug/:slug')
-  getPost(@Query() query, @Param('slug') slug: string) {
+  getPostBySlug(@Query() query, @Param('slug') slug: string) {
     const slugTaxonomy = query?.slugTaxonomy;
     const withRelatedPosts = Boolean(query?.withRelatedPosts);
     const postType = query?.postType;
 
-    return this.postService.getPost({
+    return this.postService.getPostBySlug({
       slug,
       slugTaxonomy,
       postTypeRelated: postType,
@@ -36,7 +43,7 @@ export class PostController {
   @Get('taxonomy/slug/:slug')
   getPostsByTaxonomySlug(
     @Query() query: PostQueryParamsDTO,
-    @Param('slug') slug,
+    @Param('slug') slug: string,
   ) {
     return this.postService.getPostsByTaxonomySlug({
       slug,
