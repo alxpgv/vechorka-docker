@@ -53,54 +53,50 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
       </div>
 
       <div className="flex flex-col lg:flex-row text-grey-500">
-        {additionalPhones?.length > 0 && (
+        {additionalPhones && additionalPhones.length > 0 && (
           <div className="w-full lg:w-[40%] lg:mr-5 mt-8">
             <h3 className="mb-3">Дополнительные телефоны:</h3>
             <div className="divide-y divide-grey-200">
-              {additionalPhones.map(
-                (item: { [key: string]: string }, index: number) => {
-                  const title = item[`additional_phones_${index}_title`];
-                  const phone = item[`additional_phones_${index}_phone`];
-                  return (
-                    <div key={index} className="flex py-3 text-14px">
-                      <div className="w-[50%] flex-shrink-0 pr-3">
-                        <strong>{title}</strong>
-                      </div>
-                      <div>{phone}</div>
+              {additionalPhones.map((item, index: number) => {
+                const title = item[`additional_phones_${index}_title`];
+                const phone = item[`additional_phones_${index}_phone`];
+                return (
+                  <div key={index} className="flex py-3 text-14px">
+                    <div className="w-[50%] flex-shrink-0 pr-3">
+                      <strong>{title}</strong>
                     </div>
-                  );
-                }
-              )}
+                    <div>{phone}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
-        {correspondents?.length > 0 && (
+        {correspondents && correspondents.length > 0 && (
           <div className="w-full lg:w-[60%] mt-8">
             <h3 className="mb-3">Корреспонденты:</h3>
             <div className="divide-y divide-grey-200">
-              {correspondents.map(
-                (item: { [key: string]: string }, index: number) => {
-                  const fullName = item[`correspondents_${index}_full_name`];
-                  const phone = item[`correspondents_${index}_phone`];
-                  const email = item[`correspondents_${index}_email`];
+              {correspondents.map((item, index: number) => {
+                const fullName = item[`correspondents_${index}_full_name`];
+                const phone = item[`correspondents_${index}_phone`];
+                const email = item[`correspondents_${index}_email`];
 
-                  return (
-                    <div key={index} className="flex py-3 text-14px">
-                      <div className="w-[50%] flex-shrink-0 pr-3">
-                        <strong>{fullName}</strong>
-                      </div>
-                      <div>
-                        <div>{phone}</div>
-                        {email && (
-                          <div>
-                            <a href={`mailto:${email}`}>{email}</a>
-                          </div>
-                        )}
-                      </div>
+                return (
+                  <div key={index} className="flex py-3 text-14px">
+                    <div className="w-[50%] flex-shrink-0 pr-3">
+                      <strong>{fullName}</strong>
                     </div>
-                  );
-                }
-              )}
+                    <div>
+                      <div>{phone}</div>
+                      {email && (
+                        <div>
+                          <a href={`mailto:${email}`}>{email}</a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
