@@ -3,7 +3,7 @@ import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostDetail } from "@/entities/post/ui/post-detail";
-import { getPost, getPostsInterest } from "@/shared/api/posts";
+import { getPostBySlug, getPostsInterest } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { PostRelated } from "@/widgets/post-related";
 
@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   let posts = { post: null, relatedPosts: null };
 
   try {
-    posts = await getPost(slug, {
+    posts = await getPostBySlug(slug, {
       postType: "article",
       withRelatedPosts: true,
     });
