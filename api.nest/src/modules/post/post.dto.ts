@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsBoolean,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -74,4 +75,21 @@ export class PostSearchQueryParamsDTO {
   @IsNumber()
   @Transform(({ value }) => Number(value))
   offset?: number;
+}
+
+export class AddPollReply {
+  @IsNumber()
+  @Min(1)
+  @Transform(({ value }) => Number(value))
+  postId: number;
+
+  @IsNumber()
+  @Min(1)
+  @Transform(({ value }) => Number(value))
+  pollId: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @Transform(({ value }) => value.trim())
+  key: string;
 }

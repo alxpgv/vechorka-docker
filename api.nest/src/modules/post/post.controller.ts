@@ -1,6 +1,19 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { PostService } from './post.service';
-import { PostQueryParamsDTO, PostSearchQueryParamsDTO } from './post.dto';
+import {
+  AddPollReply,
+  PostQueryParamsDTO,
+  PostSearchQueryParamsDTO,
+} from './post.dto';
+import { IpAddress } from '../../utils/decorators/ip-address';
 
 @Controller('posts')
 export class PostController {
@@ -70,5 +83,10 @@ export class PostController {
   @Get('search')
   getPostsSearch(@Query() query: PostSearchQueryParamsDTO) {
     return this.postService.getPostsSearch(query);
+  }
+
+  @Post('poll')
+  addPollReply(@Body() body: AddPollReply) {
+    return this.postService.addPollReply(body);
   }
 }

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from './post.entity';
@@ -9,7 +13,7 @@ import type { PostResponse, PostType } from './post.interface';
 import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { BasePostParams } from './post.interface';
 import { AttachmentService } from '../attachment/attachment.service';
-import { PostSearchQueryParamsDTO } from './post.dto';
+import { AddPollReply, PostSearchQueryParamsDTO } from './post.dto';
 
 @Injectable()
 export class PostService {
@@ -54,6 +58,10 @@ export class PostService {
       interestNews,
       articles,
     };
+  }
+
+  getOnePostById({ postId }: { postId: number }) {
+    return this.postRepository.findOneBy({ ID: postId });
   }
 
   async getPostById({
@@ -511,6 +519,85 @@ export class PostService {
       });
     }
     return metaViews;
+  }
+
+  async addPollReply(body: AddPollReply) {
+    const { postId, pollId, key } = body;
+
+    if (!(await this.postRepository.findOneBy({ ID: postId }))) {
+      throw new BadRequestException('Post not found');
+    }
+
+    if (
+      !(await this.postRepository.findOneBy({ ID: pollId, post_type: 'poll' }))
+    ) {
+      throw new BadRequestException('Poll not found');
+    }
+
+    const metaPoll = await this.metaRepository
+      .createQueryBuilder('meta')
+      .select()
+      .where('meta.post_id=:postId AND meta.meta_key="poll_results"', {
+        postId,
+      })
+      .getOne();
+
+    if (metaPoll) {
+      const metaResults = JSON.parse(metaPoll.meta_value);
+      if (
+        metaResults &&
+        metaResults[pollId] &&
+        Object.keys(metaResults[pollId]).length
+      ) {
+        const newMetaValue = metaResults[pollId][key]
+          ? Number(metaResults[pollId][key]) + 1
+          : 1;
+
+        const newMetaResult = {
+          [pollId]: {
+            ...metaResults[pollId],
+            [key]: newMetaValue,
+          },
+        };
+
+        const updated = {
+          post_id: postId,
+          meta_key: 'poll_results',
+          meta_value: newMetaResult,
+        };
+
+        await this.metaRepository.update(
+          {
+            // meta_id: metaPoll.meta_id,
+            post_id: postId,
+            meta_key: 'poll_results',
+          },
+          {
+            meta_value: JSON.stringify(newMetaResult),
+          },
+        );
+
+        return updated;
+      }
+
+      throw new BadRequestException('Poll meta not found');
+    } else {
+      const metaValue = {
+        [pollId]: {
+          [key]: 1,
+        },
+      };
+      await this.metaRepository.insert({
+        post_id: postId,
+        meta_key: 'poll_results',
+        meta_value: JSON.stringify(metaValue),
+      });
+      return {
+        post_id: postId,
+        meta_key: 'poll_results',
+        meta_value: metaValue,
+      };
+    }
   }
 
   // top posts
