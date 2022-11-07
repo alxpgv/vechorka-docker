@@ -13,19 +13,28 @@ interface GetPostsParams {
   sticky?: boolean;
 }
 
-interface GetPostParams {
+interface GetPostBySlugParams {
   slugTaxonomy?: string;
   withRelatedPosts?: boolean;
   postType?: PostType;
+}
+
+interface GetPostByIdParams {
+  withMeta?: boolean;
 }
 
 export const getHomePosts = (isSSG = false): Promise<ListPostProps> => {
   return api.get("posts/index", isSSG);
 };
 
-export const getPost = (slug: string, params?: GetPostParams) => {
+export const getPostBySlug = (slug: string, params?: GetPostBySlugParams) => {
   const queryParams = encodeQueryData(params);
   return api.get(`posts/slug/${slug}${queryParams ? `?${queryParams}` : ""}`);
+};
+
+export const getPostById = (postId: number, params?: GetPostByIdParams) => {
+  const queryParams = encodeQueryData(params);
+  return api.get(`posts/id/${postId}${queryParams ? `?${queryParams}` : ""}`);
 };
 
 export const getPosts = (params: GetPostsParams): Promise<PostProps[]> => {
