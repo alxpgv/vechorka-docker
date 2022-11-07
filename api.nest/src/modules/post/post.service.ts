@@ -526,20 +526,28 @@ export class PostService {
     const postPollFieldName = 'poll_results';
 
     // exist post
-    if (!(await this.postRepository.findOneBy({ ID: postId }))) {
+    if (
+      !(await this.postRepository.findOneBy({
+        ID: postId,
+        post_status: 'publish',
+      }))
+    ) {
       throw new BadRequestException('Post not found');
     }
 
     // exist poll and poll key
     const poll = await this.postRepository
       .createQueryBuilder('post')
+      // .select('post.ID')
       .innerJoinAndSelect(
         'post.meta',
         'meta',
         'meta.post_id = post.ID AND meta.meta_key=:pollKey',
         { pollKey },
       )
-      .where('ID=:pollId AND post_type="poll"', { pollId })
+      .where('ID=:pollId AND post_type="poll" AND post_status="publish"', {
+        pollId,
+      })
       .getOne();
 
     if (!poll) {
