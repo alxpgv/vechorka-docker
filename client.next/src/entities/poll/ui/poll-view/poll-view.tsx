@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import type { PostProps } from "@/shared/types";
 import { getPostById } from "@/shared/api/posts";
 import { PollForm } from "@/entities/poll/ui/poll-form";
+import { PollResult } from "@/entities/poll/ui/poll-result";
+import cn from "clsx";
 
 interface Props {
+  postId: number;
   pollId: number;
 }
 
-export const PollView = ({ pollId }: Props) => {
+export const PollView = ({ postId, pollId }: Props) => {
   const [poll, setPoll] = useState<PostProps | null>(null);
+  const [results, setResults] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,27 +27,18 @@ export const PollView = ({ pollId }: Props) => {
     fetchData();
   }, [pollId]);
 
-  // [
-  // {
-  // postId: 123,
-  // pollId: 333,
-  // choiceKey?: poll_list_item_1
-  // }
-  // ]
-
-  // poll_results: {
-  // poll_id: 333,
-  // results: {
-  // poll_list_item_1: 10,
-  // poll_list_item_2: 20,
-  // }
-  // }
-
   if (!poll) return null;
 
   return (
-    <div>
-      <PollForm poll={poll} />
+    <div className={cn("p-8 sm:p-10", results ? "bg-blue-200" : "bg-grey-100")}>
+      {!results && (
+        <PollForm
+          poll={poll}
+          postId={postId}
+          onReply={(data) => setResults(data)}
+        />
+      )}
+      {results && <PollResult poll={poll} results={results} />}
     </div>
   );
 };

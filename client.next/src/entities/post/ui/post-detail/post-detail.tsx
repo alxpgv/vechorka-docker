@@ -64,16 +64,16 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
             return <Fragment key={index}>{component}</Fragment>;
           }
         })}
-      <div className="flex flex-wrap border">
+      <div className="flex flex-wrap">
         {/* poll */}
         {pollId && (
-          <div className="border w-full lg:w-[300px] lg:flex-shrink-0 lg:mr-5 mt-5">
-            <PollView pollId={pollId} />
+          <div className="w-full lg:w-[280px] lg:flex-shrink-0 lg:mr-8 mt-5">
+            <PollView pollId={pollId} postId={id} />
           </div>
         )}
         {/* author */}
         {user && (
-          <div className="border mt-5 text-grey-500">
+          <div className="mt-5 text-grey-500">
             <strong>Автор:</strong> {user}
           </div>
         )}
