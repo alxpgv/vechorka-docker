@@ -71,40 +71,6 @@ function register_custom_post_type()
     'menu_icon' => 'dashicons-video-alt3',
   ));
 
-  register_post_type('employee', array(
-    'label' => 'Сотрудники',
-    'labels' => array(
-      'name' => 'Сотрудники',
-      'singular_name' => 'Сотрудники',
-      'menu_name' => 'Сотрудники',
-      'all_items' => 'Все сотрудники',
-      'add_new' => 'Добавить сотрудника',
-      'add_new_item' => 'Добавить сотрудника',
-      'edit' => 'Редактировать сотрудника',
-      'edit_item' => 'Редактировать сотрудника',
-      'new_item' => 'Новый сотрудник',
-    ),
-    'description' => '',
-    'public' => true,
-    'publicly_queryable' => true,
-    'show_ui' => true,
-    'show_in_rest' => false,
-    'rest_base' => '',
-    'show_in_menu' => true,
-    'exclude_from_search' => true,
-    'capability_type' => 'post',
-    'map_meta_cap' => true,
-    'hierarchical' => false,
-    //'rewrite'             => array('slug' => 'service', 'with_front' => true, 'pages'=>false, 'feeds'=>false, 'feed'=>false),
-    'has_archive' => true,
-    'can_export' => true,
-    'query_var' => true,
-    'supports' => array('title', 'thumbnail'),
-    //'taxonomies'          => array( 'service' ),
-    'menu_position' => 6,
-    'menu_icon' => 'dashicons-groups',
-  ));
-
   register_post_type('newspaper', array(
     'label' => 'Газета',
     'labels' => array(
@@ -135,6 +101,104 @@ function register_custom_post_type()
     'supports' => array('title', 'editor'),
     'menu_position' => 7,
     'menu_icon' => 'dashicons-calendar',
+  ));
+
+  register_post_type('advert', array(
+    'label' => 'Реклама',
+    'labels' => array(
+      'name' => 'Реклама',
+      'singular_name' => 'Реклама',
+      'menu_name' => 'Реклама',
+      'all_items' => 'Вся реклама',
+      'add_new' => 'Добавить рекламное место',
+      'add_new_item' => 'Добавить рекламное место',
+      'edit' => 'Редактировать рекламное место',
+      'edit_item' => 'Редактировать рекламное место',
+      'new_item' => 'Новое рекламное место',
+    ),
+    'description' => '',
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true,
+    'show_in_rest' => false,
+    'rest_base' => '',
+    'show_in_menu' => true,
+    'exclude_from_search' => true,
+    'capability_type' => 'post',
+    'map_meta_cap' => true,
+    'hierarchical' => false,
+    'has_archive' => true,
+    'can_export' => true,
+    'query_var' => true,
+    'supports' => array('title'),
+    'menu_position' => 8,
+    'menu_icon' => 'dashicons-megaphone',
+  ));
+
+  register_post_type('poll', array(
+    'label' => 'Опросы',
+    'labels' => array(
+      'name' => 'Опросы',
+      'singular_name' => 'Опросы',
+      'menu_name' => 'Опросы',
+      'all_items' => 'Все опросы',
+      'add_new' => 'Добавить опрос',
+      'add_new_item' => 'Добавить опрос',
+      'edit' => 'Редактировать опрос',
+      'edit_item' => 'Редактировать опрос',
+      'new_item' => 'Новый опрос',
+    ),
+    'description' => '',
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true,
+    'show_in_rest' => false,
+    'rest_base' => '',
+    'show_in_menu' => true,
+    'exclude_from_search' => true,
+    'capability_type' => 'post',
+    'map_meta_cap' => true,
+    'hierarchical' => false,
+    'has_archive' => true,
+    'can_export' => true,
+    'query_var' => true,
+    'supports' => array('title'),
+    'menu_position' => 9,
+    'menu_icon' => 'dashicons-chart-bar',
+  ));
+
+  register_post_type('employee', array(
+    'label' => 'Сотрудники',
+    'labels' => array(
+      'name' => 'Сотрудники',
+      'singular_name' => 'Сотрудники',
+      'menu_name' => 'Сотрудники',
+      'all_items' => 'Все сотрудники',
+      'add_new' => 'Добавить сотрудника',
+      'add_new_item' => 'Добавить сотрудника',
+      'edit' => 'Редактировать сотрудника',
+      'edit_item' => 'Редактировать сотрудника',
+      'new_item' => 'Новый сотрудник',
+    ),
+    'description' => '',
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true,
+    'show_in_rest' => false,
+    'rest_base' => '',
+    'show_in_menu' => true,
+    'exclude_from_search' => true,
+    'capability_type' => 'post',
+    'map_meta_cap' => true,
+    'hierarchical' => false,
+    //'rewrite'             => array('slug' => 'service', 'with_front' => true, 'pages'=>false, 'feeds'=>false, 'feed'=>false),
+    'has_archive' => true,
+    'can_export' => true,
+    'query_var' => true,
+    'supports' => array('title', 'thumbnail'),
+    //'taxonomies'          => array( 'service' ),
+    'menu_position' => 10,
+    'menu_icon' => 'dashicons-groups',
   ));
 }
 
@@ -203,8 +267,10 @@ function wpse_custom_menu_order($menu_ord)
     'edit.php?post_type=page', // Pages
     'edit-comments.php', // Comments
     'upload.php', // Media
-    'edit.php?post_type=employee', // Employee
     'edit.php?post_type=newspaper', // Newspaper
+    'edit.php?post_type=poll', // polls
+    'edit.php?post_type=advert', // advertisement
+    'edit.php?post_type=employee', // Employee
     'link-manager.php', // Links
     'separator2', // Second separator
     'themes.php', // Appearance
