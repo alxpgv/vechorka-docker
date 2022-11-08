@@ -4,11 +4,19 @@ import router from "next/router";
 
 interface Props {
   url: string;
+  title?: string;
   text: string;
+  imageUrl?: string;
   customers: Array<"vk" | "ok" | "whatsapp" | "telegram">;
 }
 
-export const ShareLinks = ({ url, text = "", customers }: Props) => {
+export const ShareLinks = ({
+  url,
+  title = "",
+  text = "",
+  imageUrl,
+  customers,
+}: Props) => {
   const encodedUrl = encodeURI(url);
   const encodedText = encodeURIComponent(text);
 
@@ -33,6 +41,9 @@ export const ShareLinks = ({ url, text = "", customers }: Props) => {
               </Button>
             );
           case "ok":
+            //https://connect.ok.ru/offer?url=URL_TO_SHARE&title=TITLE&imageUrl=IMAGE_URL
+            title = title ? `&title=${title}` : "";
+            imageUrl = imageUrl ? `&imageUrl=${imageUrl}` : "";
             return (
               <Button
                 key={index}
@@ -40,7 +51,7 @@ export const ShareLinks = ({ url, text = "", customers }: Props) => {
                 size="sm"
                 onClick={() =>
                   router.push(
-                    `https://www.ok.ru/dk?st.cmd=addShare&st.s=1&st._surl=${encodedUrl}&st.comments=${encodedText}`
+                    `https://connect.ok.ru/offer?url=${encodedUrl}${title}${imageUrl}`
                   )
                 }
               >

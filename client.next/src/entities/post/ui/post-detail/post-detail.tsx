@@ -86,7 +86,11 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
           <div className="mt-5">
             <ShareLinks
               url={`${settings.siteUrl}${router.asPath}`}
+              title={title}
               text={excerpt ? excerpt : content ? textOverflow(content) : ""}
+              imageUrl={
+                preview?.url ? `${process.env.UPLOAD_HOST}/${preview?.url}` : ""
+              }
               customers={["ok", "telegram", "vk", "whatsapp"]}
             />
           </div>
