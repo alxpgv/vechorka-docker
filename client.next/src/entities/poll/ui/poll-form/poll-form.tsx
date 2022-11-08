@@ -38,8 +38,6 @@ export const PollForm = ({ postId, poll, onReply }: Props) => {
     }
   };
 
-  console.log(activeKey);
-
   return (
     <div>
       {title && <h5 className="text-center text-grey-500 mb-5">{title}</h5>}

@@ -11,9 +11,9 @@ export const PollResult = ({ poll, results }: Props) => {
   const { title, meta } = poll;
   const pollList = getFieldsRepeater(meta, "poll_list");
 
-  console.log(pollList, results);
-
-  const total = 23;
+  const total = Object.values(results).reduce(
+    (previousValue, currentValue) => previousValue + currentValue
+  );
 
   return (
     <div>

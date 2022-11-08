@@ -67,7 +67,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
       <div className="flex flex-wrap">
         {/* poll */}
         {pollId && (
-          <div className="w-full lg:w-[280px] lg:flex-shrink-0 lg:mr-8 mt-5">
+          <div className="w-full lg:w-[260px] lg:flex-shrink-0 lg:mr-8 mt-5">
             <PollView pollId={pollId} postId={id} />
           </div>
         )}
