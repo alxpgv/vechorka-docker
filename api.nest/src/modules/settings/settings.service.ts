@@ -9,17 +9,20 @@ export class SettingsService {
     private taxonomyService: TaxonomyService,
   ) {}
 
-  async getSettings() {
+  async getCommon() {
     const taxonomies = await this.taxonomyService.getTaxonomiesGroup();
     let advert = null;
+
+    // advert post
     try {
       advert = await this.postService.getPostById({
-        postId: 708,
+        postId: 1708,
         withMeta: true,
       });
     } catch (error) {
       console.log('settings, get advert: ', error);
     }
-    return { taxonomies, advert };
+
+    return { taxonomies, advert: advert?.meta || null };
   }
 }

@@ -5,8 +5,8 @@ import { SettingsService } from './settings.service';
 export class SettingsController {
   constructor(private readonly settingsService: SettingsService) {}
 
-  @Get()
-  getSettings() {
-    return this.settingsService.getSettings();
+  @Get('common')
+  getCommon() {
+    return this.settingsService.getCommon();
   }
 }
