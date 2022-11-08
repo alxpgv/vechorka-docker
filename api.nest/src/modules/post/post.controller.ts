@@ -13,7 +13,6 @@ import {
   PostQueryParamsDTO,
   PostSearchQueryParamsDTO,
 } from './post.dto';
-import { IpAddress } from '../../utils/decorators/ip-address';
 
 @Controller('posts')
 export class PostController {
