@@ -23,7 +23,8 @@ export const PollResult = ({ poll, results }: Props) => {
           pollList.length > 0 &&
           pollList.map((item) => {
             const [key, value] = Object.entries(item)[0];
-            const progress = Math.ceil((results[key] / total) * 100);
+            let progress = Math.ceil((results[key] / total) * 100);
+            progress = isNaN(progress) ? 0 : progress;
             return (
               <div key={key} className="text-white text-14px">
                 <div>{value}</div>

@@ -31,8 +31,6 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
   const views = meta?.views || null;
   const pollId = meta?.poll_id || null;
 
-  console.log(pollId);
-
   return (
     <>
       {preview && Object.keys(preview).length > 0 && (
