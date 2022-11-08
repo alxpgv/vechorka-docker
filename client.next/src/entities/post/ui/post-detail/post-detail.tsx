@@ -7,6 +7,10 @@ import { parseContent } from "@/shared/lib/content";
 import { CommentForm } from "@/entities/comment/ui/comment-form";
 import { CommentList } from "@/entities/comment/ui/comment-list";
 import { PollView } from "@/entities/poll/ui/poll-view";
+import { ShareLinks } from "@/shared/ui/share-links";
+import { useRouter } from "next/router";
+import { useSettings } from "@/app/contexts/settings-context";
+import { textOverflow } from "@/shared/lib/string";
 
 interface Props {
   post: PostProps;
@@ -17,6 +21,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
   const {
     id,
     title,
+    excerpt,
     content,
     preview,
     commentCount,
@@ -30,6 +35,10 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     : [];
   const views = meta?.views || null;
   const pollId = meta?.poll_id || null;
+  const router = useRouter();
+  const settings = useSettings();
+
+  console.log(router);
 
   return (
     <>
@@ -65,16 +74,25 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
       <div className="flex flex-wrap">
         {/* poll */}
         {pollId && (
-          <div className="w-full lg:w-[260px] lg:flex-shrink-0 lg:mr-8 mt-5">
+          <div className="w-full lg:w-[260px] lg:mr-8 mt-5">
             <PollView pollId={pollId} postId={id} />
           </div>
         )}
-        {/* author */}
-        {user && (
-          <div className="mt-5 text-grey-500">
-            <strong>Автор:</strong> {user}
+        <div className="w-full flex-1">
+          {/* author */}
+          {user && (
+            <div className="mt-5 text-grey-500">
+              <strong>Автор:</strong> {user}
+            </div>
+          )}
+          <div className="mt-5">
+            <ShareLinks
+              url={`${settings.siteUrl}${router.asPath}`}
+              text={excerpt ? excerpt : content ? textOverflow(content) : ""}
+              customers={["ok", "telegram", "vk", "whatsapp"]}
+            />
           </div>
-        )}
+        </div>
       </div>
       {/* comments */}
       {showComment && (
