@@ -6,6 +6,7 @@ import { PostModule } from './modules/post/post.module';
 import { TaxonomyModule } from './modules/taxonomy/taxonomy.module';
 import { NewspaperModule } from './modules/newspaper/newspaper.module';
 import { CommentModule } from './modules/comment/comment.module';
+import { SettingsModule } from './modules/settings/settings.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CommentModule } from './modules/comment/comment.module';
     NewspaperModule,
     TaxonomyModule,
     CommentModule,
+    SettingsModule,
   ],
   providers: [],
 })
