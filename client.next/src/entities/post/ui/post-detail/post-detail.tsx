@@ -38,8 +38,6 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
   const router = useRouter();
   const settings = useSettings();
 
-  console.log(router);
-
   return (
     <>
       {preview && Object.keys(preview).length > 0 && (
