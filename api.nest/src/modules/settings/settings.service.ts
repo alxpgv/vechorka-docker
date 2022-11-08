@@ -16,7 +16,7 @@ export class SettingsService {
     // advert post
     try {
       advert = await this.postService.getPostById({
-        postId: 1708,
+        postId: 708,
         withMeta: true,
       });
     } catch (error) {
