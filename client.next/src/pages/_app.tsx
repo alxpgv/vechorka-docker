@@ -6,7 +6,7 @@ import { Head } from "@/shared/ui/head";
 import { Layout } from "@/shared/ui/layouts";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { settings, taxonomies } = pageProps;
+  const { settings, taxonomies, advert } = pageProps;
   return (
     <>
       {/*<NextNProgress*/}
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       {/*  height={2}*/}
       {/*  options={{ showSpinner: false }}*/}
       {/*/>*/}
-      <SettingsProvider value={{ ...settings, taxonomies }}>
+      <SettingsProvider value={{ ...settings, taxonomies, advert }}>
         <Head />
         <Layout>
           <Component {...pageProps} />

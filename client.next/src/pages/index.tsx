@@ -77,13 +77,14 @@ export const getStaticProps: GetStaticProps = async () => {
     console.log("error: posts/index: ", error);
   }
 
-  const { settings, taxonomies } = await getGeneralSettings(true);
+  const { settings, taxonomies, advert } = await getGeneralSettings(true);
 
   return {
     props: {
       posts,
       taxonomies,
       settings,
+      advert,
     },
     revalidate: 60,
   };

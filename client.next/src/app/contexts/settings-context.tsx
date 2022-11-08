@@ -10,6 +10,7 @@ interface SettingsState extends SEOProps {
   };
   contacts?: any;
   taxonomies: TaxonomiesProps;
+  advert: Record<string, string> | null;
 }
 
 interface SettingsProviderProps extends PropsWithChildren {
@@ -18,6 +19,7 @@ interface SettingsProviderProps extends PropsWithChildren {
 
 const initialContext = {
   taxonomies: { categories: [], geography: [], tags: [] },
+  advert: null,
 };
 
 const SettingsContext = createContext<SettingsState>(initialContext);

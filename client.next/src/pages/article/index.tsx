@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 
   // global settings
-  const { settings, taxonomies } = await getGeneralSettings();
+  const { settings, taxonomies, advert } = await getGeneralSettings();
 
   // interest news
   try {
@@ -66,6 +66,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       posts,
       settings,
       taxonomies,
+      advert,
     },
   };
 };

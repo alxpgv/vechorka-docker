@@ -1,18 +1,22 @@
 import { mainMenu, menuNewsItem, settings } from "@/shared/config";
 import type { TaxonomiesProps } from "@/shared/types";
-import { getTaxonomiesGroup } from "@/shared/api/taxonomies";
+import { api } from "@/shared/api/core";
 
 export const getGeneralSettings = async (isSSG = false) => {
   let taxonomies: TaxonomiesProps = { categories: [], geography: [], tags: [] };
+  let advert = null;
 
   try {
-    taxonomies = await getTaxonomiesGroup(isSSG);
+    const settings = await api.get("settings/common", isSSG);
+    taxonomies = settings.taxonomies;
+    advert = settings.advert;
+
     // remove news category
     taxonomies.categories = taxonomies.categories.filter(
       (cat) => cat.slug !== "news"
     );
   } catch (error) {
-    console.log("settings taxonomies: ", error);
+    console.log("settings: ", error);
   }
 
   // TODO: check this code
@@ -33,5 +37,6 @@ export const getGeneralSettings = async (isSSG = false) => {
       },
     },
     taxonomies,
+    advert,
   };
 };

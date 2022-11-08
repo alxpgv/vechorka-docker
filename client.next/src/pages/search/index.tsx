@@ -21,7 +21,7 @@ const SearchPage = ({ interestNews }: Props) => {
 
 export const getServerSideProps = async () => {
   // global settings
-  const { settings, taxonomies } = await getGeneralSettings();
+  const { settings, taxonomies, advert } = await getGeneralSettings();
 
   // interest news
   let interestNews: PostProps[] = [];

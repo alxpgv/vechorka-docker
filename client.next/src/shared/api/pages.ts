@@ -30,7 +30,7 @@ export const getPage = async ({
   }
 
   // global settings
-  const { settings, taxonomies } = await getGeneralSettings();
+  const { settings, taxonomies, advert } = await getGeneralSettings();
 
   // interest news
   try {
@@ -45,6 +45,7 @@ export const getPage = async ({
       interestNews,
       settings,
       taxonomies,
+      advert,
     },
   };
 };

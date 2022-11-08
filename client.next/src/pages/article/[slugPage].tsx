@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 
   // global settings
-  const { settings, taxonomies } = await getGeneralSettings();
+  const { settings, taxonomies, advert } = await getGeneralSettings();
 
   let interestNews: PostProps[] = [];
   try {
@@ -71,6 +71,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       interestNews,
       settings,
       taxonomies,
+      advert,
     },
   };
 };

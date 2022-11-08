@@ -50,7 +50,7 @@ export const getPageNewsCategory = async ({
   }
 
   // global settings
-  const { settings, taxonomies } = await getGeneralSettings();
+  const { settings, taxonomies, advert } = await getGeneralSettings();
 
   // interest news
   try {
@@ -64,6 +64,7 @@ export const getPageNewsCategory = async ({
       posts,
       settings,
       taxonomies,
+      advert,
     },
   };
 };
