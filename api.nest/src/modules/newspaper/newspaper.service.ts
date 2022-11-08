@@ -13,7 +13,7 @@ export class NewspaperService {
   ) {}
 
   async getNewspaperLastRelease() {
-    let query = this.newspaperRepository
+    const query = this.newspaperRepository
       .createQueryBuilder('post')
       .where('post_type="newspaper" AND post_status="publish"')
       .orderBy('post_date', 'DESC');
@@ -22,7 +22,7 @@ export class NewspaperService {
   }
 
   async getNewspaperYears() {
-    let query = this.newspaperRepository
+    const query = this.newspaperRepository
       .createQueryBuilder('post')
       .select('YEAR(post_date) as year')
       .where('post_type="newspaper" AND post_status="publish"')
@@ -40,7 +40,7 @@ export class NewspaperService {
   }: NewspaperParamsDTO) {
     year = year ?? new Date().getFullYear();
 
-    let query = this.newspaperRepository.createQueryBuilder('post');
+    const query = this.newspaperRepository.createQueryBuilder('post');
     query
       .where('post_type="newspaper" AND post_status="publish"')
       .andWhere('YEAR(post.post_date)=:year', { year });
@@ -48,7 +48,7 @@ export class NewspaperService {
     const posts = await query.getMany();
     const { activeMonths, postsByMonth } = this.responseDataMany(posts);
 
-    let response = {
+    const response = {
       posts: postsByMonth,
       postsMonths: activeMonths,
       postsYear: year,
@@ -72,11 +72,11 @@ export class NewspaperService {
       throw new NotFoundException('posts not found');
     }
 
-    let postsByMonth: {
+    const postsByMonth: {
       [key: number]: Partial<PostResponse & { attached: string }>[];
     } = {};
 
-    let activeMonths = [];
+    const activeMonths = [];
 
     for (const post of posts) {
       const createdDate = new Date(post.post_date);
