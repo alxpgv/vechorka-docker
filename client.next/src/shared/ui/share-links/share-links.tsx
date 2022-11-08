@@ -12,9 +12,6 @@ export const ShareLinks = ({ url, text = "", customers }: Props) => {
   const encodedUrl = encodeURI(url);
   const encodedText = encodeURIComponent(text);
 
-  console.log(encodedUrl);
-  console.log(encodedText);
-
   if (!customers?.length || !url) return null;
 
   return (
