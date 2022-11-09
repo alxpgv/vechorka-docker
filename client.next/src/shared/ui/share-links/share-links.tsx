@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/shared/ui/buttons";
 import router from "next/router";
+import { Icon } from "@/shared/ui/icon";
 
 interface Props {
   url: string;
@@ -37,7 +38,13 @@ export const ShareLinks = ({
                   router.push(`https://vk.com/share.php?url=${encodedUrl}`)
                 }
               >
-                Вконтакте
+                <div className="flex">
+                  <Icon
+                    name="vk"
+                    className="w-[18px] h-[18px] mr-2 fill-white"
+                  />
+                  Вконтакте
+                </div>
               </Button>
             );
           case "ok":
@@ -55,7 +62,13 @@ export const ShareLinks = ({
                   )
                 }
               >
-                Одноклассники
+                <div className="flex">
+                  <Icon
+                    name="ok"
+                    className="w-[18px] h-[18px] mr-2 fill-white"
+                  />
+                  Одноклассники
+                </div>
               </Button>
             );
           case "whatsapp":
@@ -70,7 +83,13 @@ export const ShareLinks = ({
                   )
                 }
               >
-                Whatsapp
+                <div className="flex">
+                  <Icon
+                    name="whatsapp"
+                    className="w-[18px] h-[18px] mr-2 fill-white"
+                  />
+                  Whatsapp
+                </div>
               </Button>
             );
           case "telegram":
@@ -85,7 +104,13 @@ export const ShareLinks = ({
                   )
                 }
               >
-                Telegram
+                <div className="flex">
+                  <Icon
+                    name="telegram"
+                    className="w-[18px] h-[18px] mr-2 fill-white"
+                  />
+                  Telegram
+                </div>
               </Button>
             );
         }
