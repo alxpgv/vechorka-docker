@@ -36,6 +36,7 @@ export const getServerSideProps = async () => {
       interestNews,
       settings,
       taxonomies,
+      advert,
     },
   };
 };

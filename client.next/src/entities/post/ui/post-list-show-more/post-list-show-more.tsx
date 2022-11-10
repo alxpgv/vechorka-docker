@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import type { PostProps } from "@/shared/types";
 import { FullLoader } from "@/shared/ui/loaders";
 import { useRouter } from "next/router";
@@ -7,6 +7,8 @@ import { PostItem } from "@/entities/post/ui/post-item";
 import { getPosts, getPostsByTaxonomySlug } from "@/shared/api/posts";
 import { PostItemInside } from "@/entities/post/ui/post-item-inside";
 import { messages } from "@/shared/constants";
+import { DynamicAdvert } from "@/shared/ui/advert";
+import { useSettings } from "@/app/contexts/settings-context";
 
 interface Props {
   initPosts: PostProps[];
@@ -23,6 +25,7 @@ export const PostListShowMore: FC<Props> = ({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const categorySlug = router.query.category ?? urlPrefix;
+  const { advert } = useSettings();
 
   useEffect(() => {
     setPosts(initPosts);
@@ -72,13 +75,28 @@ export const PostListShowMore: FC<Props> = ({
         {posts.map((post, index) => {
           const isFirst = index % limit === 0;
           return isFirst ? (
-            <PostItemInside
-              key={post.id}
-              post={post}
-              titleTag="h2"
-              className="h-[260px] sm:h-[320px] lg:h-[460px] m-2 mb-6"
-              urlPrefix={urlPrefix}
-            />
+            <Fragment key={post.id}>
+              <PostItemInside
+                post={post}
+                titleTag="h2"
+                className="h-[260px] sm:h-[320px] lg:h-[460px] m-2 mb-6"
+                urlPrefix={urlPrefix}
+              />
+
+              {/* advert */}
+              {advert &&
+                index === 0 &&
+                !!Number(advert.advert_block_1_visible) && (
+                  <DynamicAdvert
+                    className="mb-5"
+                    type={advert.advert_block_1_type}
+                    size="1000x120"
+                    imageUrl={advert.advert_block_1_image_url}
+                    href={advert.advert_block_1_href}
+                    htmlCode={advert.advert_block_1_html_code}
+                  />
+                )}
+            </Fragment>
           ) : (
             <PostItem
               key={post.id}

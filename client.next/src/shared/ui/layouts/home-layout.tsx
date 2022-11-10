@@ -35,7 +35,7 @@ export const HomeLayout: NextPage<Props> = ({ left }) => {
             {/* advert block 2 pc 300x600 */}
             {advert && !!Number(advert.advert_block_2_pc_visible) && (
               <DynamicAdvert
-                className="hidden md:block mt-6 md:mt-12"
+                className="hidden md:block mt-6"
                 type={advert.advert_block_2_pc_type}
                 size="300x600"
                 imageUrl={advert.advert_block_2_pc_image_url}
@@ -43,13 +43,13 @@ export const HomeLayout: NextPage<Props> = ({ left }) => {
                 htmlCode={advert.advert_block_2_pc_html_code}
               />
             )}
-            <NewsCommentedDynamic className="mt-6 smx1:mt-0 md:mt-12" />
+            <NewsCommentedDynamic className="mt-6 smx1:mt-0 md:mt-6" />
           </div>
 
           {/* advert block 3 300x300 */}
           {advert && !!Number(advert.advert_block_3_visible) && (
             <DynamicAdvert
-              className="mt-6 md:mt-12"
+              className="mt-6"
               type={advert.advert_block_3_type}
               size="300x300"
               imageUrl={advert.advert_block_3_image_url}
@@ -58,12 +58,12 @@ export const HomeLayout: NextPage<Props> = ({ left }) => {
             />
           )}
 
-          <PaperLinks />
+          <PaperLinks className="relative md:mt-20" />
 
           {/* advert block 4 pc 300x600 */}
           {advert && !!Number(advert.advert_block_4_pc_visible) && (
             <DynamicAdvert
-              className="hidden md:block mt-6 md:mt-12"
+              className="hidden md:block mt-6"
               type={advert.advert_block_4_pc_type}
               size="300x600"
               imageUrl={advert.advert_block_4_pc_image_url}
