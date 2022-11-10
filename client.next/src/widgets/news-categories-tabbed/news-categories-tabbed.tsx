@@ -10,7 +10,7 @@ import { getPosts } from "@/shared/api/posts";
 import { messages } from "@/shared/constants";
 import { getLink } from "@/shared/lib/links";
 import cn from "clsx";
-import { Advert } from "@/shared/ui/advert";
+import { DynamicAdvert } from "@/shared/ui/advert";
 import { useSettings } from "@/app/contexts/settings-context";
 
 interface Props {
@@ -52,7 +52,6 @@ export const NewsCategoriesTabbed: FC<Props> = ({
   const [activeTab, setActiveTab] = useState<TaxonomyProps>(tabs[0] || {});
   const [loading, setLoading] = useState(false);
   const { advert } = useSettings();
-  console.log(advert);
 
   const activePosts: PostProps[] =
     activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
@@ -119,7 +118,7 @@ export const NewsCategoriesTabbed: FC<Props> = ({
 
       {/* advert */}
       {advert && !!Number(advert.advert_block_1_visible) && (
-        <Advert
+        <DynamicAdvert
           className="mb-5"
           type={advert.advert_block_1_type}
           size="1000x120"

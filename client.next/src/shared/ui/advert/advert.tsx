@@ -3,9 +3,9 @@ import { getSizesFromResolution } from "@/shared/lib/helpers";
 import Image from "next/image";
 import cn from "clsx";
 
-interface Props {
+export interface AdvertProps {
   type: string; // "html" | "image"
-  size?: "1000x120";
+  size?: "1000x120" | "300x600" | "300x300";
   imageUrl?: string;
   href?: string;
   htmlCode?: string;
@@ -19,12 +19,12 @@ export const Advert = ({
   href,
   htmlCode,
   className,
-}: Props) => {
+}: AdvertProps) => {
   // html
   if (type === "html" && htmlCode) {
     return (
       <div
-        className={className}
+        className={cn("relative mx-auto", className)}
         dangerouslySetInnerHTML={{ __html: htmlCode }}
       />
     );
@@ -40,7 +40,7 @@ export const Advert = ({
 
     return (
       <div
-        className={cn("relative text-center", className)}
+        className={cn("relative mx-auto", className)}
         style={{ maxWidth: `${sizes[0]}px`, maxHeight: `${sizes[1]}px` }}
       >
         {href ? (

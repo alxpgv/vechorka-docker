@@ -14,7 +14,7 @@ export const LayoutColumn: FC<Props> = ({ left, right }) => {
       </div>
 
       {/* right column */}
-      <div className="w-full md:w-[280px]">{right}</div>
+      <div className="w-full md:w-[300px]">{right}</div>
     </div>
   );
 };
