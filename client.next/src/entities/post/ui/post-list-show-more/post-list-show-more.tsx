@@ -45,7 +45,7 @@ export const PostListShowMore: FC<Props> = ({
   ].find((tax) => tax.slug === categorySlug);
 
   const title = getTitleSeo(urlPrefix, taxonomy?.name);
-  const description = taxonomy?.description || undefined;
+  const description = taxonomy?.description;
 
   useEffect(() => {
     setPosts(initPosts);

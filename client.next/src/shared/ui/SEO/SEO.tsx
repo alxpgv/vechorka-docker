@@ -43,7 +43,7 @@ export const SEO = ({
 
     // home page
     if (router.pathname === "/") {
-      return pageTitle ?? siteTitle;
+      return pageTitle || siteTitle;
     }
     // other pages
     return pageTitle ? `${pageTitle} - ${siteTitle}` : siteTitle;
@@ -58,46 +58,46 @@ export const SEO = ({
       <meta
         key="description"
         name="description"
-        content={description ?? settings?.description ?? ""}
+        content={description || settings?.description || ""}
       />
       <meta
         key="keywords"
         name="keywords"
-        content={keywords ?? settings?.keywords ?? ""}
+        content={keywords || settings?.keywords || ""}
       />
       <meta
         key="og:type"
         property="og:type"
-        content={openGraph?.type ?? settings?.openGraph?.type}
+        content={openGraph?.type || settings?.openGraph?.type}
       />
       <meta key="og:title" property="og:title" content={getTitle(title)} />
       <meta
         key="og:description"
         property="og:description"
         content={
-          openGraph?.description ??
-          settings?.openGraph?.description ??
-          description ??
-          settings?.description ??
+          openGraph?.description ||
+          description ||
+          settings?.openGraph?.description ||
+          settings?.description ||
           ""
         }
       />
       <meta
         key="og:site_name"
         property="og:site_name"
-        content={openGraph?.site_name ?? settings?.openGraph?.site_name ?? ""}
+        content={openGraph?.site_name || settings?.openGraph?.site_name || ""}
       />
       <meta
         key="og:url"
         property="og:url"
         content={
-          openGraph?.url ?? settings?.openGraph?.url ?? settings?.siteUrl ?? ""
+          openGraph?.url || settings?.openGraph?.url || settings?.siteUrl || ""
         }
       />
       <meta
         key="og:locale"
         property="og:locale"
-        content={settings?.openGraph?.locale ?? ""}
+        content={settings?.openGraph?.locale || ""}
       />
       {ogImage ? (
         <Fragment key="og:image">
@@ -138,7 +138,7 @@ export const SEO = ({
           )}
         </Fragment>
       ) : null}
-      <meta key="robots" name="robots" content={robots ?? "index,follow"} />
+      <meta key="robots" name="robots" content={robots || "index,follow"} />
       {children}
     </Head>
   );
