@@ -30,6 +30,7 @@ export interface SEOProps {
 export const SEO = ({
   title,
   description,
+  keywords,
   openGraph,
   robots,
   children,
@@ -45,7 +46,7 @@ export const SEO = ({
       return pageTitle ?? siteTitle;
     }
     // other pages
-    return pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle;
+    return pageTitle ? `${pageTitle} - ${siteTitle}` : siteTitle;
   };
 
   const ogImage = openGraph?.image || settings?.openGraph?.image;
@@ -60,21 +61,16 @@ export const SEO = ({
         content={description ?? settings?.description ?? ""}
       />
       <meta
+        key="keywords"
+        name="keywords"
+        content={keywords ?? settings?.keywords ?? ""}
+      />
+      <meta
         key="og:type"
         property="og:type"
         content={openGraph?.type ?? settings?.openGraph?.type}
       />
-      <meta
-        key="og:title"
-        property="og:title"
-        content={
-          openGraph?.title ??
-          title ??
-          settings?.openGraph?.title ??
-          settings.title ??
-          ""
-        }
-      />
+      <meta key="og:title" property="og:title" content={getTitle(title)} />
       <meta
         key="og:description"
         property="og:description"

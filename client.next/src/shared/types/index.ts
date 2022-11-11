@@ -35,7 +35,7 @@ export interface PostProps {
   views?: number;
   preview?: ImageWithSizes;
   meta?: { [key: string]: any };
-  seo?: SEOProps;
+  seo?: Record<string, string>;
 }
 
 export interface ListPostProps {
@@ -43,8 +43,8 @@ export interface ListPostProps {
 }
 
 export interface ImageProps {
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
   filesize?: number;
   url?: string;
   alt?: string;

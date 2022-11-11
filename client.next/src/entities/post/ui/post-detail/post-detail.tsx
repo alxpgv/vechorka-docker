@@ -11,6 +11,7 @@ import { ShareLinks } from "@/shared/ui/share-links";
 import { useRouter } from "next/router";
 import { useSettings } from "@/app/contexts/settings-context";
 import { textOverflow } from "@/shared/lib/string";
+import { SEO } from "@/shared/ui/SEO";
 
 interface Props {
   post: PostProps;
@@ -28,6 +29,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     commentStatus,
     createdAt,
     meta,
+    seo,
     user,
   } = post;
   const components: Array<string | React.ReactNode> = content
@@ -38,8 +40,36 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
   const router = useRouter();
   const settings = useSettings();
 
+  const postUrl = `${settings.siteUrl}${router.asPath}`;
+  const previewUrl = preview?.url
+    ? `${process.env.UPLOAD_HOST}/${preview?.url}`
+    : "";
+
+  const description = seo?.description
+    ? seo.description
+    : excerpt
+    ? textOverflow(excerpt, 250)
+    : undefined;
+
   return (
     <>
+      <SEO
+        title={title}
+        description={description}
+        openGraph={{
+          title,
+          description,
+          type: "article",
+          url: postUrl,
+          image: {
+            url: previewUrl,
+            width: preview?.width,
+            height: preview?.height,
+            alt: preview?.alt || title,
+          },
+        }}
+      />
+
       {preview && Object.keys(preview).length > 0 && (
         <div className="h-[260px] sm:h-[320px] lg:h-[460px] mb-5">
           <ImagePreview url={preview?.url} />
@@ -85,12 +115,10 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
           )}
           <div className="mt-5">
             <ShareLinks
-              url={`${settings.siteUrl}${router.asPath}`}
+              url={postUrl}
               title={title}
               text={excerpt ? excerpt : content ? textOverflow(content) : ""}
-              imageUrl={
-                preview?.url ? `${process.env.UPLOAD_HOST}/${preview?.url}` : ""
-              }
+              imageUrl={previewUrl}
               customers={["ok", "telegram", "vk", "whatsapp"]}
             />
           </div>

@@ -8,6 +8,9 @@ import {
 import { Button } from "@/shared/ui/buttons";
 import { Heading } from "@/shared/ui/heading";
 import { LastRelease } from "@/entities/newspaper/ui/newspaper-archive/last-release";
+import { useRouter } from "next/router";
+import { useSettings } from "@/app/contexts/settings-context";
+import { SEO } from "@/shared/ui/SEO";
 
 export const NewspaperArchive = ({
   newspapers,
@@ -25,6 +28,11 @@ export const NewspaperArchive = ({
   const [activeYear, setActiveYear] = useState(postsYear);
   const [activeMonthsOfYear, setActiveMonthsOfYear] = useState(postsMonths);
   const [activeMonth, setActiveMonth] = useState(Math.max(...postsMonths));
+
+  const router = useRouter();
+  const settings = useSettings();
+
+  const postUrl = `${settings.siteUrl}${router.asPath}`;
 
   const changeYear = (year: number) => {
     const fetchData = async () => {
@@ -52,6 +60,13 @@ export const NewspaperArchive = ({
 
   return (
     <>
+      <SEO
+        title="Архив номеров"
+        openGraph={{
+          title: "Архив номеров",
+          url: postUrl,
+        }}
+      />
       {lastRelease && <LastRelease item={lastRelease} />}
       <Heading className="text-grey-500 my-5" tag="h2" title="Архив номеров" />
       <div className="mt-5 p-8 border border-grey-200 text-center">

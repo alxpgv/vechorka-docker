@@ -9,12 +9,21 @@ import { PostItemInside } from "@/entities/post/ui/post-item-inside";
 import { messages } from "@/shared/constants";
 import { DynamicAdvert } from "@/shared/ui/advert";
 import { useSettings } from "@/app/contexts/settings-context";
+import { SEO } from "@/shared/ui/SEO";
 
 interface Props {
   initPosts: PostProps[];
   limit?: number;
   urlPrefix: string;
 }
+
+const getTitle = (urlPrefix: string, categoryName: string | undefined) => {
+  if (urlPrefix === "news") {
+    return `Новости${categoryName ? ` - ${categoryName}` : ""}`;
+  }
+  if (urlPrefix === "article") return "Статьи";
+  return undefined;
+};
 
 export const PostListShowMore: FC<Props> = ({
   initPosts = [],
@@ -26,6 +35,19 @@ export const PostListShowMore: FC<Props> = ({
   const router = useRouter();
   const categorySlug = router.query.category ?? urlPrefix;
   const { advert } = useSettings();
+
+  const settings = useSettings();
+  const postUrl = `${settings.siteUrl}${router.asPath}`;
+
+  const taxonomy = [
+    ...settings.taxonomies.categories,
+    ...settings.taxonomies.geography,
+  ].find((tax) => tax.slug === categorySlug);
+
+  const title = getTitle(urlPrefix, taxonomy?.name);
+  const description = taxonomy?.description || undefined;
+
+  console.log(taxonomy);
 
   useEffect(() => {
     setPosts(initPosts);
@@ -68,6 +90,16 @@ export const PostListShowMore: FC<Props> = ({
   return (
     <>
       <div className="relative flex flex-wrap -m-2">
+        <SEO
+          title={title}
+          description={description}
+          openGraph={{
+            title,
+            description: description,
+            url: postUrl,
+          }}
+        />
+
         {loading && <FullLoader />}
         {!Boolean(posts.length) && (
           <div className="p-2">{messages.post.notFound}</div>

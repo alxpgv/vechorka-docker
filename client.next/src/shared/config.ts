@@ -80,7 +80,7 @@ export const settings = {
     site_name: "Вечерний Ставрополь",
     url: process.env.CLIENT_HOST,
     image: {
-      url: "/images/og-preview.jpg",
+      url: `${process.env.CLIENT_HOST}/images/og-preview.jpg`,
       width: "1200",
       height: "630",
       alt: "Вечерний ставрополь",

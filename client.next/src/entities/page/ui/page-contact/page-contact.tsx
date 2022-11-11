@@ -5,8 +5,10 @@ import { getFieldsRepeater } from "@/shared/lib/meta-fields";
 import { useSettings } from "@/app/contexts/settings-context";
 import { getPhoneFromString } from "@/shared/lib/string";
 import { ImagePreview } from "@/shared/ui/image-preview";
+import { useRouter } from "next/router";
+import { SEO } from "@/shared/ui/SEO";
 
-export const PageContact = ({ title, preview, meta }: PostProps) => {
+export const PageContact = ({ title, preview, meta, seo }: PostProps) => {
   const settings = useSettings();
   const phone = settings?.contacts?.phone;
   const fax = settings?.contacts?.fax;
@@ -16,8 +18,33 @@ export const PageContact = ({ title, preview, meta }: PostProps) => {
   const additionalPhones = getFieldsRepeater(meta, "additional_phones");
   const correspondents = getFieldsRepeater(meta, "correspondents");
 
+  const router = useRouter();
+
+  const postUrl = `${settings.siteUrl}${router.asPath}`;
+  const previewUrl = preview?.url
+    ? `${process.env.UPLOAD_HOST}/${preview?.url}`
+    : "";
+
+  const description = seo?.description;
+
   return (
     <>
+      <SEO
+        title={title}
+        description={description}
+        openGraph={{
+          title,
+          description,
+          type: "article",
+          url: postUrl,
+          image: {
+            url: previewUrl,
+            width: preview?.width,
+            height: preview?.height,
+            alt: preview?.alt || title,
+          },
+        }}
+      />
       {title && (
         <Heading className="text-grey-500 mb-5" tag="h1" title={title} />
       )}

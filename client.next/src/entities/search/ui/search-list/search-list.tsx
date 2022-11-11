@@ -6,6 +6,8 @@ import { searchPosts } from "@/shared/api/search";
 import { SearchForm } from "@/entities/search/ui/search-form";
 import { PostItem } from "@/entities/post/ui/post-item";
 import { messages } from "@/shared/constants";
+import { useSettings } from "@/app/contexts/settings-context";
+import { SEO } from "@/shared/ui/SEO";
 
 const getPrefixFromType = (type: PostType) => {
   if (type === "post") {
@@ -24,6 +26,9 @@ export const SearchList = () => {
   const [query, setQuery] = useState<string>("");
 
   const router = useRouter();
+  const settings = useSettings();
+  const postUrl = `${settings.siteUrl}${router.asPath}`;
+
   const q = router.query.q || "";
 
   if (q && q !== query) {
@@ -44,6 +49,13 @@ export const SearchList = () => {
 
   return (
     <>
+      <SEO
+        title="Поиск по сайту"
+        openGraph={{
+          title: "Поиск по сайту",
+          url: postUrl,
+        }}
+      />
       <Heading className="text-grey-500 mb-5" tag="h1" title="Поиск по сайту" />
       <div>
         <SearchForm defaultValue={query} />
