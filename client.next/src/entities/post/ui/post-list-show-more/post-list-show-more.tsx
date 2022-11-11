@@ -17,7 +17,7 @@ interface Props {
   urlPrefix: string;
 }
 
-const getTitle = (urlPrefix: string, categoryName: string | undefined) => {
+const getTitleSeo = (urlPrefix: string, categoryName: string | undefined) => {
   if (urlPrefix === "news") {
     return `Новости${categoryName ? ` - ${categoryName}` : ""}`;
   }
@@ -44,10 +44,8 @@ export const PostListShowMore: FC<Props> = ({
     ...settings.taxonomies.geography,
   ].find((tax) => tax.slug === categorySlug);
 
-  const title = getTitle(urlPrefix, taxonomy?.name);
+  const title = getTitleSeo(urlPrefix, taxonomy?.name);
   const description = taxonomy?.description || undefined;
-
-  console.log(taxonomy);
 
   useEffect(() => {
     setPosts(initPosts);
