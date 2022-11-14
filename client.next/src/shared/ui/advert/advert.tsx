@@ -1,5 +1,5 @@
 import React from "react";
-import { getSizesFromResolution } from "@/shared/lib/helpers";
+import { getSizesFromResolution, isDocker } from "@/shared/lib/helpers";
 import Image from "next/image";
 import cn from "clsx";
 
@@ -34,8 +34,17 @@ export const Advert = ({
   if (type === "image" && imageUrl && size) {
     const sizes = getSizesFromResolution(size);
 
+    const parsedUrl = new URL(imageUrl);
+    // is in docker
+    const src =
+      isDocker && process.env.UPLOAD_HOST_DOCKER
+        ? `${process.env.UPLOAD_HOST_DOCKER}${parsedUrl.pathname}`
+        : imageUrl;
+
+    console.log(`${process.env.UPLOAD_HOST_DOCKER}${parsedUrl.pathname}`);
+
     const AdvertImage = () => (
-      <img src={imageUrl} width={sizes[0]} height={sizes[1]} alt="advert" />
+      <Image src={src} width={sizes[0]} height={sizes[1]} alt="advert" />
     );
 
     return (

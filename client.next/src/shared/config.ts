@@ -61,9 +61,10 @@ export const mainMenu = [
 
 export const settings = {
   siteUrl: process.env.CLIENT_HOST,
-  uploadUrl: isDocker
-    ? process.env.UPLOAD_HOST_DOCKER
-    : process.env.UPLOAD_HOST,
+  uploadUrl:
+    isDocker && process.env.UPLOAD_HOST_DOCKER
+      ? process.env.UPLOAD_HOST_DOCKER
+      : process.env.UPLOAD_HOST,
   apiUrl: process.env.API_HOST,
   title: "Вечерний Ставрополь",
   description:
