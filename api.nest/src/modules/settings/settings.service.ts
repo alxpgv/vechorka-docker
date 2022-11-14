@@ -15,9 +15,8 @@ export class SettingsService {
 
     // advert post
     try {
-      advert = await this.postService.getPostById({
-        postId: 708,
-        withMeta: true,
+      advert = await this.postService.getOneLastPostByType({
+        postType: 'advert',
       });
     } catch (error) {
       console.log('settings, get advert: ', error);
