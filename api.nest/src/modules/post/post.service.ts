@@ -90,6 +90,24 @@ export class PostService {
     throw new NotFoundException('post not found');
   }
 
+  async getOneLastPostByType({ postType }: { postType: PostType }) {
+    let query = this.postRepository.createQueryBuilder('post');
+    query = query
+      .where('post_type=:postType AND post_status = "publish"', {
+        postType,
+      })
+      .orderBy('post_date');
+
+    const post: any = await query.getRawOne();
+
+    if (post && Object.keys(post).length) {
+      const metas = await this.getPostMetaByIds(post.post_ID);
+      return this.responseData([post], metas, undefined)[0];
+    }
+
+    throw new NotFoundException('post not found');
+  }
+
   async getPostBySlug({
     slug,
     slugTaxonomy,
