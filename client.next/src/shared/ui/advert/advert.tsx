@@ -41,8 +41,6 @@ export const Advert = ({
         ? `${process.env.UPLOAD_HOST_DOCKER}${parsedUrl.pathname}`
         : imageUrl;
 
-    console.log(`${process.env.UPLOAD_HOST_DOCKER}${parsedUrl.pathname}`);
-
     const AdvertImage = () => (
       <Image src={src} width={sizes[0]} height={sizes[1]} alt="advert" />
     );
