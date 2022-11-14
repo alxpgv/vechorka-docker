@@ -35,7 +35,7 @@ export const Advert = ({
     const sizes = getSizesFromResolution(size);
 
     const AdvertImage = () => (
-      <Image src={imageUrl} width={sizes[0]} height={sizes[1]} alt="advert" />
+      <img src={imageUrl} width={sizes[0]} height={sizes[1]} alt="advert" />
     );
 
     return (
