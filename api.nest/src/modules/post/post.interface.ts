@@ -7,7 +7,8 @@ export type PostType =
   | 'article'
   | 'video'
   | 'attachment'
-  | 'employee';
+  | 'employee'
+  | 'advert';
 
 export interface BasePostParams {
   limit?: number;
