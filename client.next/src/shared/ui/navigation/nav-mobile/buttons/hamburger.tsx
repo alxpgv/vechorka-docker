@@ -12,6 +12,7 @@ export const Hamburger: FC<Props> = ({ onClick }) => {
       className="flex flex-col items-center justify-center
       w-[40px] h-[40px] ml-2 cursor-pointer active:bg-grey-100"
       onClick={onClick}
+      aria-label={"Открыть меню"}
     >
       <span className={lineClasses} />
       <span className={lineClasses} />
