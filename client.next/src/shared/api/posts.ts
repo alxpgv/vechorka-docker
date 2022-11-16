@@ -37,9 +37,12 @@ export const getPostById = (postId: number, params?: GetPostByIdParams) => {
   return api.get(`posts/id/${postId}${queryParams ? `?${queryParams}` : ""}`);
 };
 
-export const getPosts = (params: GetPostsParams): Promise<PostProps[]> => {
+export const getPosts = (
+  params: GetPostsParams,
+  isSSG = false
+): Promise<PostProps[]> => {
   const queryParams = encodeQueryData(params);
-  return api.get(`posts${queryParams ? `?${queryParams}` : ""}`);
+  return api.get(`posts${queryParams ? `?${queryParams}` : ""}`, isSSG);
 };
 
 export const getPostsByTaxonomySlug = async (
