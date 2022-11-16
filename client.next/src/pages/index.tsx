@@ -3,7 +3,7 @@ import { HomeLayout } from "@/shared/ui/layouts";
 import { NewsCategoriesTabbed } from "@/widgets/news-categories-tabbed";
 import { ArticleLast } from "@/widgets/article-last";
 import { getGeneralSettings } from "@/shared/api/settings";
-import { getHomePosts } from "@/shared/api/posts";
+import { getHomePosts, getPosts } from "@/shared/api/posts";
 import type { TaxonomiesProps } from "@/shared/types";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
@@ -11,6 +11,7 @@ import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 import { PostRelated } from "@/widgets/post-related";
 import { GetStaticProps } from "next";
+import { generateYandexRss } from "@/shared/lib/yandex-rss";
 
 interface HomeProps {
   posts: {
@@ -78,6 +79,17 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 
   const { settings, taxonomies, advert } = await getGeneralSettings(true);
+
+  try {
+    const rssPosts = await getPosts({
+      postType: "post",
+      limit: 20,
+      relations: { taxonomy: true, content: true },
+    });
+    generateYandexRss(rssPosts);
+  } catch (error) {
+    console.log("error: posts/index: ", error);
+  }
 
   return {
     props: {
