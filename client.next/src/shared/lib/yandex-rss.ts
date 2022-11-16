@@ -7,8 +7,8 @@ import { stripText } from "@/shared/lib/string";
 export const generateYandexRss = (posts: PostProps[]) => {
   if (!posts?.length) return null;
   const dir = "./public/rss";
-
   let feeds = "";
+
   posts.map(
     ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
       const taxonomy = taxonomies?.categories[0] || "";
@@ -54,9 +54,13 @@ export const generateYandexRss = (posts: PostProps[]) => {
     </channel>
   </rss>`;
 
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-  }
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
 
-  fs.writeFileSync(`${dir}/yandex-rss.xml`, feeds);
+    fs.writeFileSync(`${dir}/yandex-rss.xml`, feeds);
+  } catch (error) {
+    console.log("yandex-rss fs error:", error);
+  }
 };
