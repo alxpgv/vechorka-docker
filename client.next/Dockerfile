@@ -38,7 +38,7 @@ RUN adduser --system --uid 1001 nextjs
 #COPY --from=builder /app/i18n.json ./
 #COPY --from=builder /app/locales ./locales
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
 # Automatically leverage output traces to reduce image size
