@@ -4,6 +4,8 @@
 .resources
 .parts-example
 
+public/rss/*
+
 .env.*
 !.env.example
 !.env.example-docker
