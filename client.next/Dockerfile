@@ -21,12 +21,6 @@ COPY . .
 ENV DOCKER 1
 ENV NEXT_TELEMETRY_DISABLED 1
 
-#TODO: check
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-COPY --chown=nextjs:nodejs /app/public ./public
-#TODO: check
-
 RUN npm run build
 
 # Production image, copy all the files and run next
