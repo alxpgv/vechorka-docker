@@ -82,7 +82,7 @@ services:
 
   proxy-nginx:
     build:
-      context: proxy-nginx
+      context: nginx
     depends_on:
       - wp
       - api
