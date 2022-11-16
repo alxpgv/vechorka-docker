@@ -9,7 +9,7 @@ interface GetPostsParams {
   postType?: PostType;
   excludeIds?: string;
   includeIds?: string;
-  relations?: { taxonomy?: boolean; user?: boolean };
+  relations?: { taxonomy?: boolean; user?: boolean; content?: boolean };
   sticky?: boolean;
 }
 
