@@ -18,11 +18,16 @@ export class AttachmentService {
       if (imageProps && Object.keys(imageProps).length && imageProps.file) {
         const pathSegments = imageProps.file?.split('/');
         const path = pathSegments.slice(0, -1).join('/');
+        const mimeType =
+          imageProps.sizes?.thumbnail && imageProps.sizes.thumbnail['mime-type']
+            ? imageProps.sizes.thumbnail['mime-type']
+            : null;
 
         image = {
           width: imageProps.width,
           height: imageProps.height,
           url: `${pathPrefix}/${imageProps.file}`,
+          mimeType,
           sizes: {
             large: {
               width: imageProps.sizes?.large?.width ?? null,
@@ -30,6 +35,7 @@ export class AttachmentService {
               url: imageProps.sizes?.large?.file
                 ? `${pathPrefix}/${path}/${imageProps.sizes?.large?.file}`
                 : null,
+              mimeType,
             },
             medium: {
               width: imageProps.sizes?.medium?.width ?? null,
@@ -37,6 +43,7 @@ export class AttachmentService {
               url: imageProps.sizes?.medium?.file
                 ? `${pathPrefix}/${path}/${imageProps.sizes?.medium?.file}`
                 : null,
+              mimeType,
             },
             thumbnail: {
               width: imageProps.sizes?.thumbnail?.width ?? null,
@@ -44,6 +51,7 @@ export class AttachmentService {
               url: imageProps.sizes?.thumbnail?.file
                 ? `${pathPrefix}/${path}/${imageProps.sizes?.thumbnail?.file}`
                 : null,
+              mimeType,
             },
           },
         };
