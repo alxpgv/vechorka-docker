@@ -88,7 +88,7 @@ export const getStaticProps: GetStaticProps = async () => {
     });
     generateYandexRss(rssPosts);
   } catch (error) {
-    console.log("error: posts/index: ", error);
+    console.log("error: get rss posts: ", error);
   }
 
   return {
