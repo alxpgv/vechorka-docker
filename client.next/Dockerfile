@@ -12,18 +12,19 @@ RUN npm ci
 FROM node:14-alpine AS builder
 WORKDIR /app
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV DOCKER 1
 ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --chown=nextjs:nodejs /app/public ./public
 
 RUN npm run build
 
