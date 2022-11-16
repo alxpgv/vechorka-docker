@@ -186,7 +186,7 @@ export class PostService {
     excludeIds,
     includeIds,
     isResponseIds,
-    relations = { taxonomy: undefined, user: undefined },
+    relations = { taxonomy: undefined, user: undefined, content: undefined },
   }: BasePostParams & {
     taxonomyId?: number;
     isResponseIds?: boolean;
@@ -263,7 +263,12 @@ export class PostService {
       }
       // return taxonomies;
 
-      const response = this.responseData(posts, metas, taxonomies);
+      const response = this.responseData(
+        posts,
+        metas,
+        taxonomies,
+        relations.content ? 'full' : 'short',
+      );
 
       return isResponseIds ? { data: response, postsIds } : response;
     }

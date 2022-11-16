@@ -20,6 +20,7 @@ export interface BasePostParams {
   relations?: {
     taxonomy?: boolean;
     user?: boolean;
+    content?: boolean;
   };
 }
 

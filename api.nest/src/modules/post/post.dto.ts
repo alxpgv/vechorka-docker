@@ -45,6 +45,11 @@ export class PostQueryParamsDTO {
   user?: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => Boolean(value))
+  content?: boolean;
+
+  @IsOptional()
   @IsNumber()
   @Transform(({ value }) => Number(value))
   taxonomyId?: number;

@@ -27,7 +27,11 @@ export class PostController {
   getPosts(@Query() query: PostQueryParamsDTO) {
     return this.postService.getPosts({
       ...query,
-      relations: { taxonomy: query.taxonomy, user: query.user },
+      relations: {
+        taxonomy: query.taxonomy,
+        user: query.user,
+        content: query.content,
+      },
     });
   }
 
