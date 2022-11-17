@@ -49,13 +49,6 @@ define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'root') );
 /** Database password */
 define( 'DB_PASSWORD', getenv_docker('WORDPRESS_DB_PASSWORD', '') );
 
-echo '<pre>';
-var_dump(getenv_docker('WORDPRESS_DB_NAME', "WORDPRESS_DB_NAME default"));
-var_dump(getenv_docker('WORDPRESS_DB_USER', "WORDPRESS_DB_USER default"));
-var_dump(getenv_docker('WORDPRESS_DB_PASSWORD', "WORDPRESS_DB_PASSWORD default"));
-var_dump(getenv_docker('WORDPRESS_DB_HOST', "WORDPRESS_DB_HOST default"));
-var_dump(getenv_docker('WORDPRESS_TABLE_PREFIX', "WORDPRESS_TABLE_PREFIX default"));
-
 /**
  * Docker image fallback values above are sourced from the official WordPress installation wizard:
  * https://github.com/WordPress/WordPress/blob/f9cc35ebad82753e9c86de322ea5c76a9001c7e2/wp-admin/setup-config.php#L216-L230
@@ -116,9 +109,9 @@ $table_prefix = getenv_docker('WORDPRESS_TABLE_PREFIX', 'wp_');
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', !!getenv_docker('WORDPRESS_DEBUG', '') );
-// ini_set('display_errors','Off');
-// ini_set('error_reporting', E_ALL );
-// define('WP_DEBUG_DISPLAY', false);
+ini_set('display_errors','Off');
+ini_set('error_reporting', E_ALL );
+define('WP_DEBUG_DISPLAY', false);
 
 /* Add any custom values between this line and the "stop editing" line. */
 
