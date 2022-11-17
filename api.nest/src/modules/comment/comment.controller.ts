@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CommentByPostIdParamsDTO, CreateCommentDto } from './comment.dto';
-import { IpAddress } from '../../utils/decorators/ip-address';
 
 @Controller('comments')
 export class CommentController {
@@ -13,8 +12,7 @@ export class CommentController {
   }
 
   @Post()
-  create(@Body() body: CreateCommentDto, @IpAddress() ipAddress) {
-    console.log('=====ip:', ipAddress);
+  create(@Body() body: CreateCommentDto) {
     return this.commentService.createComment(body);
   }
 }
