@@ -34,6 +34,7 @@ export const parseContent = (body: string) => {
 
 const parseBlock = (block: string) => {
   // const tagsExcludeRegex = /^<(?!strong|em).+?>/gim;
+  const tagsExcludeRegex = /^<(strong|em).+?>/gim;
   let element: React.ReactNode = null;
   const matchTags = block.match(/^<.+>/gi);
 
@@ -48,6 +49,10 @@ const parseBlock = (block: string) => {
       // if not tags, then this text wrapped by paragraph
       element = `<p>${block.trim()}</p>`;
     }
+  }
+
+  if (block.match(tagsExcludeRegex)) {
+    element = `<p>${block.trim()}</p>`;
   }
 
   return element ?? block;
