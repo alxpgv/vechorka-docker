@@ -12,6 +12,7 @@ export const parseContent = (body: string) => {
   blocks?.length > 0 &&
     blocks.map((block) => {
       if (block) {
+        console.log(block);
         const component = parseBlock(block);
         // html markup
         if (typeof component === "string") {
@@ -32,20 +33,21 @@ export const parseContent = (body: string) => {
 };
 
 const parseBlock = (block: string) => {
-  const tagsExcludeRegex = /^<(?!strong|em).+?>/gim;
+  // const tagsExcludeRegex = /^<(?!strong|em).+?>/gim;
   let element: React.ReactNode = null;
+  const matchTags = block.match(/^<.+>/gi);
 
-  const matchTags = block.match(tagsExcludeRegex);
-
-  if (!matchTags && block.match(/\[gallery/is)) {
-    // gallery
-    const gallery = parseGallery(block);
-    if (gallery) {
-      element = gallery;
+  if (!matchTags && block) {
+    if (block.match(/\[gallery/is)) {
+      // gallery
+      const gallery = parseGallery(block);
+      if (gallery) {
+        element = gallery;
+      }
+    } else {
+      // if not tags, then this text wrapped by paragraph
+      element = `<p>${block.trim()}</p>`;
     }
-  } else {
-    // if not tags, then this text wrapped by paragraph
-    element = `<p>${block.trim()}</p>`;
   }
 
   return element ?? block;
