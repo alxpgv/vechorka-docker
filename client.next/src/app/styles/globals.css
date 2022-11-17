@@ -124,6 +124,11 @@
   .content table td {
     @apply p-5 border border-grey-200;
   }
+
+  .content ul li {
+    @apply flex before:content-['\2022'] before:mr-3 text-grey-450;
+  }
+
 }
 
 @layer utilities {
