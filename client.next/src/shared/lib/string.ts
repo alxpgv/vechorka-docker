@@ -9,14 +9,14 @@ export const textOverflow = (term: string, limit = 100) => {
 
 export const stripText = (text: string) => {
   text = text.replace(/(<([^>]+)>)/gim, "");
-  text = text.replace(/\[.+\]/gi, "");
-  text = text.replace(/\t|\s\t/gi, " ");
-  text = text.replace(/\r\n/gi, " ");
-  text = text.replace(/&nbsp;/gi, " ");
-  text = text.replace(/&/gi, "&amp;");
-  text = text.replace(/"/gi, "&quot;");
-  text = text.replace(/'/gi, "&apos;");
-  text = text.replace(/>/gi, "&gt;");
-  text = text.replace(/</gi, "&lt;");
-  return text;
+  text = text.replace(/\[.+\]/gim, "");
+  text = text.replace(/\t|\s\t/gim, " ");
+  text = text.replace(/\r\n/gim, " ");
+  text = text.replace(/&nbsp;/gim, " ");
+  text = text.replace(/&/gim, "&amp;");
+  text = text.replace(/"/gim, "&quot;");
+  text = text.replace(/'/gim, "&apos;");
+  text = text.replace(/>/gim, "&gt;");
+  text = text.replace(/</gim, "&lt;");
+  return text.trim();
 };
