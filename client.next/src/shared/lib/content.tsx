@@ -12,7 +12,6 @@ export const parseContent = (body: string) => {
   blocks?.length > 0 &&
     blocks.map((block) => {
       if (block) {
-        console.log(block);
         const component = parseBlock(block);
         // html markup
         if (typeof component === "string") {
