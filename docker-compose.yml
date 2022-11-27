@@ -21,14 +21,14 @@ services:
     networks:
       - app-network
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-    #certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org
-    #certbot certonly --webroot --webroot-path /var/www/certbot/ -d dev.vechorka.ru
+  #certbot:
+  #  image: certbot/certbot
+  #  container_name: certbot
+  #  volumes:
+  #    - ./certbot/www/:/var/www/certbot/:rw
+  #    - ./certbot/conf/:/etc/letsencrypt/:rw
+  #  #certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org
+  #  #certbot certonly --webroot --webroot-path /var/www/certbot/ -d dev.vechorka.ru
 
   db:
     image: mysql:5.7
