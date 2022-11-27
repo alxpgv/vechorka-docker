@@ -54,7 +54,7 @@ services:
       - ./admin.wp/wordpress:/var/www/html
       - ./admin.wp/wordpress/wp-config.php:/var/www/html/wp-config.php
     environment:
-      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_HOST=${DB_HOST:-db}
       - WORDPRESS_DB_NAME=${DB_NAME:-wordpress}
       - WORDPRESS_DB_USER=${DB_USER:-root}
       - WORDPRESS_DB_PASSWORD=${DB_PASSWORD:-password}
@@ -74,12 +74,11 @@ services:
       - db
     env_file:
       - .env
-    environment:
-      - DB_HOST=db
+    #environment:
+    #  - DB_HOST=${DB_HOST:-db}
     restart: always
     ports:
       - 5000:5000
-      # - 9229:9229
     #command: npm run start:dev
     networks:
       - app-network
