@@ -15,20 +15,18 @@ services:
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
-      - 80:80
-      - 83:83
-      - 443:443
+      - 20080:80
     networks:
       - app-network
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-    #certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org
-    #certbot certonly --webroot --webroot-path /var/www/certbot/ -d dev.vechorka.ru
+  #certbot:
+  #  image: certbot/certbot
+  #  container_name: certbot
+  #  volumes:
+  #    - ./certbot/www/:/var/www/certbot/:rw
+  #    - ./certbot/conf/:/etc/letsencrypt/:rw
+  #  #certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org
+  #  #certbot certonly --webroot --webroot-path /var/www/certbot/ -d dev.vechorka.ru
 
   db:
     image: mysql:5.7
@@ -78,7 +76,7 @@ services:
     #  - DB_HOST=${DB_HOST:-db}
     restart: always
     ports:
-      - 5000:5000
+      - 10000:10000
     #command: npm run start:dev
     networks:
       - app-network
