@@ -28,8 +28,6 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
   const geographyTabs = [menuMainNewsItem, ...taxonomies?.geography];
   const categoriesTabs = [menuAllNewsItem, ...taxonomies?.categories];
 
-  console.log("213");
-
   const mainNewsIds = mainNews.map((post) => post.id).join(",");
 
   return (
