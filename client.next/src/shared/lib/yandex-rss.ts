@@ -4,10 +4,21 @@ import { settings } from "@/shared/config";
 import dayjs from "dayjs";
 import { stripText } from "@/shared/lib/string";
 
-export const generateYandexRss = (posts: PostProps[]) => {
-  if (!posts?.length) return null;
+export const generateYandexRss = (posts?: PostProps[]) => {
   const dir = "./public/rss";
   let feeds = "";
+
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+
+    fs.writeFileSync(`${dir}/yandex-rss.xml`, feeds);
+  } catch (error) {
+    console.log("yandex-rss fs error:", error);
+  }
+
+  if (!posts?.length) return null;
 
   posts.map(
     ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
@@ -53,14 +64,4 @@ export const generateYandexRss = (posts: PostProps[]) => {
       ${feeds}
     </channel>
   </rss>`;
-
-  try {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-    }
-
-    fs.writeFileSync(`${dir}/yandex-rss.xml`, feeds);
-  } catch (error) {
-    console.log("yandex-rss fs error:", error);
-  }
 };
