@@ -6,9 +6,10 @@ import { BadRequestException, ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
+  const corsOrigin = configService.get('corsOrigin');
 
   app.enableCors({
-    origin: configService.get('corsOrigin') || '*',
+    origin: corsOrigin,
     credentials: true,
   });
 
@@ -38,7 +39,7 @@ async function bootstrap() {
   console.log(
     `Application is running on port: ${port}, env: ${configService.get(
       'NODE_ENV',
-    )}`,
+    )}, cors-origin: ${corsOrigin}`,
   );
 }
 
