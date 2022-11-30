@@ -8,33 +8,22 @@ export const generateYandexRss = (posts?: PostProps[]) => {
   const dir = "./public/rss";
   let feeds = "";
 
-  try {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-    }
+  if (posts?.length) {
+    posts.map(
+      ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
+        const taxonomy = taxonomies?.categories[0] || "";
+        const url = `${settings.siteUrl}/news/${
+          taxonomy && taxonomy.slug ? `${taxonomy.slug}/` : ""
+        }${slug}`;
 
-    fs.writeFileSync(`${dir}/yandex-rss.xml`, feeds);
-  } catch (error) {
-    console.log("yandex-rss fs error:", error);
-  }
+        const imgUrl = preview?.url
+          ? `${process.env.UPLOAD_HOST}/${preview.url}`
+          : "";
 
-  if (!posts?.length) return null;
+        const imgMimeType =
+          preview?.url && preview?.mimeType ? preview.mimeType : "";
 
-  posts.map(
-    ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
-      const taxonomy = taxonomies?.categories[0] || "";
-      const url = `${settings.siteUrl}/news/${
-        taxonomy && taxonomy.slug ? `${taxonomy.slug}/` : ""
-      }${slug}`;
-
-      const imgUrl = preview?.url
-        ? `${process.env.UPLOAD_HOST}/${preview.url}`
-        : "";
-
-      const imgMimeType =
-        preview?.url && preview?.mimeType ? preview.mimeType : "";
-
-      feeds += `
+        feeds += `
       <item>
         <title>${stripText(title)}</title>
         <link>${url}</link>
@@ -50,8 +39,9 @@ export const generateYandexRss = (posts?: PostProps[]) => {
         }</yandex:full-text>
         <yandex:genre>message</yandex:genre>
       </item>`;
-    }
-  );
+      }
+    );
+  }
 
   feeds = `<?xml version="1.0" encoding="utf-8"?>
   <rss xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
@@ -64,4 +54,14 @@ export const generateYandexRss = (posts?: PostProps[]) => {
       ${feeds}
     </channel>
   </rss>`;
+
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+
+    fs.writeFileSync(`${dir}/yandex-rss.xml`, feeds);
+  } catch (error) {
+    console.log("yandex-rss fs error:", error);
+  }
 };
