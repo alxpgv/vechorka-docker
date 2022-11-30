@@ -80,8 +80,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const { settings, taxonomies, advert } = await getGeneralSettings(true);
 
+  let rssPosts;
+
   try {
-    const rssPosts = await getPosts(
+    rssPosts = await getPosts(
       {
         postType: "post",
         limit: 20,
@@ -89,10 +91,11 @@ export const getStaticProps: GetStaticProps = async () => {
       },
       true
     );
-    generateYandexRss(rssPosts);
   } catch (error) {
     console.log("error: get rss posts: ", error);
   }
+
+  generateYandexRss(rssPosts);
 
   return {
     props: {
