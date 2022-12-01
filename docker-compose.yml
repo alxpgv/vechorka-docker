@@ -85,10 +85,18 @@ services:
     build:
       context: client.next
       dockerfile: ./Dockerfile
+      args:
+        CLIENT_HOST: ${CLIENT_HOST}
+        API_HOST: ${API_HOST}
+        API_HOST_DOCKER: ${API_HOST_DOCKER}
+        UPLOAD_HOST: ${UPLOAD_HOST}
+        UPLOAD_HOST_DOCKER: ${UPLOAD_HOST_DOCKER}
     container_name: client-next
     depends_on:
       - api
       - wp
+    env_file:
+      - .env
     restart: always
     ports:
       - 3000:3000
