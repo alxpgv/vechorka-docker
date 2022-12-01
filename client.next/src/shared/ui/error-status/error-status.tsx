@@ -1,6 +1,4 @@
 import React from "react";
-import { Button } from "@/shared/ui/buttons";
-import router from "next/router";
 
 export const ErrorStatus = ({ statusCode }: { statusCode?: number }) => {
   let message = "";
@@ -18,15 +16,6 @@ export const ErrorStatus = ({ statusCode }: { statusCode?: number }) => {
         <h1 className="text-grey-500">{statusCode}</h1>
         <div className="ml-5">{message}</div>
       </div>
-      {/*<div className="mt-5 text-center md:text-left">*/}
-      {/*  <Button*/}
-      {/*    size="md"*/}
-      {/*    variant="filled-secondary"*/}
-      {/*    onClick={() => router.push("/")}*/}
-      {/*  >*/}
-      {/*    На главную*/}
-      {/*  </Button>*/}
-      {/*</div>*/}
     </div>
   );
 };
