@@ -72,6 +72,11 @@ export const getStaticProps: GetStaticProps = async () => {
     articles: [],
   };
 
+  console.log("process.env.CLIENT_HOST", process.env.CLIENT_HOST);
+  console.log("process.env.API_HOST", process.env.API_HOST);
+  console.log("process.env.API_HOST_DOCKER", process.env.API_HOST_DOCKER);
+  console.log("process.env.UPLOAD_HOST", process.env.UPLOAD_HOST);
+  console.log("process.env.UPLOAD_HOST_DOCKER", process.env.UPLOAD_HOST_DOCKER);
   try {
     posts = await getHomePosts(true);
   } catch (error) {
