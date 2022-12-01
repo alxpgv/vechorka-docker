@@ -3,7 +3,6 @@ FROM node:14-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-
 # Install dependencies based on the preferred package manager
 COPY package*.json ./
 RUN npm ci
@@ -15,10 +14,22 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ARG CLIENT_HOST=$CLIENT_HOST
+ARG API_HOST=$API_HOST
+ARG API_HOST_DOCKER=$API_HOST_DOCKER
+ARG UPLOAD_HOST=$UPLOAD_HOST
+ARG UPLOAD_HOST_DOCKER=$UPLOAD_HOST_DOCKER
+
+ENV CLIENT_HOST=$CLIENT_HOST
+ENV API_HOST=$API_HOST
+ENV API_HOST_DOCKER=$API_HOST_DOCKER
+ENV UPLOAD_HOST=$UPLOAD_HOST
+ENV UPLOAD_HOST_DOCKER=$UPLOAD_HOST_DOCKER
+
+ENV DOCKER 1
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-ENV DOCKER 1
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build
@@ -26,6 +37,18 @@ RUN npm run build
 # Production image, copy all the files and run next
 FROM node:14-alpine AS production
 WORKDIR /app
+
+ARG CLIENT_HOST=$CLIENT_HOST
+ARG API_HOST=$API_HOST
+ARG API_HOST_DOCKER=$API_HOST_DOCKER
+ARG UPLOAD_HOST=$UPLOAD_HOST
+ARG UPLOAD_HOST_DOCKER=$UPLOAD_HOST_DOCKER
+
+ENV CLIENT_HOST=$CLIENT_HOST
+ENV API_HOST=$API_HOST
+ENV API_HOST_DOCKER=$API_HOST_DOCKER
+ENV UPLOAD_HOST=$UPLOAD_HOST
+ENV UPLOAD_HOST_DOCKER=$UPLOAD_HOST_DOCKER
 
 ENV NODE_ENV production
 ENV DOCKER 1
