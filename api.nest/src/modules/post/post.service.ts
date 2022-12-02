@@ -10,11 +10,12 @@ import { PostMeta } from './post-meta.entity';
 import type { ImageWithSizes } from '../../types';
 import { TaxonomyService } from '../taxonomy/taxonomy.service';
 import type { PostResponse, PostType } from './post.interface';
-import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { BasePostParams } from './post.interface';
+import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { AttachmentService } from '../attachment/attachment.service';
 import { AddPollReply, PostSearchQueryParamsDTO } from './post.dto';
 import { formatISODate, formatISOTime } from '../../utils/date';
+import { CommentResponse } from '../comment/comment.interface';
 
 @Injectable()
 export class PostService {
@@ -82,10 +83,10 @@ export class PostService {
     if (post && Object.keys(post).length) {
       if (withMeta) {
         const metas = await this.getPostMetaByIds(post.post_ID);
-        return this.responseData([post], metas, undefined)[0];
+        return this.responseData({ posts: [post], metas })[0];
       }
 
-      return this.responseData([post])[0];
+      return this.responseData({ posts: [post] })[0];
     }
 
     throw new NotFoundException('post not found');
@@ -103,7 +104,7 @@ export class PostService {
 
     if (post && Object.keys(post).length) {
       const metas = await this.getPostMetaByIds(post.post_ID);
-      return this.responseData([post], metas, undefined)[0];
+      return this.responseData({ posts: [post], metas })[0];
     }
 
     throw new NotFoundException('post not found');
@@ -155,7 +156,7 @@ export class PostService {
       const metas = await this.getPostMetaByIds(post.post_ID);
 
       const response = {
-        post: this.responseData([post], metas, undefined, 'full')[0],
+        post: this.responseData({ posts: [post], metas, type: 'full' })[0],
         relatedPosts: null,
       };
 
@@ -264,12 +265,12 @@ export class PostService {
       }
       // return taxonomies;
 
-      const response = this.responseData(
+      const response = this.responseData({
         posts,
         metas,
         taxonomies,
-        relations.content ? 'full' : 'short',
-      );
+        type: relations.content ? 'full' : 'short',
+      });
 
       return isResponseIds ? { data: response, postsIds } : response;
     }
@@ -345,7 +346,7 @@ export class PostService {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
       const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
-      return this.responseData(posts, metas, taxonomies);
+      return this.responseData({ posts, metas, taxonomies });
     }
 
     throw new NotFoundException('posts not found');
@@ -376,12 +377,17 @@ export class PostService {
     return null;
   }
 
-  private responseData(
-    posts: any[],
-    metas?: any[],
-    taxonomies?: any[],
-    type: 'short' | 'full' = 'short',
-  ): PostResponse[] {
+  private responseData({
+    posts,
+    metas,
+    taxonomies,
+    type = 'short',
+  }: {
+    posts: any[];
+    metas?: any[];
+    taxonomies?: any[];
+    type?: 'short' | 'full';
+  }): PostResponse[] {
     const data = posts.map((post) => {
       const taxonomyId: number[] = post.taxonomyRel_term_taxonomy_id
         ? [Number(post.taxonomyRel_term_taxonomy_id)]
@@ -411,6 +417,7 @@ export class PostService {
           focusKeyword: null,
           description: null,
         },
+        comments: null,
       };
 
       // meta fields
@@ -515,6 +522,31 @@ export class PostService {
           geography,
           tags,
         };
+      }
+
+      //exist last comment
+      if (post.lastComment_comment_ID) {
+        newPost.comments = [
+          {
+            id: Number(post.lastComment_comment_ID),
+            postId: post.lastComment_comment_post_ID
+              ? Number(post.lastComment_comment_post_ID)
+              : null,
+            author: post.lastComment_comment_author
+              ? post.lastComment_comment_author
+              : null,
+            createdAt: post.lastComment_comment_date
+              ? post.lastComment_comment_date
+              : null,
+            createdDate: post.lastComment_comment_date
+              ? formatISODate(post.lastComment_comment_date)
+              : null,
+            createdTime: post.lastComment_comment_date
+              ? formatISOTime(post.lastComment_comment_date)
+              : null,
+            content: null,
+          },
+        ];
       }
 
       return newPost;
@@ -665,7 +697,7 @@ export class PostService {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
       const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
-      return this.responseData(posts, metas, taxonomies);
+      return this.responseData({ posts, metas, taxonomies });
     }
 
     throw new NotFoundException('posts not found');
@@ -675,20 +707,22 @@ export class PostService {
   async getPostsCommented() {
     const posts = await this.postRepository
       .createQueryBuilder('post')
-      .where(
-        'post_status = "publish" AND post_type="post" AND comment_count > 0',
+      .leftJoinAndSelect(
+        'post.comment',
+        'lastComment',
+        'lastComment.comment_ID=(SELECT wp_comments.comment_ID FROM wp_comments WHERE wp_comments.comment_post_ID = post.ID ORDER BY wp_comments.comment_date DESC LIMIT 1)',
       )
+      .where('post_status = "publish" AND post_type="post"')
       .andWhere('post_date > NOW() - INTERVAL 7 DAY')
-      .orderBy('comment_count', 'DESC')
+      .orderBy('lastComment.comment_date', 'DESC')
       .limit(5)
       .getRawMany();
 
-    // metas, taxonomies
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
       const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
-      return this.responseData(posts, metas, taxonomies);
+      return this.responseData({ posts, metas, taxonomies });
     }
 
     throw new NotFoundException('posts not found');
@@ -710,7 +744,7 @@ export class PostService {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
       const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
-      return this.responseData(posts, metas, taxonomies);
+      return this.responseData({ posts, metas, taxonomies });
     }
 
     throw new NotFoundException('posts not found');

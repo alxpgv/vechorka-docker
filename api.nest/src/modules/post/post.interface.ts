@@ -1,5 +1,6 @@
 import { ImageWithSizes } from '../../types';
 import { TaxonomiesProps } from '../taxonomy/taxonomy.interface';
+import { CommentResponse } from '../comment/comment.interface';
 
 export type PostType =
   | 'post'
@@ -50,4 +51,5 @@ export interface PostResponse {
     focusKeyword: string;
     description: string;
   };
+  comments?: CommentResponse[];
 }
