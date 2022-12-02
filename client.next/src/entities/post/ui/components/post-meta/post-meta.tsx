@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
-import { formatISODate, formatISOTime } from "@/shared/lib/date";
 
 interface Props {
   date?: string;
@@ -38,7 +37,7 @@ export const PostMeta: FC<Props> = ({
         textColorClasses
       )}
     >
-      {date && <div>{formatISODate(date)}</div>}
+      {date && <div>{date}</div>}
       {views ? (
         <div className="flex">
           <Icon
@@ -51,7 +50,7 @@ export const PostMeta: FC<Props> = ({
       {time ? (
         <div className="flex">
           <Icon name="clock" className={cn(iconClasses, iconColorClasses)} />
-          {formatISOTime(time)}
+          {time}
         </div>
       ) : null}
       {commentCount ? (

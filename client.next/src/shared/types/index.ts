@@ -1,5 +1,3 @@
-import { SEOProps } from "@/shared/ui/SEO";
-
 export type PostType =
   | "post"
   | "page"
@@ -27,6 +25,8 @@ export interface PostProps {
   commentCount?: number;
   status?: string;
   createdAt: string;
+  createdDate?: string;
+  createdTime?: string;
   updatedAt?: string;
   taxonomyId?: number[];
   taxonomies?: TaxonomiesProps;
@@ -99,6 +99,8 @@ export interface CommentProps {
   authorUrl?: string;
   authorIP?: string;
   createdAt: string;
+  createdDate?: string;
+  createdTime?: string;
   createdAtGmt?: string;
   commentStatus: string;
   content: string;

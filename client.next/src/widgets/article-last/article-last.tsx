@@ -18,7 +18,7 @@ export const ArticleLast: FC<Props> = ({ posts }) => {
     <div className="mt-10 md:mt-12 mb-7">
       <h2 className="mb-7 text-grey-500">Статьи</h2>
       <div className="space-y-5 md:space-y-7 lg:space-y-8">
-        {posts.map(({ id, preview, slug, title, excerpt, createdAt }) => {
+        {posts.map(({ id, preview, slug, title, excerpt, createdDate }) => {
           const href = getLink("article", undefined, slug);
           return (
             <div key={id} className="flex flex-col sm:flex-row">
@@ -40,7 +40,7 @@ export const ArticleLast: FC<Props> = ({ posts }) => {
                 )}
 
                 {/* meta */}
-                <PostMeta className="mt-3 lg:mt-5 " date={createdAt} />
+                <PostMeta className="mt-3 lg:mt-5 " date={createdDate} />
 
                 {/* text */}
                 {excerpt && (

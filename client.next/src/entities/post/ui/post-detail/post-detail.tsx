@@ -27,7 +27,8 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     preview,
     commentCount,
     commentStatus,
-    createdAt,
+    createdDate,
+    createdTime,
     meta,
     seo,
     user,
@@ -79,8 +80,8 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
         <Heading className="text-grey-500 mb-5" tag="h1" title={title} />
       )}
       <PostMeta
-        date={createdAt}
-        time={createdAt}
+        date={createdDate}
+        time={createdTime}
         views={views}
         commentCount={commentCount}
       />

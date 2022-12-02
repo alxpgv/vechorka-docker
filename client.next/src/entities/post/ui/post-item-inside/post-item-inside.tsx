@@ -21,7 +21,7 @@ export const PostItemInside: FC<Props> = ({
   titleTag,
   urlPrefix,
 }) => {
-  const { preview, title, slug, createdAt, meta, taxonomies, commentCount } =
+  const { preview, title, slug, createdDate, meta, taxonomies, commentCount } =
     post;
   const views = meta?.views || null;
 
@@ -59,7 +59,7 @@ export const PostItemInside: FC<Props> = ({
           {/* meta */}
           <PostMeta
             className="pt-3"
-            date={createdAt}
+            date={createdDate}
             views={views}
             commentCount={commentCount}
             color="light"

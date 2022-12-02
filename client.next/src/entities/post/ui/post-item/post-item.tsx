@@ -26,7 +26,7 @@ export const PostItem: FC<Props> = ({
     slug,
     taxonomies,
     excerpt,
-    createdAt,
+    createdDate,
     meta,
     commentCount,
   } = post;
@@ -62,7 +62,7 @@ export const PostItem: FC<Props> = ({
       {/* meta */}
       <PostMeta
         className="mt-auto pt-3"
-        date={createdAt}
+        date={createdDate}
         views={views}
         commentCount={commentCount}
       />

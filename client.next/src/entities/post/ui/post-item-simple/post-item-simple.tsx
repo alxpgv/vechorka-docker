@@ -19,7 +19,7 @@ export const PostItemSimple: FC<Props> = ({
   titleTag,
   urlPrefix,
 }) => {
-  const { title, slug, createdAt, meta, taxonomies, commentCount } = post;
+  const { title, slug, createdDate, meta, taxonomies, commentCount } = post;
   const categories = taxonomies?.categories;
   const categorySlug = categories && categories[0] ? categories[0].slug : "";
   const href = getLink(urlPrefix, categorySlug, slug);
@@ -37,7 +37,7 @@ export const PostItemSimple: FC<Props> = ({
         {/* meta info */}
         <PostMeta
           className="mt-2"
-          date={createdAt}
+          date={createdDate}
           views={views}
           commentCount={commentCount}
         />

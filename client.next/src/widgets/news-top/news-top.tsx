@@ -30,7 +30,7 @@ export const NewsTop: FC<NewsTopProps> = ({ className }) => {
             {/* meta */}
             <PostMeta
               className="justify-between"
-              date={post.createdAt}
+              date={post.createdDate}
               // views={post.meta?.views}
             />
             {/* title */}
