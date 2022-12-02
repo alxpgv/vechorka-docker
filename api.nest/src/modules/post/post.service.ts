@@ -14,6 +14,7 @@ import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { BasePostParams } from './post.interface';
 import { AttachmentService } from '../attachment/attachment.service';
 import { AddPollReply, PostSearchQueryParamsDTO } from './post.dto';
+import { formatISODate, formatISOTime } from '../../utils/date';
 
 @Injectable()
 export class PostService {
@@ -397,6 +398,8 @@ export class PostService {
         commentCount: Number(post.post_comment_count),
         status: post.post_post_status,
         createdAt: post.post_post_date,
+        createdDate: formatISODate(post.post_post_date),
+        createdTime: formatISOTime(post.post_post_date),
         updatedAt: post.post_post_modified,
         taxonomyId,
         taxonomies: null,

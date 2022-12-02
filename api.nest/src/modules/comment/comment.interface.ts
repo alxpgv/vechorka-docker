@@ -5,8 +5,10 @@ export interface CommentResponse {
   authorEmail?: string;
   authorUrl?: string;
   authorIP?: string;
-  createdAt: Date;
-  createdAtGmt?: Date;
+  createdAt: string;
+  createdDate?: string;
+  createdTime?: string;
+  createdAtGmt?: string;
   content: string;
   karma?: number;
   approved?: string;

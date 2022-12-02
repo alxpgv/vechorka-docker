@@ -36,6 +36,8 @@ export interface PostResponse {
   commentCount: number;
   status: string;
   createdAt: string;
+  createdDate?: string;
+  createdTime?: string;
   updatedAt: string;
   taxonomyId: number[];
   taxonomies: TaxonomiesProps;

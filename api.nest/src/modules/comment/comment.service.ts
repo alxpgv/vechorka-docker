@@ -5,6 +5,7 @@ import { Comment } from './comment.entity';
 import { CommentByPostIdParamsDTO, CreateCommentDto } from './comment.dto';
 import { CommentResponse } from './comment.interface';
 import { PostService } from '../post/post.service';
+import { formatISODate, formatISOTime } from '../../utils/date';
 
 @Injectable()
 export class CommentService {
@@ -38,18 +39,20 @@ export class CommentService {
       throw new BadRequestException('Post not found');
     }
 
-    const date: Date = new Date();
+    const date = new Date();
 
-    const comment = this.commentRepository.create({
+    const newComment = {
       comment_post_ID: postId,
       comment_author: author,
       comment_content: content,
-      comment_date: date,
-      comment_date_gmt: date,
+      comment_date: String(date),
+      comment_date_gmt: String(date),
       comment_approved: '0',
       // comment_parent
       // comment_author_IP
-    });
+    };
+
+    const comment = this.commentRepository.create(newComment);
 
     await this.commentRepository.save(comment);
     return this.responseData([comment])[0];
@@ -65,6 +68,8 @@ export class CommentService {
         // authorUrl: comment.comment_author_url,
         authorIP: comment.comment_author_IP,
         createdAt: comment.comment_date,
+        createdDate: formatISODate(comment.comment_date),
+        createdTime: formatISOTime(comment.comment_date),
         // createdAtGmt: comment.comment_date_gmt,
         content: comment.comment_content,
         // karma: comment.comment_karma,
