@@ -36,6 +36,7 @@ export interface PostProps {
   preview?: ImageWithSizes;
   meta?: { [key: string]: any };
   seo?: Record<string, string>;
+  comments?: CommentProps[];
 }
 
 export interface ListPostProps {
@@ -108,6 +109,6 @@ export interface CommentProps {
   approved?: string;
   agent?: string;
   type?: string;
-  parent: number;
+  parent?: number;
   userId?: number;
 }
