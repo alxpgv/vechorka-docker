@@ -21,8 +21,12 @@ export const NewsCommented: FC<NewsCommentedProps> = ({ className }) => {
             {/* meta */}
             <PostMeta
               className="justify-between"
-              date={post.createdDate}
-              time={post.createdTime}
+              date={
+                post.comments?.length ? post.comments[0].createdDate : undefined
+              }
+              time={
+                post.comments?.length ? post.comments[0].createdTime : undefined
+              }
             />
             {/* title */}
             {post.title && (
