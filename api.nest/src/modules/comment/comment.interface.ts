@@ -14,6 +14,6 @@ export interface CommentResponse {
   approved?: string;
   agent?: string;
   type?: string;
-  parent: number;
+  parent?: number;
   userId?: number;
 }
