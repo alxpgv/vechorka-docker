@@ -1,4 +1,12 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Post } from '../post/post.entity';
 
 @Entity('wp_comments')
 @Index('comment_post_ID', ['comment_post_ID'])
@@ -51,4 +59,10 @@ export class Comment {
 
   @Column({ type: 'bigint', width: 20, default: 0, unsigned: true })
   user_id: number;
+
+  @ManyToOne(() => Post, (post) => post.comment, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({ name: 'comment_post_ID', referencedColumnName: 'ID' })
+  post: Post;
 }

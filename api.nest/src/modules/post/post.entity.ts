@@ -10,6 +10,7 @@ import {
 import { PostMeta } from './post-meta.entity';
 import { TaxonomyRelation } from '../taxonomy/taxonomy-relation.entity';
 import { User } from '../user/user.entity';
+import { Comment } from '../comment/comment.entity';
 
 @Entity('wp_posts')
 @Index('type_status_date', ['post_type', 'post_status', 'post_date', 'ID'])
@@ -107,4 +108,10 @@ export class Post {
   })
   @JoinColumn({ name: 'post_author', referencedColumnName: 'ID' })
   user: User;
+
+  @OneToMany(() => Comment, (comment) => comment.post, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({ name: 'ID', referencedColumnName: 'comment_post_ID' })
+  comment: Comment[];
 }
