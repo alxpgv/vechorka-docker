@@ -23,8 +23,8 @@ interface GetPostByIdParams {
   withMeta?: boolean;
 }
 
-export const getHomePosts = (isSSG = false): Promise<ListPostProps> => {
-  return api.get("posts/index", isSSG);
+export const getHomePosts = (): Promise<ListPostProps> => {
+  return api.get("posts/index");
 };
 
 export const getPostBySlug = (slug: string, params?: GetPostBySlugParams) => {
@@ -37,12 +37,9 @@ export const getPostById = (postId: number, params?: GetPostByIdParams) => {
   return api.get(`posts/id/${postId}${queryParams ? `?${queryParams}` : ""}`);
 };
 
-export const getPosts = (
-  params: GetPostsParams,
-  isSSG = false
-): Promise<PostProps[]> => {
+export const getPosts = (params: GetPostsParams): Promise<PostProps[]> => {
   const queryParams = encodeQueryData(params);
-  return api.get(`posts${queryParams ? `?${queryParams}` : ""}`, isSSG);
+  return api.get(`posts${queryParams ? `?${queryParams}` : ""}`);
 };
 
 export const getPostsByTaxonomySlug = async (

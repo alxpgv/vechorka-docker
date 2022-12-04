@@ -1,7 +1,8 @@
 import React from "react";
-import { getSizesFromResolution, isDocker } from "@/shared/lib/helpers";
+import { getSizesFromResolution } from "@/shared/lib/helpers";
 import Image from "next/image";
 import cn from "clsx";
+import { useSettings } from "@/app/contexts/settings-context";
 
 export interface AdvertProps {
   type: string; // "html" | "image"
@@ -20,6 +21,8 @@ export const Advert = ({
   htmlCode,
   className,
 }: AdvertProps) => {
+  const settings = useSettings();
+
   // html
   if (type === "html" && htmlCode) {
     return (
@@ -34,15 +37,21 @@ export const Advert = ({
   if (type === "image" && imageUrl && size) {
     const sizes = getSizesFromResolution(size);
 
-    const parsedUrl = new URL(imageUrl);
-    // is in docker
-    const src =
-      isDocker && process.env.UPLOAD_HOST_DOCKER
-        ? `${process.env.UPLOAD_HOST_DOCKER}${parsedUrl.pathname}`
-        : imageUrl;
+    let isRemoteImage = false;
+
+    // remote image
+    if (settings.uploadUrl && !imageUrl.startsWith(settings.uploadUrl)) {
+      isRemoteImage = true;
+    }
 
     const AdvertImage = () => (
-      <Image src={src} width={sizes[0]} height={sizes[1]} alt="advert" />
+      <>
+        {isRemoteImage ? (
+          <img src={imageUrl} width={sizes[0]} height={sizes[1]} alt="" />
+        ) : (
+          <Image src={imageUrl} width={sizes[0]} height={sizes[1]} alt="" />
+        )}
+      </>
     );
 
     return (

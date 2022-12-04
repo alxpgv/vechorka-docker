@@ -5,6 +5,8 @@ import type { TaxonomiesProps } from "@/shared/types";
 
 interface SettingsState extends SEOProps {
   siteUrl?: string;
+  apiUrl?: string;
+  uploadUrl?: string;
   menus?: {
     main: MenuProps[];
   };

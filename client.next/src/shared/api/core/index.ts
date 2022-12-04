@@ -1,15 +1,9 @@
 import { settings } from "@/shared/config";
-import { isDocker, isSSR } from "@/shared/lib/helpers";
 
 export const api = {
-  async get(url: string, isSSG = false) {
-    const baseUrl =
-      isDocker && isSSR && !isSSG
-        ? process.env.API_HOST_DOCKER
-        : settings.apiUrl;
-
+  async get(url: string) {
     try {
-      const res = await fetch(`${baseUrl}/${url}`);
+      const res = await fetch(`${settings.apiUrl}/${url}`);
       if (res.ok) {
         return await res.json();
       } else {
@@ -22,9 +16,8 @@ export const api = {
     }
   },
   async post(url: string, body: Record<string, unknown>) {
-    const baseUrl = settings.apiUrl;
     try {
-      const res = await fetch(`${baseUrl}/${url}`, {
+      const res = await fetch(`${settings.apiUrl}/${url}`, {
         method: "POST",
         headers: {
           Accept: "application/json",

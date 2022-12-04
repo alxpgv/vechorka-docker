@@ -1,5 +1,3 @@
-import { isDocker } from "@/shared/lib/helpers";
-
 export const menuAllNewsItem = {
   id: 9999,
   name: "Все новости",
@@ -61,11 +59,8 @@ export const mainMenu = [
 
 export const settings = {
   siteUrl: process.env.CLIENT_HOST,
-  uploadUrl:
-    isDocker && process.env.UPLOAD_HOST_DOCKER
-      ? process.env.UPLOAD_HOST_DOCKER
-      : process.env.UPLOAD_HOST,
   apiUrl: process.env.API_HOST,
+  uploadUrl: process.env.UPLOAD_HOST,
   title: "Вечерний Ставрополь",
   description:
     "Новости, статьи, блоги о событиях в Ставрополе, Ставропольском крае, России, мире.",

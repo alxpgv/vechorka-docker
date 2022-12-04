@@ -73,24 +73,21 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 
   try {
-    posts = await getHomePosts(true);
+    posts = await getHomePosts();
   } catch (error) {
     console.log("error: posts/index: ", error);
   }
 
-  const { settings, taxonomies, advert } = await getGeneralSettings(true);
+  const { settings, taxonomies, advert } = await getGeneralSettings();
 
   let rssPosts;
 
   try {
-    rssPosts = await getPosts(
-      {
-        postType: "post",
-        limit: 20,
-        relations: { taxonomy: true, content: true },
-      },
-      true
-    );
+    rssPosts = await getPosts({
+      postType: "post",
+      limit: 20,
+      relations: { taxonomy: true, content: true },
+    });
   } catch (error) {
     console.log("error: get rss posts: ", error);
   }
