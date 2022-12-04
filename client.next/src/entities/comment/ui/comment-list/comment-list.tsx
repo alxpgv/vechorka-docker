@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getCommentByPostId } from "@/shared/api/comments";
 import type { CommentProps } from "@/shared/types";
 import Image from "next/image";
-import { formatISODate, formatISOTime } from "@/shared/lib/date";
 
 interface Props {
   postId: number;
@@ -49,8 +48,7 @@ export const CommentList = ({ postId }: Props) => {
               <div className="flex flex-wrap mb-3 text-14px">
                 <strong className="mr-3">{comment.author}</strong>
                 <span>
-                  {formatISODate(comment.createdAt)}{" "}
-                  {formatISOTime(comment.createdAt)}
+                  {comment.createdDate} {comment.createdTime}
                 </span>
               </div>
               <div
