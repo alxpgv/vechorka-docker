@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import cn from "clsx";
 import { useKeenSlider } from "keen-slider/react";
-import { getPosts } from "@/shared/api/posts";
+import { getPostGalleryByIds } from "@/shared/api/posts";
 import { ImageWithSizes, PostProps } from "@/shared/types";
 import { SimpleLoader } from "@/shared/ui/loaders";
 import { Arrow } from "@/shared/ui/buttons";
@@ -47,11 +47,7 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
 
     const fetchImages = async () => {
       try {
-        const fetchedImages = await getPosts({
-          limit: 30,
-          postType: "attachment",
-          includeIds: ids,
-        });
+        const fetchedImages = await getPostGalleryByIds(ids);
         setImages(fetchedImages);
       } catch (e) {
         console.log("error");

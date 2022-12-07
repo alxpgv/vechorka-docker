@@ -50,6 +50,8 @@ export interface ImageProps {
   url?: string;
   alt?: string;
   mimeType?: string;
+  description?: string;
+  caption?: string;
 }
 
 export interface ImageWithSizes extends ImageProps {
