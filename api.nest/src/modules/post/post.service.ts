@@ -15,7 +15,6 @@ import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { AttachmentService } from '../attachment/attachment.service';
 import { AddPollReply, PostSearchQueryParamsDTO } from './post.dto';
 import { formatISODate, formatISOTime } from '../../utils/date';
-import { CommentResponse } from '../comment/comment.interface';
 
 @Injectable()
 export class PostService {
@@ -83,7 +82,8 @@ export class PostService {
     if (post && Object.keys(post).length) {
       if (withMeta) {
         const metas = await this.getPostMetaByIds(post.post_ID);
-        return this.responseData({ posts: [post], metas })[0];
+        const attachments = await this.getPostsAttachmentByIds([post.post_ID]);
+        return this.responseData({ posts: [post], metas, attachments })[0];
       }
 
       return this.responseData({ posts: [post] })[0];
@@ -154,9 +154,15 @@ export class PostService {
 
     if (post && Object.keys(post).length) {
       const metas = await this.getPostMetaByIds(post.post_ID);
+      const attachments = await this.getPostsAttachmentByIds([post.post_ID]);
 
       const response = {
-        post: this.responseData({ posts: [post], metas, type: 'full' })[0],
+        post: this.responseData({
+          posts: [post],
+          metas,
+          attachments,
+          type: 'full',
+        })[0],
         relatedPosts: null,
       };
 
@@ -257,7 +263,7 @@ export class PostService {
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
-      // return metas;
+      const attachments = await this.getPostsAttachmentByIds(postsIds);
 
       let taxonomies = [];
       if (relations.taxonomy) {
@@ -269,6 +275,7 @@ export class PostService {
         posts,
         metas,
         taxonomies,
+        attachments,
         type: relations.content ? 'full' : 'short',
       });
 
@@ -289,17 +296,12 @@ export class PostService {
   }
 
   // get post meta fields, and children _thumbnail_id - preview image
-  private getPostMetaByIds(postIds: number | number[]) {
-    if (postIds || (Array.isArray(postIds) && postIds.length)) {
+  private getPostMetaByIds(postIds: number[]) {
+    if (postIds?.length) {
       return (
         this.metaRepository
           .createQueryBuilder('meta')
           // thumbnail meta
-          .leftJoinAndSelect(
-            'meta.children',
-            'children',
-            'meta.meta_key="_thumbnail_id"',
-          )
           .where('meta.post_id IN (:postIds)', { postIds })
           .getRawMany()
       );
@@ -307,21 +309,70 @@ export class PostService {
     return null;
   }
 
-  // async getAttachmentsByIds(ids: number[]) {
-  //   return this.postRepository
-  //     .createQueryBuilder('post')
-  //     .leftJoinAndSelect('post.meta', 'meta', 'meta.post_id = post.ID')
-  //     .where('post.ID IN (:ids)', { ids })
-  //     .andWhere('post.post_type="attachment"')
-  //     .getMany();
+  // private getPostsAttachmentByIds(postIds: number[]) {
+  //   if (postIds?.length) {
+  //     return this.postRepository
+  //       .createQueryBuilder('post')
+  //       .select(
+  //         `post_content AS attachment_description, post_excerpt AS attachment_caption,
+  //         post_mime_type AS attachment_mime_type, post_name AS attachment_file_name, post_parent AS attachment_post_id`,
+  //       )
+  //       .leftJoinAndSelect('post.meta', 'attachment')
+  //       .where('post.post_parent IN (:postIds)', { postIds })
+  //       .andWhere('post.post_type="attachment"')
+  //       .getRawMany();
+  //   }
+  //   return null;
   // }
 
+  private getPostsAttachmentByIds(postIds: number[]) {
+    if (postIds?.length) {
+      return this.metaRepository
+        .createQueryBuilder('meta')
+        .select(
+          `meta.*, pa.post_content AS meta_description, pa.post_excerpt AS meta_caption,
+          pa.post_mime_type AS meta_mime_type, pa.post_name AS meta_file_name, pa.post_parent AS meta_post_id`,
+        )
+        .leftJoinAndSelect(Post, 'pa', 'pa.ID=meta.meta_value')
+        .leftJoinAndSelect(PostMeta, 'pam', 'pam.post_id=pa.ID')
+        .where('meta.post_id IN (:postIds)', { postIds })
+        .andWhere('meta.meta_key = "_thumbnail_id"')
+        .getRawMany();
+    }
+    return null;
+  }
+
+  async getPostGalleryImagesByIds(ids: number[]) {
+    const posts = await this.postRepository
+      .createQueryBuilder('post')
+      .where('ID IN (:ids)', { ids })
+      .getRawMany();
+
+    const attachments = await this.postRepository
+      .createQueryBuilder('post')
+      .select(
+        `ID as post_id, post_content AS meta_description, post_excerpt AS meta_caption, 
+        post_mime_type AS post_mime_type, post_name AS meta_file_name`,
+      )
+      .leftJoinAndSelect('post.meta', 'pam')
+      .where('ID IN (:ids)', { ids })
+      .getRawMany();
+
+    // return attachments;
+
+    // metas, taxonomies
+    if (posts?.length) {
+      return this.responseData({
+        posts,
+        attachments,
+      });
+    }
+
+    throw new NotFoundException('gallery attachments not found');
+  }
+
   // search
-  async getPostsSearch({
-    q,
-    offset = 0,
-    limit = 20,
-  }: PostSearchQueryParamsDTO) {
+  async search({ q, offset = 0, limit = 20 }: PostSearchQueryParamsDTO) {
     const search = q
       .replace(/([^\w\u0430-\u044f\d\s\-,]+)/gi, '')
       .trim()
@@ -345,8 +396,9 @@ export class PostService {
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
+      const attachments = await this.getPostsAttachmentByIds(postsIds);
       const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
-      return this.responseData({ posts, metas, taxonomies });
+      return this.responseData({ posts, metas, attachments, taxonomies });
     }
 
     throw new NotFoundException('posts not found');
@@ -381,11 +433,13 @@ export class PostService {
     posts,
     metas,
     taxonomies,
+    attachments,
     type = 'short',
   }: {
     posts: any[];
     metas?: any[];
     taxonomies?: any[];
+    attachments?: any[];
     type?: 'short' | 'full';
   }): PostResponse[] {
     const data = posts.map((post) => {
@@ -430,28 +484,6 @@ export class PostService {
               newPost.sticky = !!Number(meta.meta_meta_value);
             }
 
-            // image preview
-            if (
-              meta.children_meta_key === '_wp_attachment_metadata' &&
-              meta.children_meta_value
-            ) {
-              newPost.preview = this.attachmentService.unserializeImageMeta(
-                meta.children_meta_value,
-                'wp-content/uploads',
-              );
-            }
-
-            // image in post_type = attachment
-            if (
-              meta.meta_meta_key === '_wp_attachment_metadata' &&
-              meta.meta_meta_value
-            ) {
-              newPost.preview = this.attachmentService.unserializeImageMeta(
-                meta.meta_meta_value,
-                'wp-content/uploads',
-              );
-            }
-
             // yoast seo
             if (meta.meta_meta_key === '_yoast_wpseo_focuskw') {
               newPost.seo.focusKeyword = meta.meta_meta_value;
@@ -462,7 +494,7 @@ export class PostService {
             }
 
             // if first letter not _ then this additional meta field
-            if (meta.meta_meta_key[0] !== '_') {
+            if (!meta.meta_meta_key.startsWith('_')) {
               newPost.meta = {
                 ...newPost.meta,
                 [meta.meta_meta_key]: meta.meta_meta_value,
@@ -477,51 +509,37 @@ export class PostService {
         }
       }
 
-      // taxonomies fields
-      if (taxonomies?.length) {
-        const categories: TaxonomyResponse[] = [];
-        const geography: TaxonomyResponse[] = [];
-        const tags: TaxonomyResponse[] = [];
-        for (let i = taxonomies.length - 1; i >= 0; --i) {
-          const taxonomy = taxonomies[i];
-          if (taxonomy.post_ID === post.post_ID) {
-            if (taxonomy.taxonomy_taxonomy) {
-              const newTaxonomy: TaxonomyResponse = {
-                id: Number(taxonomy.terms_term_id) ?? null,
-                taxonomyId: Number(taxonomy.taxonomy_term_taxonomy_id),
-                description: taxonomy.taxonomy_description ?? null,
-                parent: Number(taxonomy.taxonomy_parent) ?? null,
-                name: taxonomy.terms_name ?? null,
-                slug: taxonomy.terms_slug ?? null,
+      // taxonomies
+      const { taxonomies: postTaxonomies, taxonomyIds } =
+        this.getTaxonomiesFromPostData(post.post_ID, taxonomies);
+
+      newPost.taxonomies = postTaxonomies;
+      newPost.taxonomyId = [...newPost.taxonomyId, ...taxonomyIds];
+
+      // post attachment - preview
+      if (attachments?.length) {
+        for (let i = attachments.length - 1; i >= 0; --i) {
+          const attachment = attachments[i];
+
+          if (attachment.post_id === post.post_ID) {
+            // attachment_metadata
+            if (
+              attachment.pam_meta_key === '_wp_attachment_metadata' &&
+              attachment.pam_meta_value
+            ) {
+              newPost.preview = {
+                ...this.attachmentService.unserializeImageMeta(
+                  attachment.pam_meta_value,
+                  'wp-content/uploads',
+                ),
+                description: attachment.meta_description,
+                caption: attachment.meta_caption,
               };
-
-              if (taxonomy.taxonomy_taxonomy === 'category') {
-                categories.push(newTaxonomy);
-              }
-
-              if (taxonomy.taxonomy === 'post_geography') {
-                geography.push(newTaxonomy);
-              }
-
-              if (taxonomy.taxonomy_taxonomy === 'post_tag') {
-                tags.push(newTaxonomy);
-              }
             }
-
-            if (taxonomy.taxonomyRel_term_taxonomy_id) {
-              taxonomyId.push(Number(taxonomy.taxonomyRel_term_taxonomy_id));
-            }
-
             // remove current item
-            taxonomies.splice(i, 1);
+            attachments.splice(i, 1);
           }
         }
-
-        newPost.taxonomies = {
-          categories,
-          geography,
-          tags,
-        };
       }
 
       //exist last comment
@@ -529,21 +547,11 @@ export class PostService {
         newPost.comments = [
           {
             id: Number(post.lastComment_comment_ID),
-            postId: post.lastComment_comment_post_ID
-              ? Number(post.lastComment_comment_post_ID)
-              : null,
-            author: post.lastComment_comment_author
-              ? post.lastComment_comment_author
-              : null,
-            createdAt: post.lastComment_comment_date
-              ? post.lastComment_comment_date
-              : null,
-            createdDate: post.lastComment_comment_date
-              ? formatISODate(post.lastComment_comment_date)
-              : null,
-            createdTime: post.lastComment_comment_date
-              ? formatISOTime(post.lastComment_comment_date)
-              : null,
+            postId: Number(post.lastComment_comment_post_ID),
+            author: post.lastComment_comment_author,
+            createdAt: post.lastComment_comment_date,
+            createdDate: formatISODate(post.lastComment_comment_date),
+            createdTime: formatISOTime(post.lastComment_comment_date),
             content: null,
           },
         ];
@@ -554,6 +562,60 @@ export class PostService {
 
     return data;
   }
+
+  private getTaxonomiesFromPostData = (postId: number, taxonomies: any[]) => {
+    const categories: TaxonomyResponse[] = [];
+    const geography: TaxonomyResponse[] = [];
+    const tags: TaxonomyResponse[] = [];
+    const taxonomyIds: number[] = [];
+
+    // taxonomies fields
+    if (postId && taxonomies?.length) {
+      for (let i = taxonomies.length - 1; i >= 0; --i) {
+        const taxonomy = taxonomies[i];
+        if (taxonomy.post_ID === postId) {
+          if (taxonomy.taxonomy_taxonomy) {
+            const newTaxonomy: TaxonomyResponse = {
+              id: Number(taxonomy.terms_term_id) ?? null,
+              taxonomyId: Number(taxonomy.taxonomy_term_taxonomy_id),
+              description: taxonomy.taxonomy_description ?? null,
+              parent: Number(taxonomy.taxonomy_parent) ?? null,
+              name: taxonomy.terms_name ?? null,
+              slug: taxonomy.terms_slug ?? null,
+            };
+
+            if (taxonomy.taxonomy_taxonomy === 'category') {
+              categories.push(newTaxonomy);
+            }
+
+            if (taxonomy.taxonomy_taxonomy === 'post_geography') {
+              geography.push(newTaxonomy);
+            }
+
+            if (taxonomy.taxonomy_taxonomy === 'post_tag') {
+              tags.push(newTaxonomy);
+            }
+          }
+
+          if (taxonomy.taxonomyRel_term_taxonomy_id) {
+            taxonomyIds.push(Number(taxonomy.taxonomyRel_term_taxonomy_id));
+          }
+
+          // remove current item
+          taxonomies.splice(i, 1);
+        }
+      }
+    }
+
+    return {
+      taxonomies: {
+        categories,
+        geography,
+        tags,
+      },
+      taxonomyIds,
+    };
+  };
 
   private async addPostViews(postId: number) {
     const metaViews = await this.metaRepository
@@ -696,8 +758,9 @@ export class PostService {
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
+      const attachments = await this.getPostsAttachmentByIds(postsIds);
       const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
-      return this.responseData({ posts, metas, taxonomies });
+      return this.responseData({ posts, metas, attachments, taxonomies });
     }
 
     throw new NotFoundException('posts not found');
@@ -743,8 +806,9 @@ export class PostService {
     if (posts?.length) {
       const postsIds = posts.map((post) => Number(post.post_ID));
       const metas = await this.getPostMetaByIds(postsIds);
+      const attachments = await this.getPostsAttachmentByIds(postsIds);
       const taxonomies = await this.getTaxonomiesByPostsIds(postsIds, true);
-      return this.responseData({ posts, metas, taxonomies });
+      return this.responseData({ posts, metas, attachments, taxonomies });
     }
 
     throw new NotFoundException('posts not found');

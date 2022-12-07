@@ -10,6 +10,7 @@ import {
 import { PostService } from './post.service';
 import {
   AddPollReply,
+  PostQueryGalleryParamsDTO,
   PostQueryParamsDTO,
   PostSearchQueryParamsDTO,
 } from './post.dto';
@@ -68,6 +69,11 @@ export class PostController {
     });
   }
 
+  @Get('gallery')
+  getPostGalleryImages(@Query() query: PostQueryGalleryParamsDTO) {
+    return this.postService.getPostGalleryImagesByIds(query.ids);
+  }
+
   @Get('top')
   getPostsTop() {
     return this.postService.getPostsTop();
@@ -85,7 +91,7 @@ export class PostController {
 
   @Get('search')
   getPostsSearch(@Query() query: PostSearchQueryParamsDTO) {
-    return this.postService.getPostsSearch(query);
+    return this.postService.search(query);
   }
 
   @Post('poll')

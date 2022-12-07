@@ -4,6 +4,8 @@ export interface Image {
   filesize?: number;
   url?: string;
   mimeType?: string;
+  description?: string;
+  caption?: string;
 }
 
 export interface ImageWithSizes extends Image {

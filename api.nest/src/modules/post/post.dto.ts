@@ -98,3 +98,9 @@ export class AddPollReply {
   @Transform(({ value }) => value.trim())
   pollKey: string;
 }
+
+export class PostQueryGalleryParamsDTO {
+  @Transform(({ value }) => transformToArrayNumber(value))
+  @IsArray()
+  ids?: number[];
+}
