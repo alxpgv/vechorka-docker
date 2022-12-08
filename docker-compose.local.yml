@@ -3,22 +3,21 @@ version: '3.7'
 services:
   nginx:
     build:
-      context: nginx.local
-    depends_on:
-      - wp
-      - api
-      - client
+      context: nginx
     container_name: nginx
     restart: always
+    depends_on:
+      - client
+      - api
     volumes:
-      - ./nginx.local/conf/:/etc/nginx.local/conf.d/:ro
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
       #- ./certbot/www:/var/www/certbot/:ro
       #- ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
-      - 80:80 #client
-      - 81:81 #api
-      - 85:85 #wp
-      - 83:83 #phpmyadmin
+      - "80:80" #client
+      - "81:81" #api
+      - "83:83" #phpmyadmin
+      - "85:95" #wp
     networks:
       - app-network
 
@@ -81,7 +80,7 @@ services:
     #  - DB_HOST=${DB_HOST:-db}
     restart: always
     ports:
-      - 10000:10000
+      - "10000:10000"
     #command: npm run start:dev
     networks:
       - app-network
@@ -95,14 +94,11 @@ services:
         API_HOST: ${API_HOST}
         UPLOAD_HOST: ${UPLOAD_HOST}
     container_name: client
-    depends_on:
-      - api
-      - wp
     env_file:
       - .env
     restart: always
     ports:
-      - 3000:3000
+      - "3000:3000"
     networks:
       - app-network
 
