@@ -97,7 +97,14 @@ const createImageWithCaption = (data: string[]) => {
   if (src) {
     return (
       <div className="relative w-fit mx-auto mt-5">
-        <img src={src} width={width} height="340" alt="" loading="lazy" />
+        <img
+          className="h-auto"
+          src={src}
+          width={width}
+          height="100%"
+          alt=""
+          loading="lazy"
+        />
         <ImageCaption caption={caption} />
       </div>
     );
