@@ -40,12 +40,10 @@ export const ImagePreview = ({
   children,
   screenSizes,
 }: Props) => {
-  if (!url) return null;
-
   return (
     <div
       className={cn(
-        "relative w-full h-full",
+        "relative w-full h-full bg-gradient-to-t to-grey-400/30 from-grey-400/70",
         className,
         hoverEffect && "group overflow-hidden"
       )}
@@ -54,7 +52,7 @@ export const ImagePreview = ({
         <Link href={href} prefetch={false}>
           <a
             className={cn(
-              "relative block w-full h-full",
+              "relative block w-full h-full pointer-events-auto",
               hoverEffect &&
                 "group-hover:scale-110 transition-transform duration-300"
             )}
