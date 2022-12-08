@@ -10,7 +10,7 @@ module.exports = {
     "./src/entities/poll/ui/**/*.{js,ts,jsx,tsx}",
     "./src/widgets/**/*.{js,ts,jsx,tsx}",
     "./src/shared/ui/**/*.{js,ts,jsx,tsx}",
-    "./src/shared/libs/**/*.{js,ts,jsx,tsx}",
+    "./src/shared/lib/**/*.{js,ts,jsx,tsx}",
     "./src/ads/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {

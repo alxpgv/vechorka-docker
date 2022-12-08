@@ -4,6 +4,7 @@ import cn from "clsx";
 import NextImage from "next/image";
 import type { ImageProps } from "@/shared/types";
 import { settings } from "@/shared/config";
+import { ImageCaption } from "@/shared/ui/image-preview/image-caption";
 
 interface Props extends ImageProps {
   href?: string;
@@ -14,7 +15,7 @@ interface Props extends ImageProps {
   screenSizes?: string;
 }
 
-const Image: FC<Props> = ({ url, alt = "", className, screenSizes }) =>
+const Image = ({ url, alt = "", className, screenSizes }: Props) =>
   url ? (
     <NextImage
       className={cn(className, "pointer-events-auto")}
@@ -28,16 +29,17 @@ const Image: FC<Props> = ({ url, alt = "", className, screenSizes }) =>
     />
   ) : null;
 
-export const ImagePreview: FC<Props> = ({
+export const ImagePreview = ({
   url,
   alt,
   href,
+  caption,
   className,
   overlay = false,
   hoverEffect = false,
   children,
   screenSizes,
-}) => {
+}: Props) => {
   if (!url) return null;
 
   return (
@@ -80,6 +82,7 @@ export const ImagePreview: FC<Props> = ({
       ) : (
         children
       )}
+      {caption && <ImageCaption caption={caption} />}
     </div>
   );
 };
