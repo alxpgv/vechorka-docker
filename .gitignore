@@ -5,6 +5,5 @@
 .resource
 mysql
 certbot
-/docker-compose.local.yml
 /nginx.local
 build.log
