@@ -58,7 +58,11 @@ const parseBlock = (block: string) => {
     element = parseToComponent(block);
   }
 
-  if (!element && !tagsAllow) {
+  if (!element && tagsAllow) {
+    element = `<p>${block.trim()}</p>`;
+  }
+
+  if (!element && !isTag) {
     element = `<p>${block.trim()}</p>`;
   }
 
