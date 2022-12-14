@@ -1,5 +1,6 @@
 import React from "react";
 import { GalleryByIds } from "@/widgets/gallery-by-ids";
+import { ImageCaption } from "@/shared/ui/image-preview/image-caption";
 
 export const parseContent = (body: string) => {
   body = replaceBlockquote(body);
@@ -31,33 +32,44 @@ export const parseContent = (body: string) => {
   return components;
 };
 
-const parseBlock = (block: string) => {
-  // const tagsExcludeRegex = /^<(?!strong|em).+?>/gim;
-  const tagsExcludeRegex = /^<(strong|em).+?>/gim;
-  let element: React.ReactNode = null;
-  const matchTags = block.match(/^<.+>/gi);
-
-  if (!matchTags && block) {
-    if (block.match(/\[gallery/is)) {
-      // gallery
-      const gallery = parseGallery(block);
-      if (gallery) {
-        element = gallery;
-      }
-    } else {
-      // if not tags, then this text wrapped by paragraph
-      element = `<p>${block.trim()}</p>`;
-    }
+const parseToComponent = (block: string) => {
+  // gallery
+  if (block.match(/\[gallery/is)) {
+    return createGallery(block);
   }
 
-  if (block.match(tagsExcludeRegex)) {
+  // image with caption
+  const imageWithCaption = block.match(
+    /\[caption.+width="(\d+)"\]<img.+src="(.+?)".+\/>(.+)\[\/caption\]/im
+  );
+  if (imageWithCaption) {
+    return createImageWithCaption(imageWithCaption);
+  }
+
+  return null;
+};
+
+const parseBlock = (block: string) => {
+  let element: React.ReactNode = null;
+  const tagsAllow = block?.match(/<(strong|em).+?>/gim);
+  const isTag = block.match(/^<.+>/gi);
+
+  if (block && !isTag) {
+    element = parseToComponent(block);
+  }
+
+  if (!element && tagsAllow) {
+    element = `<p>${block.trim()}</p>`;
+  }
+
+  if (!element && !isTag) {
     element = `<p>${block.trim()}</p>`;
   }
 
   return element ?? block;
 };
 
-const parseGallery = (body: string) => {
+const createGallery = (body: string) => {
   const idsRegex = /\[gallery.+ids=\\?"([\d,]+)\\?"/im;
   const colsRegex = /\[gallery.+columns=\\?"([\d]+)\\?"/im;
   const titleRegex = /\[gallery.+title=\\?"([\w\s\S].+?)\\?"/im;
@@ -72,6 +84,34 @@ const parseGallery = (body: string) => {
 
   if (ids) {
     return <GalleryByIds ids={ids} title={title} perView={cols as number} />;
+  }
+
+  return null;
+};
+
+const createImageWithCaption = (data: string[]) => {
+  if (!data.length) {
+    return null;
+  }
+
+  const width = data[1] ?? 500;
+  const src = data[2] ?? null;
+  const caption = data[3] ?? null;
+
+  if (src) {
+    return (
+      <div className="relative w-fit mx-auto mt-5">
+        <img
+          className="h-auto"
+          src={src}
+          width={width}
+          height="100%"
+          alt=""
+          loading="lazy"
+        />
+        <ImageCaption caption={caption} />
+      </div>
+    );
   }
 
   return null;

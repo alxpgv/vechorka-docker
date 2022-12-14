@@ -41,7 +41,7 @@ export const PostItemInside: FC<Props> = ({
               href={href}
               color="light"
               tag={titleTag}
-              className="text-line-clamp-3 lg:text-line-clamp-4"
+              className="text-line-clamp-3 lg:text-line-clamp-4 pointer-events-auto"
             />
           )}
 

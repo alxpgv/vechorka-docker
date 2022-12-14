@@ -4,6 +4,7 @@ import cn from "clsx";
 import NextImage from "next/image";
 import type { ImageProps } from "@/shared/types";
 import { settings } from "@/shared/config";
+import { ImageCaption } from "@/shared/ui/image-preview/image-caption";
 
 interface Props extends ImageProps {
   href?: string;
@@ -14,7 +15,7 @@ interface Props extends ImageProps {
   screenSizes?: string;
 }
 
-const Image: FC<Props> = ({ url, alt = "", className, screenSizes }) =>
+const Image = ({ url, alt = "", className, screenSizes }: Props) =>
   url ? (
     <NextImage
       className={cn(className, "pointer-events-auto")}
@@ -28,22 +29,21 @@ const Image: FC<Props> = ({ url, alt = "", className, screenSizes }) =>
     />
   ) : null;
 
-export const ImagePreview: FC<Props> = ({
+export const ImagePreview = ({
   url,
   alt,
   href,
+  caption,
   className,
   overlay = false,
   hoverEffect = false,
   children,
   screenSizes,
-}) => {
-  if (!url) return null;
-
+}: Props) => {
   return (
     <div
       className={cn(
-        "relative w-full h-full",
+        "relative w-full h-full bg-gradient-to-t to-grey-400/30 from-grey-400/70",
         className,
         hoverEffect && "group overflow-hidden"
       )}
@@ -52,7 +52,7 @@ export const ImagePreview: FC<Props> = ({
         <Link href={href} prefetch={false}>
           <a
             className={cn(
-              "relative block w-full h-full",
+              "relative block w-full h-full pointer-events-auto",
               hoverEffect &&
                 "group-hover:scale-110 transition-transform duration-300"
             )}
@@ -80,6 +80,7 @@ export const ImagePreview: FC<Props> = ({
       ) : (
         children
       )}
+      {caption && <ImageCaption caption={caption} />}
     </div>
   );
 };

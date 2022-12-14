@@ -33,6 +33,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     seo,
     user,
   } = post;
+
   const components: Array<string | React.ReactNode> = content
     ? parseContent(content)
     : [];
@@ -73,7 +74,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
 
       {preview && Object.keys(preview).length > 0 && (
         <div className="h-[260px] sm:h-[320px] lg:h-[460px] mb-5">
-          <ImagePreview url={preview?.url} />
+          <ImagePreview url={preview?.url} caption={preview?.caption} />
         </div>
       )}
       {title && (

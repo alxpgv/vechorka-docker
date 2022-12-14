@@ -52,6 +52,10 @@ export const getPostsByTaxonomySlug = async (
   );
 };
 
+export const getPostGalleryByIds = (ids: string) => {
+  return api.get(`posts/gallery?ids=${ids}`);
+};
+
 export const getPostsTop = (): Promise<PostProps[]> => {
   return api.get("posts/top");
 };

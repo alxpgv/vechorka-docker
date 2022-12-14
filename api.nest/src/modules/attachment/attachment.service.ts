@@ -57,7 +57,7 @@ export class AttachmentService {
         };
       }
     } catch (error) {
-      console.log('error transform image', error);
+      console.log('unserializeImageMeta', error);
     }
 
     return image;
